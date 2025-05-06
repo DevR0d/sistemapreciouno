@@ -21,6 +21,11 @@ class VistasIntranetController extends Controller
         return view('intranet.vehiculo');
     }
 
+    public function vistaconductores()
+    {
+        return view('intranet.conductores');
+    }
+
     public function vistausuarios()
     {
         return view('intranet.usuarios');
@@ -30,8 +35,17 @@ class VistasIntranetController extends Controller
         return view('intranet.productos');
     }
 
-    public function vistaguiasderemision(){
-        return view('intranet.guiasremision');
+//    public function vistaguiasderemision(){
+//        return view('intranet.guiasremision');
+//    }
+
+//sacha corregido
+    public function vistaguiasderemision()
+    {
+        $vehiculos = \App\Models\Vehiculo::where('estado', 'activo')->get();
+        $conductores = \App\Models\Conductores::where('estado', 'activo')->get();
+
+        return view('intranet.guiasremision', compact('vehiculos', 'conductores'));
     }
 
     public function vistarevisionguias(){

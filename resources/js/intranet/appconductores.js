@@ -1,17 +1,13 @@
 import $ from 'jquery';
 import Swal from "sweetalert2";
 
-const fechaActual = new Date();
-
-// Formatear fecha como YYYY-MM-DD
-const fechaLocal = fechaActual.getFullYear() + "-" +
-    ("0" + (fechaActual.getMonth() + 1)).slice(-2) + "-" +
-    ("0" + fechaActual.getDate()).slice(-2);
-
-// Formatear hora como HH:MM:SS
-const horaLocal = ("0" + fechaActual.getHours()).slice(-2) + ":" +
-    ("0" + fechaActual.getMinutes()).slice(-2) + ":" +
-    ("0" + fechaActual.getSeconds()).slice(-2);
+const fecha = new Date();
+const fechaLocal = fecha.getFullYear() + "-" +
+    ("0" + (fecha.getMonth() + 1)).slice(-2) + "-" +
+    ("0" + fecha.getDate()).slice(-2) + " " +
+    ("0" + fecha.getHours()).slice(-2) + ":" +
+    ("0" + fecha.getMinutes()).slice(-2) + ":" +
+    ("0" + fecha.getSeconds()).slice(-2);
 
 // Verificar si jQuery está disponible
 if (typeof $ === 'undefined') {
@@ -19,25 +15,19 @@ if (typeof $ === 'undefined') {
 }
 
 $(document).ready(function() {
-    $("#idformguiasremision").submit(function(e) {
+    $("#idformproducto").submit(function(e) {
         e.preventDefault();
 
         // Cerrar el modal
-        const modalElement = document.getElementById('idmodalguiasremision'); // Asegúrate que tu modal tenga este ID
+        const modalElement = document.getElementById('idmodalProductos'); // Asegúrate que tu modal tenga este ID
         const modalInstance = bootstrap.Modal.getInstance(modalElement) || new bootstrap.Modal(modalElement);
         modalInstance.hide();
 
         const datos = {
-            tim: $("#idtxttim").val(),
-            fechaemision: fechaLocal,
-            horaemision: horaLocal,
-            motivotraslado: $("#idtxtmotivotraslado").val(),
-            origen: $("#idtxtselectorigen").val(),
-            destino: $("#idtxtselectdestino").val(),
+            nombre: $("#idtxtnombre").val(),
+            sku: $("#idtxtsku").val(),
             estado: $("#idselectestado").val(),
-            cantidadenviada: $("#idselectcantidadenviada").val(),
-            idvehiculo: $("#idselectvehiculo").val(),
-            idconductor: $("#idselectconductor").val(),
+            fecharegistro: fechaLocal,
             _token: $('input[name="_token"]').val() // Token CSRF
         };
 
@@ -45,7 +35,7 @@ $(document).ready(function() {
 
         // Enviar datos al servidor (AJAX)
         $.ajax({
-            url: "/registrarguiaremision", // Ruta en Laravel
+            url: "/registrarproducto", // Ruta en Laravel
             type: "POST",
             contentType: "application/json",
             data: JSON.stringify(datos),
@@ -58,18 +48,18 @@ $(document).ready(function() {
                     // throw new Error();
                 }
 
-                Livewire.dispatch("listarGuiasRemisionDesdeJS");
+                Livewire.dispatch("listarproductoDesdeJS");
 
                 // Mensaje de éxito (opcional)
                 Swal.fire({
                     icon: 'success',
-                    title: 'Guia registrada correctamente',
+                    title: 'Producto registrado correctamente',
                     showConfirmButton: false,
                     timer: 1500
                 });
 
                 // Limpiar el formulario (opcional)
-                $("#idformguiasremision")[0].reset();
+                $("#idformproducto")[0].reset();
             },
             error: function(error) {
                 // alert("Error: " + xhr.responseJSON.message);

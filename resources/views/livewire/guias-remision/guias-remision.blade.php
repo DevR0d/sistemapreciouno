@@ -11,22 +11,28 @@
                 <th class="text-center align-middle">Motivo Traslado</th>
                 <th class="text-center align-middle">Origen</th>
                 <th class="text-center align-middle">Destino</th>
+                <th class="text-center align-middle">Estado</th>
+                <th class="text-center align-middle">CantidadTotalEnviada</th>
                 <th class="text-center align-middle">Acciones</th>
             </tr>
             </thead>
             <tbody>
             @forelse($data as $guiasderemision)
                 <tr>
-                    <td><strong>{{ $guiasderemision['idguia'] }}</strong></td>
-                    <td><strong>{{ $guiasderemision['tim'] }}</strong></td>
-                    <td><strong>{{ $guiasderemision['fechaemision'] }}</strong></td>
-                    <td><strong>{{ $guiasderemision['horaemision'] }}</strong></td>
-                    <td><strong>{{ $guiasderemision['motivotraslado'] }}</strong></td>
-                    <td><strong>{{ $guiasderemision['origen'] }}</strong></td>
-                    <td><strong>{{ $guiasderemision['destino'] }}</strong></td>
-                    <td><strong>{{ $guiasderemision['estado'] }}</strong></td>
-                    <td><strong>{{ $guiasderemision['cantidadenviada'] }}</strong></td>
-                    <td>
+                    <td class="text-center align-middle"><strong>{{ $guiasderemision['idguia'] }}</strong></td>
+                    <td class="text-center align-middle"><strong>{{ $guiasderemision['tim'] }}</strong></td>
+                    <td class="text-center align-middle"><strong>{{ $guiasderemision['fechaemision'] }}</strong></td>
+                    <td class="text-center align-middle"><strong>{{ $guiasderemision['horaemision'] }}</strong></td>
+                    <td class="text-center align-middle"><strong>{{ $guiasderemision['motivotraslado'] }}</strong></td>
+                    <td class="text-center align-middle"><strong>{{ $guiasderemision['origen'] }}</strong></td>
+                    <td class="text-center align-middle"><strong>{{ $guiasderemision['destino'] }}</strong></td>
+                    <td class="text-center align-middle"><strong>{{ $guiasderemision['estado'] }}</strong></td>
+                    <td class="text-center align-middle"><strong>{{ $guiasderemision['cantidadenviada'] }}</strong></td>
+                    <td class="text-center align-middle">
+{{--                        <a href="{{ route('guias.detalle', $guia['idguia']) }}" class="btn btn-sm btn-info">--}}
+                        <a href="#" class="btn btn-sm btn-info">
+                            <i class="fa-solid fa-eye"></i> Ver Productos
+                        </a>
                         <a href="#" class="btn btn-sm btn-warning"><i class="bi bi-pencil-square"></i> Editar</a>
                         <a href="#" class="btn btn-sm btn-danger"><i class="bi bi-trash"></i> Eliminar</a>
                     </td>

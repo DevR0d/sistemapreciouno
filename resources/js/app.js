@@ -1,6 +1,8 @@
 import './bootstrap';
 import './appglobal.js';
 import './demo/scripts.js'
+import './intranet/appconductores.js'
+import './intranet/appguiasremision.js'
 import './intranet/appproducto.js'
 import './intranet/appvehiculo.js'
 import './demo/datatables-simple-demo.js';

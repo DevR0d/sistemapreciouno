@@ -12,11 +12,11 @@
         <tbody>
             @forelse($vehiculos as $vehiculo)
                 <tr wire:key="vehiculo-{{ $vehiculo['idvehiculo'] }}-{{ now()->timestamp }}">
-                    <td><strong>{{ $vehiculo['idvehiculo'] }}</strong></td>
-                    <td><strong class="placa">{{ $vehiculo['placa'] }}</strong></td>
-                    <td><strong class="marca">{{ $vehiculo['marca'] }}</strong></td>
-                    <td><strong class="tipo">{{ $vehiculo['tipo'] }}</strong></td>
-                    <td>
+                    <td class="text-center align-middle"><strong>{{ $vehiculo['idvehiculo'] }}</strong></td>
+                    <td class="text-center align-middle"><strong class="placa">{{ $vehiculo['placa'] }}</strong></td>
+                    <td class="text-center align-middle"><strong class="marca">{{ $vehiculo['marca'] }}</strong></td>
+                    <td class="text-center align-middle"><strong class="tipo">{{ $vehiculo['tipo'] }}</strong></td>
+                    <td class="text-center align-middle">
                         <button type="button" class="btn btn-sm btn-warning btn-editarvehiculo">
                             <i class="bi bi-pencil-square"></i> Editar
                         </button>

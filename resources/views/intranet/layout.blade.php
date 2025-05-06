@@ -14,6 +14,7 @@
     @vite([
         'resources/css/demo/styles.css',
         //'resources/js/app.js',
+        'resources/js/intranet/appguiasremision.js',
         'resources/js/intranet/appproducto.js',
         'resources/js/intranet/appvehiculo.js',
         'resources/js/appglobal.js',
@@ -83,6 +84,11 @@
                             Vehiculo
                         </a>
 
+                        <a class="nav-link" href="#">
+                            <div class="sb-nav-link-icon"><i class="fa-solid fa-truck"></i></div>
+                            Conductores
+                        </a>
+
                         <a class="nav-link" href="{{route("vistaproducto")}}">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-bag-shopping"></i></div>
                             Producto
@@ -93,7 +99,7 @@
                             Guías de Remisión
                         </a>
 
-                        <a class="nav-link" href="{{route("vistarevisionguias")}}">
+                        <a class="nav-link" href="#">
                             <div class="sb-nav-link-icon"><i class="fa-solid fa-tag"></i></div>
                             Revisión de Guías
                         </a>

@@ -86,6 +86,29 @@
                             </div>
                         </div>
 
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="idselectvehiculo" class="form-label">Vehículo</label>
+                                <select class="form-select" id="idselectvehiculo" name="idvehiculo" required>
+                                    <option value="">Seleccione un vehículo...</option>
+                                    @foreach($vehiculos as $vehiculo)
+                                        <option value="{{ $vehiculo->idvehiculo }}">
+                                            {{ $vehiculo->placa }} - {{ $vehiculo->marca }}
+                                        </option>
+                                    @endforeach
+                                </select>
+
+                                <select class="form-select" id="idselectconductor" name="idconductor" required>
+                                    <option value="">Seleccione un conductor...</option>
+                                    @foreach($conductores as $conductor)
+                                        <option value="{{ $conductor->idconductor }}">
+                                            {{ $conductor->nombre }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+
                         <div class="mb-3">
                             <label for="idtxtobservacion" class="form-label">Observaciones</label>
                             <textarea class="form-control" id="idtxtobservacion" name="observacion" rows="2"></textarea>

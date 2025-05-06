@@ -21,8 +21,22 @@ class Guiasderemision extends Model
         'origen',
         'destino',
         'estado',
-        'cantidadenviada'
+        'cantidadenviada',
+        'idvehiculo',
+        'idconductor',
     ];
+
+    // Relación con Vehiculo
+    public function vehiculo()
+    {
+        return $this->belongsTo(Vehiculo::class, 'idvehiculo');
+    }
+
+    // Relación con Conductor
+    public function conductor()
+    {
+        return $this->belongsTo(Conductor::class, 'idconductor');
+    }
 
     public function mostrarguiasderemision(array $parametros = []): array {
         $query = DB::table('v_guias_remision');
@@ -64,6 +78,14 @@ class Guiasderemision extends Model
             $query->where('cantidadenviada', $parametros['cantidadenviada']);
         }
 
+        if (isset($parametros['idvehiculo'])) {
+            $query->where('idvehiculo', $parametros['idvehiculo']);
+        }
+
+        if (isset($parametros['idconductor'])) {
+            $query->where('idconductor', $parametros['idconductor']);
+        }
+
         // Verificar si se pide paginación
         if (isset($parametros['paginado']) && $parametros['paginado'] === true) {
             $porPagina = $parametros['porPagina'] ?? 10;
@@ -85,14 +107,14 @@ class Guiasderemision extends Model
         );
     }
 
-    public function insertarguias_remision(array $data): array {
+    public function insertarGuiasRemision(array $data): array {
         // Definir variables de salida
         DB::statement("SET @idguia = 0;");
         DB::statement("SET @success = 0;");
         DB::statement("SET @message = '';");
 
         // Llamar al SP con parámetros IN + OUT
-        DB::statement("CALL sp_guiasderemisioninsertar(?, ?, ?, ?, ?, ?, ?, ?, @idguia, @success, @message)", [
+        DB::statement("CALL sp_guiasremision(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, @idguia, @success, @message)", [
             isset($data['tim']) ? $data['tim'] : null,
             isset($data['fechaemision']) ? $data['fechaemision'] : null,
             isset($data['horaemision']) ? $data['horaemision'] : null,
@@ -100,7 +122,9 @@ class Guiasderemision extends Model
             isset($data['origen']) ? $data['origen'] : null,
             isset($data['destino']) ? $data['destino'] : null,
             isset($data['estado']) ? $data['estado'] : null,
-            isset($data['cantidadenviada']) ? $data['cantidadenviada'] : null
+            isset($data['cantidadenviada']) ? $data['cantidadenviada'] : null,
+            isset($data['idvehiculo']) ? $data['idvehiculo'] : null,
+            isset($data['idconductor']) ? $data['idconductor'] : null
         ]);
 
 

@@ -56,8 +56,8 @@ CREATE PROCEDURE `sp_conductoresinsertar`(
     out message varchar(100)
 )
 BEGIN
-INSERT INTO conductores(nombre, dni)
-values(spnombre, spdni);
+INSERT INTO conductores(nombre, dni, estado)
+values(spnombre, spdni, 'ACTIVO');
 
 if Row_count() > 0 then
 		SET idconductor = LAST_INSERT_ID();

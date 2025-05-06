@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Guiasderemision;
 use Illuminate\Http\Request;
 use Exception;
 
+//eliminar, agregar y editar
 class GuiasRemisionController extends Controller
 {
     public function registrarGuiaRemision(Request $request)
@@ -18,7 +20,9 @@ class GuiasRemisionController extends Controller
                 'origen' => 'required',
                 'destino' => 'required',
                 'estado' => 'required',
-                'cantidadenviada' => 'required'
+                'cantidadenviada' => 'required',
+                'idvehiculo' => 'required',
+                'idconductor' => 'required',
             ]);
 
             $modeloguiaremision = new Guiasderemision();
@@ -30,7 +34,9 @@ class GuiasRemisionController extends Controller
                 "origen" => $validated['origen'],
                 "destino" => $validated['destino'],
                 "estado" => $validated['estado'],
-                "cantidadenviada" => $validated['cantidadenviada']
+                "cantidadenviada" => $validated['cantidadenviada'],
+                "idvehiculo" => $validated['idvehiculo'],
+                "idconductor" => $validated['idconductor']
             ]);
             if (!$guiasremision["success"]) {
                 throw new Exception($guiasremision["message"]);

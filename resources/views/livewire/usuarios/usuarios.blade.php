@@ -49,10 +49,10 @@
         <tbody>
             @foreach($usuarios as $usuario)
                 <tr>
-                    <td>{{ $usuario->id }}</td>
-                    <td>{{ $usuario->name }}</td>
-                    <td>{{ $usuario->email }}</td>
-                    <td>
+                    <td class="text-center align-middle">{{ $usuario->id }}</td>
+                    <td class="text-center align-middle">{{ $usuario->name }}</td>
+                    <td class="text-center align-middle">{{ $usuario->email }}</td>
+                    <td class="text-center align-middle">
                         <button wire:click="edit({{ $usuario->id }})" class="btn btn-warning btn-sm">Editar</button>
                         <button wire:click="delete({{ $usuario->id }})" class="btn btn-danger btn-sm"
                             onclick="return confirm('¿Estás seguro de eliminar este usuario?')">Eliminar</button>
