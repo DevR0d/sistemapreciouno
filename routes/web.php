@@ -38,7 +38,18 @@ Route::middleware(['auth', 'role:administrador'])->group(function () {
     Route::post('/registrarproducto', [ProductoController::class, 'registrarproducto'])->name('api.registrarproducto');
     Route::post('/eliminarproducto', [ProductoController::class, 'eliminarproducto'])->name('api.eliminarproducto');
     //guiasderemisionvistas por el administrador
-    Route::get('/guiasremisionadministrador', [VistasIntranetController::class, 'vistaguiasderemisionadministrador'])->name('vistaguiasderemisionadministrador');
+//    Route::get('/guiasremisionadministrador', [VistasIntranetController::class, 'vistaguiasderemisionadministrador'])->name('vistaguiasderemisionadministrador');
+//    Route::get('/detalleguia/{idguia?}', [VistasIntranetController::class, 'vistadetalleguiaadministrador'])->name('vistadetalleguiaadministrador');
+//    Route::get('/crearguiaremisionadministrador', [VistasIntranetController::class, 'vistaaddguiaremisionadministrador'])->name('vistaaddguiaremisionadministrador');
+//    Route::post('/registrarguiaremision', [GuiasRemisionController::class, 'registrarguiaremision'])->name('api.registrarguiaremision');
+//    Route::post('/estadoguia', [GuiasRemisionController::class, 'eliminarguia'])->name('api.eliminarguia');
+//    Route::post('/registrarvalidacionguia', [RevisionDeGuiasController::class, 'registrarguiarevicion_validacion'])->name('registrarguiarevicion_validacion');
+//    Route::get('/conductoresempresas/{idtransportista}', [ConductoresController::class, 'getConductoresPorEmpresas']);
+//    Route::get('/revisionguiass/{idguia?}', [VistasIntranetController::class, 'vistarevisionguiasadministrador'])->name('vistarevisionguiasadministrador');
+//
+//    //generar el reporte
+//    Route::get('/guias/{id}/pdf', [ReporteController::class, 'generarPdfGuia'])->name('guias.pdf');
+//    Route::post("/buscarproductocodigo", [ProductoController::class, 'buscarproductocodigo'])->name('api.buscarproductocodigo');
 });
 
 

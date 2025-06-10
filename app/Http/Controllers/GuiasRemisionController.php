@@ -138,5 +138,4 @@ class GuiasRemisionController extends Controller
             ], 500);
         }
     }
-
 }

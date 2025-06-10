@@ -18,7 +18,6 @@ class logicabdSeeder extends Seeder
         //esto es un array donde se llama a los archivos SQL.
         $archivosSQL = [
             "usuariospordefecto.sql",
-//          "guiasdecarga.sql",
             "productos.sql",
             "sp_preciouno.sql",
             "v_preciouno.sql"

@@ -85,9 +85,117 @@ class VistasIntranetController extends Controller
             return redirect()->route('vistalogin');
         }
 
-        return view('intranet.prevencionistas.guiasremision');
+        return view('intranet.administrador.guiasremision');
     }
 
+    public function vistaaddguiaremisionadministrador()
+    {
+        $transportes = Transporte::all();
+        $conductores = Conductores::all();
+        $tipoempresa = TipoEmpresa::all();
+        $productos = Productos::all();
+
+        return view('intranet.administrador.addguiasremision', compact('transportes','conductores', 'tipoempresa', 'productos'));
+    }
+
+    public function vistadetalleguiaadministrador($idguia = null)
+    {
+        if (!is_numeric($idguia)) {
+            abort(400, 'ID de guía inválido');
+        }
+
+        if (!Auth::check()) {
+            return redirect()->route('vistalogin');
+        }
+        // Inicializar modelos
+        $modeloguiaremision = new Guiasderemision();
+        $modelConductores = new Conductores();
+        $modelTipoEmpresa = new TipoEmpresa();
+        $modelTransporte = new Transporte();
+        $modelValidacion = new ValidacionGuia();
+
+        // Obtener datos principales de la guía
+        $guiaData = $modeloguiaremision->mostrarguiasderemision(['idguia' => $idguia]);
+        $guia = !empty($guiaData["data"]) ? (object)$guiaData["data"][0] : (object)[];
+
+        // Obtener detalles de productos asociados
+        $detalleguiaData = $modeloguiaremision->mostrardetalleguia(["idguia" => $idguia]);
+        $detalleguia = array_map(function ($item) {
+            return (object)$item;
+        }, $detalleguiaData["data"] ?? []);
+
+        //solucion para evitar duplicidad visual
+        $detalleguia = array_map('unserialize', array_unique(array_map('serialize', $detalleguia)));
+
+        // Obtener datos del conductor
+        $conductorData = $modelConductores->mostrarconductores(["idguia" => $idguia]);
+        $conductor = !empty($conductorData["data"]) ? (object)$conductorData["data"][0] : (object)[];
+
+        // Obtener datos del tipo de empresa
+        $tipoempresaData = $modelTipoEmpresa->mostrartipoempresa(["idguia" => $idguia]);
+        $tipoempresa = !empty($tipoempresaData["data"]) ? (object)$tipoempresaData["data"][0] : (object)[];
+
+        // Obtener datos del transporte
+        $transporteData = $modelTransporte->mostrartransporte(["idguia" => $idguia]);
+        $transporte = !empty($transporteData["data"]) ? (object)$transporteData["data"][0] : (object)[];
+
+        // Obtener datos de validación con productos por condición
+        $validacionData = $modelValidacion->mostrarvalidacionguia(["idguia" => $idguia]);
+        $validacion = !empty($validacionData["data"]) ? (object)$validacionData["data"][0] : (object)[];
+
+        // Obtener productos agrupados por condición
+        $productosPorCondicion = $modelValidacion->obtenerProductosPorCondicion($idguia);
+        $productosBuenos = $productosPorCondicion['success'] ? $productosPorCondicion['data']['productosBuenos'] : [];
+        $productosDanados = $productosPorCondicion['success'] ? $productosPorCondicion['data']['productosDañados'] : [];
+        $productosRegulares = $productosPorCondicion['success'] ? $productosPorCondicion['data']['productosRegulares'] : [];
+        $productosSinCondicion = $productosPorCondicion['success'] && isset($productosPorCondicion['data']['productosSinCondicion'])
+            ? $productosPorCondicion['data']['productosSinCondicion']
+            : [];
+
+
+        // Pasar todos los datos a la vista
+        return view('intranet.administrador.detalleguia', [
+            'guia' => $guia,
+            'detalleguia' => $detalleguia,
+            'conductor' => $conductor,
+            'tipoempresa' => $tipoempresa,
+            'transporte' => $transporte,
+            'validacion' => $validacion,
+            'productosBuenos' => $productosBuenos,
+            'productosRegulares' => $productosRegulares,
+            'productosDanados' => $productosDanados,
+            'productosSinCondicion' => $productosSinCondicion,
+        ]);
+    }
+
+    public function vistarevisionguiasadministrador($idguia = null)
+    {
+        if (!is_numeric($idguia)) {
+            abort(400, 'ID de guía inválido');
+        }
+
+        if (!Auth::check()) {
+            return redirect()->route('vistalogin');
+        }
+
+        $modeloguiaremision = new Guiasderemision();
+        $guia = $modeloguiaremision->mostrarguiasderemision([
+            'idguia' => $idguia
+        ]);
+
+        $detalleguia = $modeloguiaremision->mostrardetalleguia([
+            "idguia" => $idguia
+        ]);
+
+        $detalleguia = array_map(function ($item) {
+            return (object)$item;
+        }, $detalleguia["data"] == null ? [] : $detalleguia["data"]);
+
+        $guia = !empty($guia["data"]) ? (object)$guia["data"][0] : (object)[];
+        return view('intranet.administrador.revisionguias', compact('detalleguia', 'guia'));
+    }
+
+    //prevencionista
     public function vistaguiasderemision()
     {
         if (!Auth::check()) {
