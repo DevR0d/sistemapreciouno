@@ -6,6 +6,10 @@ html, body {
     padding: 0;
 }
 
+main{
+    padding-top: 45px;
+}
+
 /* Clase para habilitar scroll solo donde lo necesitemos */
 .enable-scroll {
     overflow: auto;

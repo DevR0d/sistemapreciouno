@@ -34,7 +34,8 @@
 </head>
 
 <body class="sb-nav-fixed">
-<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+{{--<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">--}}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <!-- Menú principal horizontal -->
     <div class="navbar-nav me-auto">
         @if (session('usuariologeado')["data"][0]['idrol'] == 1)
@@ -117,7 +118,8 @@
     </ul>
 </nav>
 {{--contenido vistas--}}
-<div class="container-fluid mt-5 pt-3" class="@if(Request::is('dashboard')) enable-scroll @endif">
+{{--<div class="container-fluid mt-5 pt-3" class="@if(Request::is('dashboard')) enable-scroll @endif">--}}
+<div class="container-fluid pt-3" @class(['enable-scroll' => Request::is('dashboard')])>
     <main>
         @yield('content')
     </main>

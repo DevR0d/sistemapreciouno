@@ -34,7 +34,7 @@
             <!-- Botón de agregar -->
             <div class="col-md-4 text-md-end">
                 <a href="{{ route('vistaaddguiaremision') }}"
-                   class="btn btn-primary w-40 w-md-auto"
+                   class="btn btn-primary w-30 w-md-auto"
                    id="btnnuevaguia">
                     <i class="fa-solid fa-plus-minus me-2"></i>
                     Nueva Guía
