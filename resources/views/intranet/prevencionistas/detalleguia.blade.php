@@ -3,163 +3,228 @@
 
 @section('content')
     @vite('resources/css/views/prevencionistas/detalleguia.css')
-    <div class="container-fluid py-2" style="overflow-y: auto; max-height: 90vh;">
-        <div class="d-flex justify-content-between align-items-center mb-4 py-3 px-4 bg-white rounded-3 shadow-sm border-start border-5 border-primary">
-            <h2 class="mb-0 text-dark fw-bold">
-                <i class="fas fa-truck me-2 text-primary"></i>
-                Guía de Remisión <span class="text-primary">#{{ $guia->codigoguia ?? 'N/A' }}</span>
-            </h2>
-            <a href="/guiasremision" class="btn btn-outline-primary rounded-pill px-4 shadow-sm">
-                <i class="fas fa-chevron-left me-2"></i> Volver al listado
-            </a>
-        </div>
+    <div class="container-fluid px-3">
+        <!-- Header con botones mejorado -->
+        <div class="d-flex justify-content-between align-items-center mb-4 py-3 px-4 bg-white rounded-3 shadow-sm" style="border-left: 5px solid #2575fc;">
+            <div class="d-flex align-items-center">
+                <div>
+                    <h2 class="mb-0 text-dark fw-bold">
+                        Guía de Remisión Electrónica <span class="text-primary">#{{ $guia->codigoguia ?? 'N/A' }}</span>
+                    </h2>
+                </div>
+            </div>
 
-        <div class="card border-0 shadow-sm">
-            <div class="card-header bg-white border-0">
-                <ul class="nav nav-tabs" id="tabsGuia" role="tablist">
-                    <li class="nav-item">
-                        <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#tabDetalle" type="button">
+            <button onclick="window.location.href='/guiasremision'"
+                    class="btn btn-return px-4 py-2 rounded-pill shadow-hover">
+                <div class="d-flex align-items-center justify-content-center">
+                    <i class="fas fa-chevron-left me-2 transition-transform"></i>
+                    <span>Regresar al Listado</span>
+                </div>
+            </button>
+        </div>
+        <!-- Tarjeta principal -->
+        <div class="card border-0 shadow">
+            <!-- Encabezado con pestañas -->
+            <div class="card-header bg-white p-0 border-0">
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="detalles-tab" data-bs-toggle="tab" data-bs-target="#detalles" type="button" role="tab">
                             <i class="fas fa-info-circle me-1"></i> Detalles de la Guía
                         </button>
                     </li>
-                    <li class="nav-item">
-                        <button class="nav-link" data-bs-toggle="tab" data-bs-target="#tabValidacion" type="button">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="validacion-tab" data-bs-toggle="tab" data-bs-target="#validacion" type="button" role="tab">
                             <i class="fas fa-clipboard-check me-1"></i> Validación y Documentos
                         </button>
                     </li>
                 </ul>
             </div>
-            <div class="card-body tab-content">
-                <div class="tab-pane fade show active" id="tabDetalle">
-                    <div class="d-flex justify-content-end mb-3">
-                        <a href="{{ route('guias.pdf', ['id' => $guia->idguia]) }}" target="_blank" class="btn btn-outline-primary btn-sm">
-                            <i class="fas fa-file-pdf me-1"></i> Exportar PDF
-                        </a>
-                    </div>
+            <!-- Contenido de pestañas -->
+            <div class="card-body p-4">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="detalles" role="tabpanel">
+                        <!-- Botón de impresión -->
+                        <div class="d-flex justify-content-end mb-3">
+                            <button type="button" class="btn btn-outline-primary btn-sm"
+                                    onclick="window.open('{{ route('guias.pdf', ['id' => $guia->idguia]) }}', '_blank')">
+                                <i class="fas fa-file-pdf me-1"></i> EXPORTAR PDF
+                            </button>
+                        </div>
 
-                    <!-- DATOS GENERALES -->
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="bg-light p-4 rounded mb-4 shadow-sm">
-                                <h5 class="fw-bold text-primary mb-3">
-                                    <i class="fas fa-file-signature me-2"></i>Datos De La Guía
-                                </h5>
-                                <div class="row">
-                                    @php
-                                        $infoFields = [
-                                            ['Nº Guía', $guia->codigoguia],
-                                            ['Nº TIM', $guia->numerotrasladotim],
-                                            ['Fecha Emisión', $guia->fechaemision],
-                                            ['Hora Emisión', $guia->horaemision],
-                                            ['Razón Social de la Guía', $guia->razonsocialguia],
-                                            ['Motivo del traslado', $guia->motivotraslado],
-                                            ['Peso Total (kg)', $guia->pesobrutototal],
-                                            ['Volumen (m³)', $guia->volumenproducto],
-                                            ['Nº Bultos', $guia->numerobultopallet],
-                                            ['Observaciones', $guia->observaciones],
-                                            ['Conductor', $guia->conductor->nombre ?? 'N/A'],
-                                            ['DNI del Conductor', $guia->conductor->dni ?? 'N/A'],
-                                            ['Empresa Remitente', $guia->empresa->razonsocial ?? 'N/A'],
-                                            ['RUC Empresa', $guia->empresa->ruc ?? 'N/A'],
-                                            ['Dirección Empresa', $guia->empresa->direccion ?? 'N/A'],
-                                            ['Ubigeo Empresa', $guia->empresa->ubigeo ?? 'N/A'],
-                                        ];
-                                    @endphp
-                                    @foreach ($infoFields as [$label, $value])
-                                        <div class="col-md-6 col-lg-4 mb-2">
-                                            <span class="text-muted small">{{ $label }}:</span><br>
-                                            <strong>{{ $value ?? 'N/A' }}</strong>
+                        <div class="row">
+                            <!-- Columna Datos Generales -->
+                            <div class="col-12">
+                                <div class="info-card bg-light p-3 mb-3 rounded">
+                                    <h6 class="fw-bold text-primary mb-3 border-bottom pb-2">
+                                        <i class="fas fa-file-signature me-2"></i>DATOS GENERALES
+                                    </h6>
+                                    <div class="row">
+                                        @php
+                                            $infoFields = [
+                                              ['label' => 'N° Guía', 'id' => 'detalle-codigoguia', 'value' => $guia->codigoguia],
+                                              ['label' => 'N° TIM', 'id' => 'detalle-numerotim', 'value' => $guia->numerotrasladotim],
+                                              ['label' => 'Fecha Emisión', 'id' => 'detalle-fechaemision', 'value' => $guia->fechaemision],
+                                              ['label' => 'Hora Emisión', 'id' => 'detalle-horaemision', 'value' => $guia->horaemision],
+                                              ['label' => 'Razón Social', 'id' => 'detalle-razonsocial', 'value' => $guia->razonsocialguia, 'fullWidth' => true],
+                                              ['label' => 'Motivo del traslado', 'id' => 'detalle-motivo', 'value' => $guia->motivotraslado],
+                                              ['label' => 'Peso Total (kg)', 'id' => 'detalle-peso', 'value' => $guia->pesobrutototal],
+                                              ['label' => 'Volumen (m³)', 'id' => 'detalle-volumen', 'value' => $guia->volumenproducto],
+                                              ['label' => 'N° Bultos', 'id' => 'detalle-bultos', 'value' => $guia->numerobultopallet],
+                                              ['label' => 'Observaciones', 'id' => 'detalle-observaciones', 'value' => $guia->observaciones, 'fullWidth' => true],
+                                            ];
+                                        @endphp
+                                        @foreach ($infoFields as $field)
+                                            <div class="{{ !empty($field['fullWidth']) ? 'col-12' : 'col-6' }} mb-2">
+                                                <span class="d-block text-muted small">{{ $field['label'] }}:</span>
+                                                <strong id="{{ $field['id'] }}">{{ $field['value'] ?? 'N/A' }}</strong>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <!-- Columna Datos de Empresa -->
+                            <div class="col-12">
+                                <div class="info-card bg-light p-3 mb-3 rounded">
+                                    <h6 class="fw-bold text-primary mb-3 border-bottom pb-2">
+                                        <i class="fas fa-building me-2"></i>DATOS DE LA EMPRESA
+                                    </h6>
+                                    <div class="row">
+                                        @php
+                                            $empresaFields = [
+                                                ['label' => 'Razón Social', 'id' => 'detalle-empresa-razonsocial', 'value' => $tipoempresa->razonsocial ?? 'N/A', 'fullWidth' => true],
+                                                ['label' => 'RUC', 'id' => 'detalle-empresa-ruc', 'value' => $tipoempresa->ruc ?? 'N/A'],
+                                                ['label' => 'Cód. Establecimiento', 'id' => 'detalle-empresa-codigo', 'value' => $tipoempresa->codigoestablecimiento ?? 'N/A'],
+                                                ['label' => 'Dirección', 'id' => 'detalle-empresa-direccion', 'value' => $tipoempresa->direccion ?? 'N/A', 'fullWidth' => true],
+                                                ['label' => 'Departamento', 'id' => 'detalle-empresa-departamento', 'value' => $tipoempresa->departamento ?? 'N/A'],
+                                                ['label' => 'Provincia', 'id' => 'detalle-empresa-provincia', 'value' => $tipoempresa->provincia ?? 'N/A'],
+                                                ['label' => 'Ubigeo', 'id' => 'detalle-empresa-ubigeo', 'value' => $tipoempresa->ubigeo ?? 'N/A'],
+                                            ];
+                                        @endphp
+                                        @foreach ($empresaFields as $field)
+                                            <div class="{{ !empty($field['fullWidth']) ? 'col-12' : 'col-6' }} mb-2">
+                                                <span class="d-block text-muted small">{{ $field['label'] }}:</span>
+                                                <strong id="{{ $field['id'] }}">{{ $field['value'] ?? 'N/A' }}</strong>
+                                            </div>
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Columna Transporte -->
+                            <div class="col-12">
+                                <div class="info-card bg-light p-3 mb-3 rounded">
+                                    <h6 class="fw-bold text-primary mb-3 border-bottom pb-2">
+                                        <i class="fas fa-user-tie me-2"></i>UNIDAD DE TRANSPORTE DEL CONDUCTOR
+                                    </h6>
+                                    <div class="d-flex align-items-center">
+                                        <div class="avatar bg-primary text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                            <i class="fas fa-user fs-5"></i>
                                         </div>
-                                    @endforeach
+                                        <div>
+                                            <h6 class="mb-0 fw-bold" id="detalle-conductor">{{ $conductor->nombre ?? 'N/A' }}</h6>
+                                            <span class="text-muted small" id="detalle-dni-conductor">DNI: {{ $conductor->dni ?? 'N/A' }}</span><br>
+                                            <span class="badge bg-success">{{ $conductor->estado ?? 'N/A' }}</span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!-- TABLA DE PRODUCTOS -->
-                    <div class="mt-4">
-                        <h5 class="fw-bold text-primary mb-3">
-                            <i class="fas fa-boxes me-2"></i> Productos de la Guía
-                        </h5>
-                        <div class="table-responsive">
-                            <table class="table table-hover table-bordered">
-                                <thead class="table-light">
-                                <tr>
-                                    <th>#</th>
-                                    <th>Código</th>
-                                    <th>Descripción</th>
-                                    <th>Condición</th>
-                                    <th>Cantidad</th>
-                                    <th>Estado</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                @forelse($detalleguia as $item)
+                        <!-- Tabla de Productos -->
+                        <div class="mt-2 mb-0">
+                            <h5 class="fw-bold text-primary mb-2">
+                                <i class="fas fa-boxes me-2"></i> Productos de la Guía
+                            </h5>
+                            <div class="table-responsive mb-0">
+                                <table class="table table-hover table-sm">
+                                    <thead class="table-primary">
                                     <tr>
-                                        <td>{{ $item->idproducto }}</td>
-                                        <td>{{ $item->codproducto }}</td>
-                                        <td>{{ $item->producto }}</td>
-                                        <td>{{ $item->condicion }}</td>
-                                        <td>{{ number_format($item->cant ?? 0, 2) }}</td>
-                                        <td><span class="badge bg-{{ $item->estado === 'VALIDADO' ? 'success' : 'warning' }}">{{ $item->estado }}</span></td>
+                                        <th width="5%" class="text-center">#</th>
+                                        <th width="15%" class="text-center">Código del producto</th>
+                                        <th width="35%" class="text-center">Descripción</th>
+                                        <th width="20%" class="text-center">Condicion</th>
+                                        <th width="10%" class="text-center">Cantidad recibida</th>
+                                        <th width="10%" class="text-center">Estado</th>
                                     </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="6" class="text-center text-muted">No hay productos en esta guía</td>
-                                    </tr>
-                                @endforelse
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                    @forelse($detalleguia as $item)
+                                        <tr>
+                                            <td class="text-center">{{ $item->idproducto ?? 'N/A' }}</td>
+                                            <td class="text-center">{{ $item->codproducto ?? 'Sin descripción' }}</td>
+                                            <td class="text-center">{{ $item->producto ?? 'Sin descripción' }}</td>
+                                            <td class="text-center">{{ $item->condicion ?? 'Sin descripción' }}</td>
+                                            <td class="text-center">{{ number_format($item->cant ?? 0, 2) }}</td>
+                                            <td class="text-center">
+                  <span class="badge bg-{{ $item->estado === 'VALIDADO' ? 'success' : 'warning' }}">
+                    {{ $item->estado ?? 'PENDIENTE' }}
+                  </span>
+                                            </td>
+                                        </tr>
+                                    @empty
+                                        <tr>
+                                            <td colspan="4" class="text-center text-muted py-3">
+                                                <i class="fas fa-box-open me-2"></i> No se encontraron productos en esta guía
+                                            </td>
+                                        </tr>
+                                    @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- TAB VALIDACION -->
-                <div class="tab-pane fade" id="tabValidacion">
-                    <div class="alert alert-info"><i class="fas fa-info-circle me-2"></i> Resumen de productos por condición</div>
+                <!-- Pestaña Validación y Documentos (combinación de Productos Validados y Documentos) -->
+                    <div class="tab-pane fade" id="validacion" role="tabpanel">
+                        <div class="alert alert-info mb-3">
+                            <i class="fas fa-info-circle me-2"></i> Productos validados clasificados por condición
+                        </div>
 
-                    <!-- VALIDACIONES -->
-                    @php
-                        $tipos = [
-                            ['label' => 'Buenos', 'items' => $productosBuenos, 'color' => 'success'],
-                            ['label' => 'Regulares', 'items' => $productosRegulares, 'color' => 'warning'],
-                            ['label' => 'Dañados', 'items' => $productosDanados, 'color' => 'danger'],
-                            ['label' => 'Pendientes', 'items' => $productosSinCondicion, 'color' => 'secondary'],
-                        ];
-                    @endphp
-                    <div class="accordion" id="accordionValidacion">
-                        @foreach ($tipos as $index => $tipo)
+                        <div class="accordion mb-4" id="accordionCondiciones">
+                            <!-- Productos Buenos -->
                             <div class="accordion-item">
-                                <h2 class="accordion-header" id="heading{{ $index }}">
-                                    <button class="accordion-button {{ $index !== 0 ? 'collapsed' : '' }} bg-{{ $tipo['color'] }} bg-opacity-10" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ $index }}">
-                                        <i class="fas fa-circle me-2 text-{{ $tipo['color'] }}"></i>
-                                        Productos {{ $tipo['label'] }} ({{ count($tipo['items']) }})
+                                <h2 class="accordion-header" id="headingBuenos">
+                                    <button class="accordion-button bg-success bg-opacity-10" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBuenos" aria-expanded="true">
+                                        <i class="fas fa-check-circle text-success me-2"></i>
+                                        Productos Buenos ({{ count($productosBuenos) }})
                                     </button>
                                 </h2>
-                                <div id="collapse{{ $index }}" class="accordion-collapse collapse {{ $index === 0 ? 'show' : '' }}" data-bs-parent="#accordionValidacion">
+                                <div id="collapseBuenos" class="accordion-collapse collapse show" aria-labelledby="headingBuenos" data-bs-parent="#accordionCondiciones">
                                     <div class="accordion-body p-0">
                                         <div class="table-responsive">
-                                            <table class="table table-sm">
+                                            <table class="table table-sm mb-0">
                                                 <thead class="table-light">
                                                 <tr>
-                                                    <th>Código</th>
-                                                    <th>Descripción</th>
-                                                    <th>Cantidad</th>
-                                                    <th>Unidad</th>
-                                                    <th>Condición</th>
+                                                    <th width="10%">Código</th>
+                                                    <th width="40%">Descripción</th>
+                                                    <th width="15%">Cantidad</th>
+                                                    <th width="20%">Condición</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                @forelse($tipo['items'] as $item)
+                                                @forelse($productosBuenos as $item)
                                                     <tr>
-                                                        <td>{{ $item->codproducto }}</td>
-                                                        <td>{{ $item->producto }} @if($item->observaciones)<small class="text-muted d-block">{{ $item->observaciones }}</small>@endif</td>
-                                                        <td>{{ number_format($item->cantidad ?? 0, 2) }}</td>
-                                                        <td>{{ $item->unidadmedida ?? 'N/A' }}</td>
-                                                        <td><span class="badge bg-{{ $tipo['color'] }}">{{ $item->nombretipocondicion ?? strtoupper($tipo['label']) }}</span></td>
+                                                        <td>{{ $item->codproducto ?? 'N/A' }}</td>
+                                                        <td>
+                                                            {{ $item->producto ?? 'Sin descripción' }}
+                                                            @if(!empty($item->observaciones))
+                                                                <small class="text-muted d-block">{{ $item->observaciones }}</small>
+                                                            @endif
+                                                        </td>
+                                                        <td class="text-center">{{ number_format($item->cantidad ?? 0, 2) }}</td>
+                                                        <td>
+                                                            <span class="badge bg-success">{{ $item->nombretipocondicion ?? 'VALIDADO' }}</span>
+                                                        </td>
                                                     </tr>
                                                 @empty
-                                                    <tr><td colspan="5" class="text-center text-muted">No hay productos en esta categoría</td></tr>
+                                                    <tr>
+                                                        <td colspan="5" class="text-center text-muted py-3">
+                                                            <i class="fas fa-box-open me-2"></i> No hay productos en estado Bueno
+                                                        </td>
+                                                    </tr>
                                                 @endforelse
                                                 </tbody>
                                             </table>
@@ -167,25 +232,183 @@
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
-                    </div>
 
-                    <!-- RESUMEN VALIDACION -->
-                    <div class="card mt-4">
-                        <div class="card-header bg-primary bg-opacity-10">
-                            <h6 class="mb-0"><i class="fas fa-clipboard-check me-2"></i>Resumen de Validación</h6>
-                        </div>
-                        <div class="card-body">
-                            <p><strong>Fecha Validación:</strong> {{ $validacion->fechavalidacion ?? 'N/A' }}</p>
-                            <p><strong>Total Productos:</strong> {{ $validacion->cantrecibidarevision ?? 0 }}</p>
-                            @if (!empty($validacion->observaciones))
-                                <div class="alert alert-warning mt-3">
-                                    <strong>Observaciones:</strong> {{ $validacion->observaciones }}
+                            <!-- Productos Regulares -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingRegulares">
+                                    <button class="accordion-button bg-warning bg-opacity-10 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRegulares">
+                                        <i class="fas fa-exclamation-triangle text-warning me-2"></i>
+                                        Productos Regulares ({{ count($productosRegulares) }})
+                                    </button>
+                                </h2>
+                                <div id="collapseRegulares" class="accordion-collapse collapse" aria-labelledby="headingRegulares" data-bs-parent="#accordionCondiciones">
+                                    <div class="accordion-body p-0">
+                                        <div class="table-responsive">
+                                            <table class="table table-sm mb-0">
+                                                <thead class="table-light">
+                                                <tr>
+                                                    <th width="10%">Código</th>
+                                                    <th width="40%">Descripción</th>
+                                                    <th width="15%">Cantidad</th>
+                                                    <th width="15%">Unidad</th>
+                                                    <th width="20%">Condición</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @forelse($productosRegulares as $item)
+                                                    <tr>
+                                                        <td>{{ $item->codproducto ?? 'N/A' }}</td>
+                                                        <td>
+                                                            {{ $item->producto ?? 'Sin descripción' }}
+                                                            @if(!empty($item->observaciones))
+                                                                <small class="text-muted d-block">{{ $item->observaciones }}</small>
+                                                            @endif
+                                                        </td>
+                                                        <td class="text-center">{{ number_format($item->cantidad ?? 0, 2) }}</td>
+                                                        <td>{{ $item->unidadmedida ?? 'N/A' }}</td>
+                                                        <td>
+                                                            <span class="badge bg-warning">{{ $item->nombretipocondicion ?? 'REGULAR' }}</span>
+                                                        </td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="5" class="text-center text-muted py-3">
+                                                            <i class="fas fa-box-open me-2"></i> No hay productos en estado Regular
+                                                        </td>
+                                                    </tr>
+                                                @endforelse
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
-                            @endif
+                            </div>
+
+                            <!-- Productos Dañados -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingDanados">
+                                    <button class="accordion-button bg-danger bg-opacity-10 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDanados">
+                                        <i class="fas fa-times-circle text-danger me-2"></i>
+                                        Productos Dañados ({{ count($productosDanados) }})
+                                    </button>
+                                </h2>
+                                <div id="collapseDanados" class="accordion-collapse collapse" aria-labelledby="headingDanados" data-bs-parent="#accordionCondiciones">
+                                    <div class="accordion-body p-0">
+                                        <div class="table-responsive">
+                                            <table class="table table-sm mb-0">
+                                                <thead class="table-light">
+                                                <tr>
+                                                    <th width="10%">Código</th>
+                                                    <th width="40%">Descripción</th>
+                                                    <th width="15%">Cantidad</th>
+                                                    <th width="15%">Unidad</th>
+                                                    <th width="20%">Condición</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @forelse($productosDanados as $item)
+                                                    <tr>
+                                                        <td>{{ $item->codproducto ?? 'N/A' }}</td>
+                                                        <td>
+                                                            {{ $item->producto ?? 'Sin descripción' }}
+                                                            @if(!empty($item->observaciones))
+                                                                <small class="text-muted d-block">{{ $item->observaciones }}</small>
+                                                            @endif
+                                                        </td>
+                                                        <td class="text-center">{{ number_format($item->cantidad ?? 0, 2) }}</td>
+                                                        <td>{{ $item->unidadmedida ?? 'N/A' }}</td>
+                                                        <td>
+                                                            <span class="badge bg-danger">{{ $item->nombretipocondicion ?? 'DAÑADO' }}</span>
+                                                        </td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="5" class="text-center text-muted py-3">
+                                                            <i class="fas fa-box-open me-2"></i> No hay productos Dañados
+                                                        </td>
+                                                    </tr>
+                                                @endforelse
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Productos Pendientes -->
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="headingPendientes">
+                                    <button class="accordion-button bg-secondary bg-opacity-10 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePendientes">
+                                        <i class="fas fa-clock text-secondary me-2"></i>
+                                        Productos Pendientes ({{ count($productosSinCondicion ?? []) }})
+                                    </button>
+                                </h2>
+                                <div id="collapsePendientes" class="accordion-collapse collapse" aria-labelledby="headingPendientes" data-bs-parent="#accordionCondiciones">
+                                    <div class="accordion-body p-0">
+                                        <div class="table-responsive">
+                                            <table class="table table-sm mb-0">
+                                                <thead class="table-light">
+                                                <tr>
+                                                    <th width="10%">Código</th>
+                                                    <th width="40%">Descripción</th>
+                                                    <th width="15%">Cantidad</th>
+                                                    <th width="15%">Unidad</th>
+                                                    <th width="20%">Condición</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                @forelse($productosSinCondicion as $item)
+                                                    <tr>
+                                                        <td>{{ $item->codproducto ?? 'N/A' }}</td>
+                                                        <td>
+                                                            {{ $item->producto ?? 'Sin descripción' }}
+                                                            @if(!empty($item->observaciones))
+                                                                <small class="text-muted d-block">{{ $item->observaciones }}</small>
+                                                            @endif
+                                                        </td>
+                                                        <td class="text-center">{{ number_format($item->cant ?? 0, 2) }}</td>
+                                                        <td>{{ $item->unidadmedida ?? 'N/A' }}</td>
+                                                        <td><span class="badge bg-secondary">PENDIENTE</span></td>
+                                                    </tr>
+                                                @empty
+                                                    <tr>
+                                                        <td colspan="5" class="text-center text-muted py-3">
+                                                            <i class="fas fa-box-open me-2"></i> No hay productos pendientes
+                                                        </td>
+                                                    </tr>
+                                                @endforelse
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- Resumen de Validación -->
+                        <div class="card border-primary mt-4">
+                            <div class="card-header bg-primary bg-opacity-10">
+                                <h6 class="mb-0"><i class="fas fa-clipboard-check me-2"></i>Resumen de Validación</h6>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p><strong>Fecha Validación:</strong> {{ $validacion->fechavalidacion ?? 'N/A' }}</p>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p><strong>Total Productos:</strong> {{ $validacion->cantrecibidarevision ?? 0 }}</p>
+                                    </div>
+                                </div>
+                                @if(!empty($validacion->observaciones))
+                                    <div class="alert alert-warning mt-3 mb-0">
+                                        <strong><i class="fas fa-exclamation-circle me-2"></i>Observaciones:</strong>
+                                        {{ $validacion->observaciones }}
+                                    </div>
+                                @endif
+                            </div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>

@@ -55,6 +55,23 @@ Route::middleware(['auth', 'role:prevencionista,superadmin'])->group(function ()
     Route::get('/conductores-por-empresa/{idtransportista}', [ConductoresController::class, 'getConductoresPorEmpresa']);
     Route::get('/revisionguias/{idguia?}', [VistasIntranetController::class, 'vistarevisionguias'])->name('vistarevisionguias');
 
+    Route::get('/empresa/{id}', function($id) {
+    $empresa = \App\Models\TipoEmpresa::find($id);
+
+    if (!$empresa) {
+        return response()->json(null, 404);
+    }
+
+    return response()->json([
+        'direccion' => $empresa->direccion,
+        'provincia' => $empresa->provincia,
+        'departamento' => $empresa->departamento,
+        'ruc' => $empresa->ruc,
+        'ubigeo' => $empresa->ubigeo,
+        'codigoestablecimiento' => $empresa->codigoestablecimiento,
+    ]);
+    });
+
     //generar el reporte
     Route::get('/guias/{id}/pdf', [ReporteController::class, 'generarPdfGuia'])->name('guias.pdf');
     Route::post("/buscarproductocodigo", [ProductoController::class, 'buscarproductocodigo'])->name('api.buscarproductocodigo');
