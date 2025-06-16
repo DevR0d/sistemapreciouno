@@ -8,76 +8,86 @@ if (typeof $ === 'undefined') {
 
 $(document).ready(function () {
     $("#formulariologin").submit(function (e) {
-        e.preventDefault();
+    e.preventDefault();
 
-        // Desactivar inputs y botón
-        // $("#idformvechiculo :input").prop("disabled", true);
+    const $form = $(this);
+    const loadingBar = $("#loadingBar");
+    const loadingProgress = $("#loadingProgress");
+    const $btnLogin = $("#btnlogin");
+    const $spinner = $btnLogin.find(".loading-spinner");
+    const $btnText = $btnLogin.find(".btn-text");
 
-        const $form = $(this);
-        $form.find(":input").prop("disabled", true);
+    // Mostrar barra y spinner
+    loadingBar.show();
+    loadingProgress.css("width", "0").addClass("loading");
+    $spinner.removeClass("d-none");
+    $btnText.addClass("d-none");
+    $btnLogin.prop("disabled", true);
+    $form.find(":input").prop("disabled", true);
 
-        const datos = {
-            email: $("#username").val(),
-            password: $("#password").val(),
-            _token: $('input[name="_token"]').val()
-        };
+    const datos = {
+        email: $("#username").val(),
+        password: $("#password").val(),
+        _token: $('input[name="_token"]').val()
+    };
 
-        // Enviar datos al servidor (AJAX)
-        $.ajax({
-            url: "/iniciarsesion", // Ruta en Laravel
-            type: "POST",
-            contentType: "application/json",
-            data: JSON.stringify(datos),
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            success: function (response) {
+    setTimeout(() => loadingProgress.css("width", "50%"), 300);
+
+    $.ajax({
+        url: "/iniciarsesion",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(datos),
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function (response) {
+            loadingProgress.css("width", "100%");
+            setTimeout(() => {
+                loadingBar.fadeOut();
                 $form.find(":input").prop("disabled", false);
+                $btnLogin.prop("disabled", false);
+                $spinner.addClass("d-none");
+                $btnText.removeClass("d-none");
+
                 if (response.idrol === null) {
+                    $form[0].reset();
                     Swal.fire({
                         icon: 'warning',
-                        text: response.message,
-                        timer: 1500,
+                        title: 'Acceso denegado',
+                        text: response.message || 'Credenciales inválidas',
+                        timer: 2000,
                         showConfirmButton: false
                     });
-                    // throw new Error();
-                } else if (response.idrol === 1) {
+                } else {
+                    const rutas = {
+                        1: '/dashboard',
+                        2: '/guiasremision',
+                        3: '/dashboard' // o '/superadmin'
+                    };
                     $form[0].reset();
-                    window.location.replace('/dashboard');
-                } else if (response.idrol === 2) {
-                    $form[0].reset();
-                    window.location.replace('/guiasremision');
-                } else if (response.idrol === 3) {
-                    $form[0].reset();
-                    window.location.replace('/dashboard'); // o la ruta que uses para el superadmin
+                    window.location.replace(rutas[response.idrol] || '/');
                 }
-
-
-                // Actualizar Livewire
-                // Livewire.dispatch("listarvehiculoDesdeJS");
-
-                // Swal.fire({
-                //     icon: 'success',
-                //     title: response.message,
-                //     timer: 1500,
-                //     showConfirmButton: false
-                // });
-
-                // Resetear y cerrar modal
-
-                // bootstrap.Modal.getInstance($('#idmodalvehiculo')[0]).hide();
-
-            },
-            error: function (error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Error',
-                    text: error.responseJSON?.message || 'No se pudo completar la eliminación'
-                });
-                // alert("Error: " + xhr.responseJSON.message);
-            }
-        });
+            }, 500);
+        },
+        error: function (error) {
+            loadingBar.fadeOut();
+            $form.find(":input").prop("disabled", false);
+            $btnLogin.prop("disabled", false);
+            $spinner.addClass("d-none");
+            $btnText.removeClass("d-none");
+            $form[0].reset();
+            Swal.fire({
+                icon: 'error',
+                title: 'Error de inicio de sesión',
+                text: error.responseJSON?.message || 'Credenciales incorrectas o error en el servidor',
+                confirmButtonColor: '#c8102e'
+            });
+        }
     });
+});
+
+
 
     $(document).on('click', '#btncerrarsesion', async function (e) {
         e.preventDefault();
