@@ -47,7 +47,11 @@ $(document).ready(function () {
                 } else if (response.idrol === 2) {
                     $form[0].reset();
                     window.location.replace('/guiasremision');
+                } else if (response.idrol === 3) {
+                    $form[0].reset();
+                    window.location.replace('/dashboard'); // o la ruta que uses para el superadmin
                 }
+
 
                 // Actualizar Livewire
                 // Livewire.dispatch("listarvehiculoDesdeJS");
