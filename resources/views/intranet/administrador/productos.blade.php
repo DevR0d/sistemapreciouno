@@ -18,6 +18,7 @@
                     <h5 class="mb-0 fw-semibold">
                         <i class="fas fa-boxes me-2 text-primary"></i>
                         Lista de Productos
+                        <span class="badge bg-secondary ms-2" data-results-count>Cargando...</span>
                     </h5>
                 </div>
             </div>
@@ -41,7 +42,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="idformproducto" class="needs-validation" novalidate>
+                    <form id="idformproducto" class="needs-validation" data-validate novalidate>
                         @csrf
                         <input type="hidden" id="idproducto" name="idproducto" value="">
 
@@ -51,7 +52,8 @@
                                     <i class="fas fa-barcode me-1"></i>
                                     Código del Producto
                                 </label>
-                                <input type="text" class="form-control" id="idtxtcodigoproducto" name="codigoproducto" required>
+                                <input type="text" class="form-control" id="idtxtcodigoproducto" name="codigoproducto" required
+                                       data-bs-toggle="tooltip" title="Ingrese el código único del producto">
                                 <div class="invalid-feedback">
                                     Por favor, ingrese el código del producto.
                                 </div>
@@ -77,7 +79,8 @@
                                     <i class="fas fa-tag me-1"></i>
                                     Nombre del Producto
                                 </label>
-                                <input type="text" class="form-control" id="idtxtnombre" name="nombre" required>
+                                <input type="text" class="form-control" id="idtxtnombre" name="nombre" required
+                                       data-bs-toggle="tooltip" title="Ingrese el nombre descriptivo del producto">
                                 <div class="invalid-feedback">
                                     Por favor, ingrese el nombre del producto.
                                 </div>
@@ -96,7 +99,7 @@
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                         <i class="fas fa-times me-1"></i>Cancelar
                     </button>
-                    <button type="submit" form="idformproducto" class="btn btn-primary">
+                    <button type="submit" form="idformproducto" class="btn btn-primary" data-loading="Guardando...">
                         <i class="fas fa-save me-1"></i>Guardar Producto
                     </button>
                 </div>
@@ -106,27 +109,61 @@
 @endsection
 @section('scripts')
 <script>
-    // Validación del formulario
-    (function() {
-        'use strict';
-        window.addEventListener('load', function() {
-            var forms = document.getElementsByClassName('needs-validation');
-            var validation = Array.prototype.filter.call(forms, function(form) {
-                form.addEventListener('submit', function(event) {
-                    if (form.checkValidity() === false) {
-                        event.preventDefault();
-                        event.stopPropagation();
-                    }
-                    form.classList.add('was-validated');
-                }, false);
+    document.addEventListener('DOMContentLoaded', function() {
+        // Limpiar formulario al cerrar modal
+        document.getElementById('idmodalProductos').addEventListener('hidden.bs.modal', function () {
+            const form = document.getElementById('idformproducto');
+            form.reset();
+            form.classList.remove('was-validated');
+            
+            // Limpiar validaciones personalizadas
+            const inputs = form.querySelectorAll('.is-valid, .is-invalid');
+            inputs.forEach(input => {
+                input.classList.remove('is-valid', 'is-invalid');
             });
-        }, false);
-    })();
+            
+            const feedbacks = form.querySelectorAll('.invalid-feedback, .valid-feedback');
+            feedbacks.forEach(feedback => {
+                if (!feedback.textContent.includes('Por favor')) {
+                    feedback.remove();
+                }
+            });
+        });
 
-    // Limpiar formulario al cerrar modal
-    document.getElementById('idmodalProductos').addEventListener('hidden.bs.modal', function () {
-        document.getElementById('idformproducto').reset();
-        document.getElementById('idformproducto').classList.remove('was-validated');
+        // Formatear código de producto en tiempo real
+        document.getElementById('idtxtcodigoproducto').addEventListener('input', function() {
+            // Solo permitir números
+            this.value = this.value.replace(/[^0-9]/g, '');
+            
+            // Limitar a 20 caracteres
+            if (this.value.length > 20) {
+                this.value = this.value.substring(0, 20);
+            }
+        });
+
+        // Capitalizar nombre del producto
+        document.getElementById('idtxtnombre').addEventListener('input', function() {
+            // Capitalizar primera letra de cada palabra
+            this.value = this.value.replace(/\b\w/g, l => l.toUpperCase());
+        });
+
+        // Notificaciones de éxito/error para acciones
+        document.addEventListener('notification:action', function(e) {
+            const { action, notification } = e.detail;
+            
+            switch(action) {
+                case 'view':
+                    showInfo('Redirigiendo a detalle del producto...');
+                    break;
+                case 'print':
+                    showInfo('Preparando impresión...');
+                    window.print();
+                    break;
+                case 'refresh':
+                    location.reload();
+                    break;
+            }
+        });
     });
 </script>
 @endsection

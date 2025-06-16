@@ -137,94 +137,62 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Columna 4: Empresa receptora -->
-{{--                <div class="col-md-3">--}}
-{{--                    <div class="card shadow-sm h-100 border-warning">--}}
-{{--                        <div class="card-header bg-warning text-dark py-2">--}}
-{{--                            <h6 class="mb-0 fw-semibold"><i class="fas fa-building me-2"></i>Empresa Receptora</h6>--}}
-{{--                        </div>--}}
-{{--                        <div class="card-body p-3">--}}
-{{--                            <label for="idselectidtipoempresa" class="form-label small fw-bold">Empresa que--}}
-{{--                                recibirá</label>--}}
-{{--                            <select class="form-select form-select-sm" id="idselectidtipoempresa" name="idtipoempresa"--}}
-{{--                                required>--}}
-{{--                                <option value="">Seleccionar...</option>--}}
-{{--                                @forelse($tipoempresa as $empresa)--}}
-{{--                                    <option value="{{ $empresa->idtipoempresa }}">{{ $empresa->razonsocial }}</option>--}}
-{{--                                @empty--}}
-{{--                                    <option value="" disabled>No hay empresas</option>--}}
-{{--                                @endforelse--}}
-{{--                            </select>--}}
-{{--                            <div class="invalid-feedback">Seleccione una empresa receptora</div>--}}
-{{--                            <div class="mt-2">--}}
-{{--                                <label for="idtxtdireccionempresa" class="form-label small fw-bold">Dirección</label>--}}
-{{--                                <input type="text" class="form-control form-control-sm" id="idtxtdireccionempresa"--}}
-{{--                                    name="direccionempresa" required>--}}
-{{--                                <div class="invalid-feedback">Ingrese la dirección de la empresa receptora</div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-
-                <!-- Segunda fila: Empresa receptora (ahora ocupa toda la fila) -->
-                <div class="row mb-4">
-                    <div class="col-12">
-                        <div class="card shadow-sm border-warning">
-                            <div class="card-header bg-warning text-dark py-2">
-                                <h6 class="mb-0 fw-semibold"><i class="fas fa-building me-2"></i>Empresa Receptora</h6>
-                            </div>
-                            <div class="card-body p-3">
-                                <div class="row g-3">
-                                    <div class="col-md-3">
-                                        <label for="idselectidtipoempresa" class="form-label small fw-bold">Empresa que recibirá</label>
-                                        <select class="form-select form-select-sm" id="idselectidtipoempresa" name="idtipoempresa" required>
-                                            <option value="">Seleccionar...</option>
-                                            @foreach($tipoempresa as $empresa)
-                                                <option value="{{ $empresa->idtipoempresa }}">{{ $empresa->razonsocial }}</option>
-                                            @endforeach
-                                        </select>
-                                        <div class="invalid-feedback">Seleccione una empresa receptora</div>
-                                    </div>
-
-                                    <div class="col-md-3">
-                                        <label for="idtxtdireccionempresa" class="form-label small fw-bold">Dirección</label>
-                                        <input type="text" class="form-control form-control-sm" id="idtxtdireccionempresa" name="direccionempresa" readonly>
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <label for="idtxtprovinciaempresa" class="form-label small fw-bold">Provincia</label>
-                                        <input type="text" class="form-control form-control-sm" id="idtxtprovinciaempresa" readonly>
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <label for="idtxtdepartamentoempresa" class="form-label small fw-bold">Departamento</label>
-                                        <input type="text" class="form-control form-control-sm" id="idtxtdepartamentoempresa" readonly>
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <label for="idtxtrucempresa" class="form-label small fw-bold">RUC</label>
-                                        <input type="text" class="form-control form-control-sm" id="idtxtrucempresa" readonly>
-                                    </div>
+                    <!-- Segunda fila: Empresa receptora (ahora ocupa toda la fila) -->
+                    <div class="row mb-4">
+                        <div class="col-12">
+                            <div class="card shadow-sm border-warning">
+                                <div class="card-header bg-warning text-dark py-2">
+                                    <h6 class="mb-0 fw-semibold"><i class="fas fa-building me-2"></i>Empresa Receptora</h6>
                                 </div>
-
-                                <div class="row g-3 mt-3">
-                                    <div class="col-md-3">
-                                        <label for="idtxtubigeoempresa" class="form-label small fw-bold">Ubigeo</label>
-                                        <input type="text" class="form-control form-control-sm" id="idtxtubigeoempresa" readonly>
+                                <div class="card-body p-3">
+                                    <div class="row g-3">
+                                        <div class="col-md-3">
+                                            <label for="idselectidtipoempresa" class="form-label small fw-bold">Empresa que recibirá</label>
+                                            <select class="form-select form-select-sm" id="idselectidtipoempresa" name="idtipoempresa" required>
+                                                <option value="">Seleccionar...</option>
+                                                @foreach($tipoempresa as $empresa)
+                                                    <option value="{{ $empresa->idtipoempresa }}">{{ $empresa->razonsocial }}</option>
+                                                @endforeach
+                                            </select>
+                                            <div class="invalid-feedback">Seleccione una empresa receptora</div>
+                                        </div>
+                                        
+                                        <div class="col-md-3">
+                                            <label for="idtxtdireccionempresa" class="form-label small fw-bold">Dirección</label>
+                                            <input type="text" class="form-control form-control-sm" id="idtxtdireccionempresa" name="direccionempresa" readonly>
+                                        </div>
+                                        
+                                        <div class="col-md-2">
+                                            <label for="idtxtprovinciaempresa" class="form-label small fw-bold">Provincia</label>
+                                            <input type="text" class="form-control form-control-sm" id="idtxtprovinciaempresa" readonly>
+                                        </div>
+                                        
+                                        <div class="col-md-2">
+                                            <label for="idtxtdepartamentoempresa" class="form-label small fw-bold">Departamento</label>
+                                            <input type="text" class="form-control form-control-sm" id="idtxtdepartamentoempresa" readonly>
+                                        </div>
+                                        
+                                        <div class="col-md-2">
+                                            <label for="idtxtrucempresa" class="form-label small fw-bold">RUC</label>
+                                            <input type="text" class="form-control form-control-sm" id="idtxtrucempresa" readonly>
+                                        </div>
                                     </div>
-
-                                    <div class="col-md-3">
-                                        <label for="idtxtcodigoestablecimiento" class="form-label small fw-bold">Código Establecimiento</label>
-                                        <input type="text" class="form-control form-control-sm" id="idtxtcodigoestablecimiento" readonly>
+                                    
+                                    <div class="row g-3 mt-3">
+                                        <div class="col-md-3">
+                                            <label for="idtxtubigeoempresa" class="form-label small fw-bold">Ubigeo</label>
+                                            <input type="text" class="form-control form-control-sm" id="idtxtubigeoempresa" readonly>
+                                        </div>
+                                        
+                                        <div class="col-md-3">
+                                            <label for="idtxtcodigoestablecimiento" class="form-label small fw-bold">Código Establecimiento</label>
+                                            <input type="text" class="form-control form-control-sm" id="idtxtcodigoestablecimiento" readonly>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-
-
             </div>
 
             <!-- Sección de Productos -->
@@ -327,3 +295,48 @@
         </form>
     </div>
 @endsection
+
+
+@push('scripts')
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('idselectidtipoempresa').addEventListener('change', function() {
+        const empresaId = this.value;
+
+        if (!empresaId) {
+            limpiarCamposEmpresa();
+            return;
+        }
+
+        fetch(`/empresa/${empresaId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data) {
+                    document.getElementById('idtxtdireccionempresa').value = data.direccion || '';
+                    document.getElementById('idtxtprovinciaempresa').value = data.provincia || '';
+                    document.getElementById('idtxtdepartamentoempresa').value = data.departamento || '';
+                    document.getElementById('idtxtrucempresa').value = data.ruc || '';
+                    document.getElementById('idtxtubigeoempresa').value = data.ubigeo || '';
+                    document.getElementById('idtxtcodigoestablecimiento').value = data.codigoestablecimiento || '';
+                } else {
+                    limpiarCamposEmpresa();
+                }
+            })
+            .catch(err => {
+                console.error('Error al obtener datos de la empresa:', err);
+                limpiarCamposEmpresa();
+            });
+    });
+
+    function limpiarCamposEmpresa() {
+        document.getElementById('idtxtdireccionempresa').value = '';
+        document.getElementById('idtxtprovinciaempresa').value = '';
+        document.getElementById('idtxtdepartamentoempresa').value = '';
+        document.getElementById('idtxtrucempresa').value = '';
+        document.getElementById('idtxtubigeoempresa').value = '';
+        document.getElementById('idtxtcodigoestablecimiento').value = '';
+    }
+});
+
+</script>
+@endpush
