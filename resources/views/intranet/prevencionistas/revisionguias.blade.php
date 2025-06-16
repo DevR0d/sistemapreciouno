@@ -4,7 +4,7 @@
 @section('hideSearchBar', true)
 @section('header-actions')
     <button type="button"
-            class="btn btn-outline-primary rounded-pill px-4 shadow-sm"
+            class="btn btn-primary rounded-pill px-4 shadow-sm"
             onclick="window.location.href='/guiasremision'">
         <i class="fas fa-chevron-left me-2"></i> Volver al listado
     </button>

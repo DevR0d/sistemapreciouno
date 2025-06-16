@@ -253,26 +253,6 @@ html, body {
     100% { transform: rotate(360deg); }
 }
 
-.stats-card {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    border-radius: var(--border-radius);
-    padding: 1.5rem;
-    margin-bottom: 1rem;
-}
-
-.stats-card.success {
-    background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-}
-
-.stats-card.warning {
-    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-}
-
-.stats-card.danger {
-    background: linear-gradient(135deg, #fc466b 0%, #3f5efb 100%);
-}
-
 .action-buttons {
     display: flex;
     gap: 0.5rem;

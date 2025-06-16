@@ -155,7 +155,7 @@
                                                 @forelse($tipo['items'] as $item)
                                                     <tr>
                                                         <td>{{ $item->codproducto }}</td>
-                                                        <td>{{ $item->producto }} @if($item->observaciones)<small class="text-muted d-block">{{ $item->observaciones }}</small>@endif</td>
+{{--                                                        <td>{{ $item->producto }} @if($item->observaciones)<small class="text-muted d-block">{{ $item->observaciones }}</small>@endif</td>--}}
                                                         <td>{{ number_format($item->cantidad ?? 0, 2) }}</td>
                                                         <td>{{ $item->unidadmedida ?? 'N/A' }}</td>
                                                         <td><span class="badge bg-{{ $tipo['color'] }}">{{ $item->nombretipocondicion ?? strtoupper($tipo['label']) }}</span></td>
