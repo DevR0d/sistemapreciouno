@@ -66,13 +66,13 @@
                             <div class="row g-2 mb-3">
                                 <div class="col-6">
                                     <label for="idtxtpesobrutototal" class="form-label small fw-bold">Peso (kg)</label>
-                                    <input type="number" step="0.01" class="form-control form-control-sm"
+                                    <input type="number" step="0.01" onkeypress="return event.charCode >= 48" min="1" class="form-control form-control-sm"
                                         id="idtxtpesobrutototal" name="pesobrutototal" required>
                                     <div class="invalid-feedback">Ingrese el peso bruto total</div>
                                 </div>
                                 <div class="col-6">
                                     <label for="idtxtvolumenproducto" class="form-label small fw-bold">Volumen (m³)</label>
-                                    <input type="number" step="0.01" class="form-control form-control-sm"
+                                    <input type="number" step="0.01" onkeypress="return event.charCode >= 48" min="1" class="form-control form-control-sm"
                                         id="idtxtvolumenproducto" name="volumenproducto" required>
                                     <div class="invalid-feedback">Ingrese el volumen total</div>
                                 </div>
@@ -80,7 +80,7 @@
                             <div>
                                 <label for="idselectnumerobultopallet" class="form-label small fw-bold">N°
                                     Bultos/Pallets</label>
-                                <input type="number" class="form-control form-control-sm" id="idselectnumerobultopallet"
+                                <input type="number" onkeypress="return event.charCode >= 48" min="1" class="form-control form-control-sm" id="idselectnumerobultopallet"
                                     name="numerobultopallet" required>
                                 <div class="invalid-feedback">Ingrese el número de bultos o pallets</div>
                             </div>
@@ -157,34 +157,34 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label for="idtxtdireccionempresa" class="form-label small fw-bold">Dirección</label>
-                                    <input type="text" class="form-control form-control-sm" id="idtxtdireccionempresa" name="direccionempresa" readonly>
+                                    <input type="text" class="form-control form-control-sm" id="idtxtdireccionempresa" name="direccionempresa" placeholder=" Seleccione la empresa y se autocompletara el campo " readonly>
                                 </div>
 
                                 <div class="col-md-2">
                                     <label for="idtxtprovinciaempresa" class="form-label small fw-bold">Provincia</label>
-                                    <input type="text" class="form-control form-control-sm" id="idtxtprovinciaempresa" readonly>
+                                    <input type="text" class="form-control form-control-sm" id="idtxtprovinciaempresa" placeholder=" Seleccione la empresa y se autocompletara el campo " readonly>
                                 </div>
 
                                 <div class="col-md-2">
                                     <label for="idtxtdepartamentoempresa" class="form-label small fw-bold">Departamento</label>
-                                    <input type="text" class="form-control form-control-sm" id="idtxtdepartamentoempresa" readonly>
+                                    <input type="text" class="form-control form-control-sm" id="idtxtdepartamentoempresa" placeholder=" Seleccione la empresa y se autocompletara el campo " readonly>
                                 </div>
 
                                 <div class="col-md-2">
                                     <label for="idtxtrucempresa" class="form-label small fw-bold">RUC</label>
-                                    <input type="text" class="form-control form-control-sm" id="idtxtrucempresa" readonly>
+                                    <input type="text" class="form-control form-control-sm" id="idtxtrucempresa" placeholder=" Seleccione la empresa y se autocompletara el campo " readonly>
                                 </div>
                             </div>
 
                             <div class="row g-3 mt-3">
                                 <div class="col-md-3">
                                     <label for="idtxtubigeoempresa" class="form-label small fw-bold">Ubigeo</label>
-                                    <input type="text" class="form-control form-control-sm" id="idtxtubigeoempresa" readonly>
+                                    <input type="text" class="form-control form-control-sm" id="idtxtubigeoempresa" placeholder=" Seleccione la empresa y se autocompletara el campo " readonly>
                                 </div>
 
                                 <div class="col-md-3">
                                     <label for="idtxtcodigoestablecimiento" class="form-label small fw-bold">Código Establecimiento</label>
-                                    <input type="text" class="form-control form-control-sm" id="idtxtcodigoestablecimiento" readonly>
+                                    <input type="text" class="form-control form-control-sm" id="idtxtcodigoestablecimiento" placeholder=" Seleccione la empresa y se autocompletara el campo " readonly>
                                 </div>
                             </div>
                         </div>
@@ -229,7 +229,7 @@
                         <!-- Cantidad -->
                         <div class="col-md-2">
                             <label for="idtxtcantidadproducto" class="form-label small fw-bold">Cantidad</label>
-                            <input type="number" class="form-control form-control-sm" id="idtxtcantidadproducto"
+                            <input type="number" onkeypress="return event.charCode >= 48" min="1" class="form-control form-control-sm" id="idtxtcantidadproducto"
                                 required>
                         </div>
 

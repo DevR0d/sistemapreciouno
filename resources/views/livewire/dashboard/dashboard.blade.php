@@ -77,30 +77,32 @@
         <div class="card-body p-3">
             <table id="datatablesSimple" class="table table-striped table-hover align-middle">
                 <thead class="table-primary">
-                <tr>
-                    <th>EAN/SKU</th>
-                    <th>Descripción</th>
-                    <th>Estado</th>
-                    <th>Total enviado</th>
-                    <th>Total recibido con discrepancia</th>
-                    <th>Fecha de entrega</th>
-                </tr>
+                    <tr>
+                        <th>EAN/SKU</th>
+                        <th>Descripción</th>
+                        <th>Estado</th>
+                        <th>Total enviado</th>
+                        <th>Total recibido con discrepancia</th>
+                        <th>Fecha de entrega</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @forelse($productosConDiscrepancias as $item)
-                    <tr>
-                        <td>{{ $item->codproducto }}</td>
-                        <td>{{ $item->nombre }}</td>
-                        <td>{{ $item->estado }}</td>
-                        <td>{{ $item->cantrecibida }}</td>
-                        <td>{{ $item->cantrecibidarevision }}</td>
-                        <td>{{ \Carbon\Carbon::parse($item->fecha)->format('d/m/Y') }}</td>
-                    </tr>
-                @empty
-                    <tr>
-                        No se encontraron productos con discrepancias
-                    </tr>
-                @endforelse
+                    @forelse($productosConDiscrepancias as $item)
+                        <tr>
+                            <td>{{ $item->codproducto }}</td>
+                            <td>{{ $item->nombre }}</td>
+                            <td>{{ $item->estado }}</td>
+                            <td>{{ $item->cantrecibida }}</td>
+                            <td>{{ $item->cantrecibidarevision }}</td>
+                            <td>{{ \Carbon\Carbon::parse($item->fecha)->format('d/m/Y') }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="8" class="text-center text-muted py-4">
+                                <i class="fas fa-box-open me-5"></i> No se encontraron productos con discrepancias.
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
@@ -113,7 +115,7 @@
             <div class="card shadow-sm rounded-3 p-3">
                 <div class="text-center mb-3">
                 </div>
-                {{--                Canvas para grafico pastel--}}
+                {{--                Canvas para grafico pastel --}}
                 <div class="card mb-4 shadow-sm rounded-3">
                     <div class="card-header bg-light fw-semibold d-flex align-items-center">
                         <i class="fas fa-chart-pie me-2"></i> Estado de Guías (Sin Daño vs Con Daño)
@@ -134,20 +136,20 @@
                     <div class="table-responsive" style="max-height: 320px; overflow-y: auto;">
                         <table class="table table-sm table-striped align-middle mb-0">
                             <thead class="table-success sticky-top">
-                            <tr>
-                                <th>N° Guía</th>
-                                <th>Cantidad de productos</th>
-                                <th>Cantidad de discrepancias</th>
-                            </tr>
+                                <tr>
+                                    <th>N° Guía</th>
+                                    <th>Cantidad de productos</th>
+                                    <th>Cantidad de discrepancias</th>
+                                </tr>
                             </thead>
                             <tbody>
-                            @foreach($guiascondiscrepancias as $guia)
-                                <tr>
-                                    <td>{{ $guia->codigoguia }}</td>
-                                    <td>{{ $guia->cantidad_productos }}</td>
-                                    <td>{{ $guia->cantidad_discrepancias }}</td>
-                                </tr>
-                            @endforeach
+                                @foreach ($guiascondiscrepancias as $guia)
+                                    <tr>
+                                        <td>{{ $guia->codigoguia }}</td>
+                                        <td>{{ $guia->cantidad_productos }}</td>
+                                        <td>{{ $guia->cantidad_discrepancias }}</td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -169,24 +171,24 @@
             <div class="table-responsive" style="max-height: 320px; overflow-y: auto;">
                 <table class="table table-sm table-striped align-middle mb-0">
                     <thead class="table-success sticky-top">
-                    <tr>
-                        <th>SKU</th>
-                        <th>Nombre</th>
-                        <th>Estado</th>
-                        <th>Total entregado / Revisado</th>
-                        <th>Fecha</th>
-                    </tr>
+                        <tr>
+                            <th>SKU</th>
+                            <th>Nombre</th>
+                            <th>Estado</th>
+                            <th>Total entregado / Revisado</th>
+                            <th>Fecha</th>
+                        </tr>
                     </thead>
                     <tbody>
-                    @foreach($productosConDiscrepancias as $item)
-                        <tr>
-                            <td>{{ $item->codproducto }}</td>
-                            <td>{{ $item->nombre }}</td>
-                            <td>{{ $item->estado }}</td>
-                            <td>{{ $item->cantrecibida }} / {{ $item->cantrecibidarevision }}</td>
-                            <td>{{ \Carbon\Carbon::parse($item->fecha)->format('d/m/Y') }}</td>
-                        </tr>
-                    @endforeach
+                        @foreach ($productosConDiscrepancias as $item)
+                            <tr>
+                                <td>{{ $item->codproducto }}</td>
+                                <td>{{ $item->nombre }}</td>
+                                <td>{{ $item->estado }}</td>
+                                <td>{{ $item->cantrecibida }} / {{ $item->cantrecibidarevision }}</td>
+                                <td>{{ \Carbon\Carbon::parse($item->fecha)->format('d/m/Y') }}</td>
+                            </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>
@@ -225,13 +227,13 @@
         data: {
             labels: @json($fechas),
             datasets: [{
-                label: 'Guías Sin Discrepancias',
-                data: @json($datosSinDiscrepancias),
-                borderColor: 'orange',
-                backgroundColor: 'rgba(255,165,0,0.2)',
-                tension: 0.4,
-                pointRadius: 5
-            },
+                    label: 'Guías Sin Discrepancias',
+                    data: @json($datosSinDiscrepancias),
+                    borderColor: 'orange',
+                    backgroundColor: 'rgba(255,165,0,0.2)',
+                    tension: 0.4,
+                    pointRadius: 5
+                },
                 {
                     label: 'Guías Con Discrepancias',
                     data: @json($datosConDiscrepancias),
