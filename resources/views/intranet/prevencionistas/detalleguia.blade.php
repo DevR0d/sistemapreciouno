@@ -31,7 +31,7 @@
                 </ul>
             </div>
             <!-- Contenido de pestañas -->
-            <div class="enable-scroll card-body p-4">
+            <div class="card-body p-4 enable-scroll">
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="detalles" role="tabpanel">
                         <!-- Botón de impresión -->
@@ -107,7 +107,7 @@
                                         <i class="fas fa-user-tie me-2"></i>UNIDAD DE TRANSPORTE DEL CONDUCTOR
                                     </h6>
                                     <div class="d-flex align-items-center">
-                                        <div class="avatar bg-primary text-white rounded-circle me-3 d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                        <div class="avatar bg-primary text-white rounded-circle me-3 d-flex align-items-center justify-content-center">
                                             <i class="fas fa-user fs-5"></i>
                                         </div>
                                         <div>

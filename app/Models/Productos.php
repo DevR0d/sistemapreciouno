@@ -23,7 +23,7 @@ class Productos extends Model
 
     public function mostraproducto(array $parametros = []): array
     {
-        $query = DB::table('v_producto');
+        $query = DB::table('v_producto')->where('estado', '!=', 'Eliminado');
 
         // Búsqueda
         if (!empty($parametros['search'])) {
