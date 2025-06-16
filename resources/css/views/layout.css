@@ -26,8 +26,22 @@ html, body {
 }
 
 .enable-scroll {
-    overflow: auto;
-    height: calc(100vh - 60px);
+    overflow-y: auto;
+    max-height: calc(100vh - 220px); /* o el valor que necesites */
+}
+
+/* Para pantallas medianas (tablets) */
+@media (max-width: 992px) {
+    .enable-scroll {
+        height: calc(120vh - 200px);
+    }
+}
+
+/* Para pantallas pequeñas (celulares) */
+@media (max-width: 576px) {
+    .enable-scroll {
+        height: calc(150vh - 180px);
+    }
 }
 
 .navbar-brand {
@@ -265,27 +279,35 @@ html, body {
 }
 
 .table-container-sticky {
-    max-height: 600px;
+    max-height: calc(90vh - 220px); /* Ajusta según tu layout */
     overflow-y: auto;
     position: relative;
 }
 
-.scrollable-tbody {
-    max-height: 400px;
-}
-
-.sticky-top {
+/* Cabecera fija */
+.table-container-sticky thead th {
     position: sticky;
     top: 0;
     z-index: 10;
-    background-color: #212529;
-    color: #fff;
+    background-color: #212529 !important;
+    color: white;
 }
 
+/* Footer de paginación fijo */
 .sticky-footer {
     position: sticky;
     bottom: 0;
     z-index: 10;
+    background-color: white;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+}
+
+.table-container-sticky table {
+    margin-bottom: 0; /* Elimina el margen inferior que puede causar espacio no deseado */
+}
+
+.scrollable-tbody {
+    max-height: calc(125vh - 300px); /* o el valor que necesites */
 }
 
 @media (max-width: 768px) {

@@ -23,13 +23,10 @@
                 </div>
             </div>
             <div class="card-body p-0">
-                <div class="enable-scroll">
                     @livewire('producto.productoslive')
-                </div>
             </div>
         </div>
     </div>
-
     <!-- Modal para agregar/editar producto -->
     <div class="modal fade" id="idmodalProductos" tabindex="-1" aria-labelledby="idlabeltitlemodalproductos" aria-hidden="true">
         <div class="modal-dialog modal-lg">

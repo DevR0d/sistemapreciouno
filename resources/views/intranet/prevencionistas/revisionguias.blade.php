@@ -4,7 +4,7 @@
 @section('hideSearchBar', true)
 @section('header-actions')
     <button type="button"
-            class="btn btn-danger rounded-pill px-4 shadow-sm"
+            class="btn btn-primary rounded-pill px-4 shadow-sm"
             onclick="window.location.href='/guiasremision'">
         <i class="fas fa-chevron-left me-2"></i> Volver al listado
     </button>
@@ -101,7 +101,7 @@
 
                             <!-- Pestaña de productos -->
                             <div class="tab-pane fade p-3" id="products" data-total-productos="{{ count($detalleguia) }}"
-                                data-productos="{{ json_encode($detalleguia) }}" data-guia="{{ json_encode($guia) }}">
+                                 data-productos="{{ json_encode($detalleguia) }}" data-guia="{{ json_encode($guia) }}">
                                 @forelse($detalleguia as $dt)
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                         <div>
@@ -113,8 +113,8 @@
                                         <span class="badge bg-primary rounded-pill">{{ $dt->cant ?? 0 }}</span>
                                         {{--                                        boton de agregar --}}
                                         <button class="btn btn-sm btn-outline-primary btn-seleccionar-producto"
-                                            data-codigo="{{ $dt->codproducto ?? '' }}"
-                                            data-nombre="{{ $dt->producto ?? '' }}" data-id="{{ $dt->idproducto ?? '' }}">
+                                                data-codigo="{{ $dt->codproducto ?? '' }}"
+                                                data-nombre="{{ $dt->producto ?? '' }}" data-id="{{ $dt->idproducto ?? '' }}">
                                             <i class="fas fa-plus"></i>
                                         </button>
                                     </li>
@@ -130,10 +130,12 @@
                 </div>
 
                 <!-- Segundo Card (más ancho) -->
-                <div class="col-xl-9 col-lg-8 col-md-7">
+                <div class="col-xl-9 col-lg-8 col-md-7" style="max-height: 90vh;">
                     <div class="card shadow-sm h-100">
                         <div class="card-header bg-info bg-opacity-10 py-2 border-0">
-                            <h6 class="mb-0 text-info fw-bold"><i class="fas fa-list me-2"></i>Listado Principal</h6>
+                            <h6 class="mb-0 text-info fw-bold">
+                                <i class="fas fa-list me-2"></i>Listado Principal
+                            </h6>
                         </div>
 
                         <div class="card-body p-3">
@@ -143,11 +145,11 @@
                                 <!-- Código -->
                                 <div class="col-md-3">
                                     <label for="idtxtcodigoproducto_guiarevision"
-                                        class="form-label small fw-bold">Código</label>
+                                           class="form-label small fw-bold">Código</label>
                                     <input type="hidden" id="idproductocarritogia_revision">
                                     <input type="text" class="form-control form-control-sm"
-                                        id="idtxtcodigoproducto_guiarevision" pattern="\d{8}" maxlength="8"
-                                        oninput="this.value=this.value.replace(/[^0-9]/g,'');" required>
+                                           id="idtxtcodigoproducto_guiarevision" pattern="\d{8}" maxlength="8"
+                                           oninput="this.value=this.value.replace(/[^0-9]/g,'');" required>
                                 </div>
 
                                 <!-- Nombre -->
@@ -155,21 +157,21 @@
                                     <label for="idtxtnombreproducto_guiarevision" class="form-label small fw-bold">Nombre
                                         del Producto</label>
                                     <input type="text" class="form-control form-control-sm"
-                                        id="idtxtnombreproducto_guiarevision" readonly>
+                                           id="idtxtnombreproducto_guiarevision" readonly>
                                 </div>
 
                                 <!-- Cantidad -->
                                 <div class="col-md-2">
                                     <label for="idtxtcantidadproducto_guiarevision"
-                                        class="form-label small fw-bold">Cantidad</label>
+                                           class="form-label small fw-bold">Cantidad</label>
                                     <input type="number" class="form-control form-control-sm"
-                                        id="idtxtcantidadproducto_guiarevision">
+                                           id="idtxtcantidadproducto_guiarevision">
                                 </div>
 
                                 <!-- Estado -->
                                 <div class="col-md-2">
                                     <label for="idselectestadoproducto_guiarevision"
-                                        class="form-label small fw-bold">Estado</label>
+                                           class="form-label small fw-bold">Estado</label>
                                     <select class="form-select form-select-sm" id="idselectestadoproducto_guiarevision">
                                         <option value="Bueno">Bueno</option>
                                         <option value="Regular">Regular</option>
@@ -180,14 +182,14 @@
                                 <!-- Botón de agregar (solo icono) -->
                                 <div class="col-md-1">
                                     <button type="button" class="btn btn-primary btn-sm h-100"
-                                        id="idbtnagregarproducto_guiarevision" title="Agregar producto">
+                                            id="idbtnagregarproducto_guiarevision" title="Agregar producto">
                                         <i class="fas fa-plus"></i>
                                     </button>
                                 </div>
                             </div>
 
                             <div id="liveAlert" class="alert alert-warning alert-dismissible py-2 mb-2 fade show d-none"
-                                role="alert" style="padding-left: 1rem; padding-right: 1rem;">
+                                 role="alert" style="padding-left: 1rem; padding-right: 1rem;">
                                 <div class="d-flex align-items-center">
                                     <i class="fas fa-exclamation-circle me-2"></i>
                                     <span id="alertMessage"></span>
@@ -195,19 +197,19 @@
                             </div>
 
                             <!-- Tabla de productos agregados -->
-                            <div class="table-responsive">
+                            <div style="max-height: 300px; overflow-y: auto;" class="table-responsive">
                                 <table class="table table-sm table-bordered table-hover" id="tablaProductos_guiarevision">
                                     <thead class="table-light">
-                                        <tr>
-                                            <th width="15%">Código</th>
-                                            <th width="40%">Producto</th>
-                                            <th width="15%">Cantidad</th>
-                                            <th width="20%">Estado</th>
-                                            <th width="10%">Acción</th>
-                                        </tr>
+                                    <tr>
+                                        <th width="15%">Código</th>
+                                        <th width="40%">Producto</th>
+                                        <th width="15%">Cantidad</th>
+                                        <th width="20%">Estado</th>
+                                        <th width="10%">Acción</th>
+                                    </tr>
                                     </thead>
                                     <tbody>
-                                        <!-- Los productos se agregarán aquí dinámicamente -->
+                                    <!-- Los productos se agregarán aquí dinámicamente -->
                                     </tbody>
                                 </table>
                             </div>
@@ -216,18 +218,20 @@
                 </div>
             </div>
 
-            <!-- Botones de acción alineados a la derecha -->
-            <div class="d-flex justify-content-end mt-3 gap-2">
-                <button type="button" class="btn btn-outline-danger btn-sm px-3" id="btncancelar_guiarevision">
-                    <i class="fas fa-times-circle me-1"></i> Cancelar
-                </button>
-                <button type="button" class="btn btn-success btn-sm px-3" id="btnguardar_guiarevision">
-                    <i class="fas fa-save me-1"></i> Guardar
-                </button>
+            <!-- Botones fijos abajo -->
+            <div class="border-top py-2 px-3 bg-white sticky-bottom" style="z-index: 2;">
+                <div class="d-flex justify-content-end gap-2">
+                    <button type="button" class="btn btn-outline-danger btn-sm" id="btncancelar_guiarevision">
+                        <i class="fas fa-times-circle me-1"></i> Cancelar
+                    </button>
+                    <button type="button" class="btn btn-success btn-sm" id="btnguardar_guiarevision">
+                        <i class="fas fa-save me-1"></i> Guardar
+                    </button>
+                </div>
             </div>
         </div>
 
-        <div class="container-fluid d-none flex-column" style="height: 91vh;" id="divresultadovalidacionguiarevicion">
+        <div class="container-fluid d-none flex-column" style="height: 72.5vh;" id="divresultadovalidacionguiarevicion">
             <!-- Encabezado -->
             <div class="py-3 border-bottom bg-white">
                 <div class="d-flex justify-content-between align-items-center px-2">
@@ -373,9 +377,6 @@
             <!-- Footer con botones -->
             <div class="border-top">
                 <div class="d-flex justify-content-end align-items-center gap-2">
-                    <button class="btn btn-outline-secondary" id="idbtnregresa_guiarevision">
-                        <i class="fas fa-arrow-left me-2"></i> Regresar
-                    </button>
                     <button class="btn btn-success" id="btnconfirmarvalidacionguia">
                         <i class="fas fa-check-circle me-2"></i> Confirmar Validación
                     </button>
