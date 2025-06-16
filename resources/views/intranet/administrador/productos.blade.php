@@ -3,7 +3,7 @@
 @section('subtitle', 'Gestión del catálogo de productos')
 
 @section('header-actions')
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#idmodalProductos">
+    <button type="button" class="btn btn-danger rounded-pill px-4 shadow-sm" data-bs-toggle="modal" data-bs-target="#idmodalProductos">
         <i class="fa-solid fa-plus me-2"></i>
         Nuevo Producto
     </button>
@@ -115,13 +115,13 @@
             const form = document.getElementById('idformproducto');
             form.reset();
             form.classList.remove('was-validated');
-            
+
             // Limpiar validaciones personalizadas
             const inputs = form.querySelectorAll('.is-valid, .is-invalid');
             inputs.forEach(input => {
                 input.classList.remove('is-valid', 'is-invalid');
             });
-            
+
             const feedbacks = form.querySelectorAll('.invalid-feedback, .valid-feedback');
             feedbacks.forEach(feedback => {
                 if (!feedback.textContent.includes('Por favor')) {
@@ -134,7 +134,7 @@
         document.getElementById('idtxtcodigoproducto').addEventListener('input', function() {
             // Solo permitir números
             this.value = this.value.replace(/[^0-9]/g, '');
-            
+
             // Limitar a 20 caracteres
             if (this.value.length > 20) {
                 this.value = this.value.substring(0, 20);
@@ -150,7 +150,7 @@
         // Notificaciones de éxito/error para acciones
         document.addEventListener('notification:action', function(e) {
             const { action, notification } = e.detail;
-            
+
             switch(action) {
                 case 'view':
                     showInfo('Redirigiendo a detalle del producto...');
@@ -163,6 +163,21 @@
                     location.reload();
                     break;
             }
+        });
+    });
+    //buscador
+    document.addEventListener("DOMContentLoaded", function () {
+        const input = document.getElementById("filtroTabla");
+        const tabla = document.querySelector("table");
+        const filas = tabla.querySelectorAll("tbody tr");
+
+        input.addEventListener("keyup", function () {
+            const valor = this.value.trim().toLowerCase();
+
+            filas.forEach(fila => {
+                const textoCompleto = fila.textContent.toLowerCase();
+                fila.style.display = textoCompleto.includes(valor) ? "" : "none";
+            });
         });
     });
 </script>
