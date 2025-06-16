@@ -49,7 +49,7 @@ $(document).ready(function () {
 
     $('#idbtnagregarproducto').click(agregarProductoAlCarrito);
 
-    $('#tablaProductos').on('click', '.btn-eliminar', function () {
+    $('#tablaProductos').on('click', '.btn-eliminar', function (e) {
         eliminarProducto($(this).closest('tr').data('id'));
     });
 
@@ -190,9 +190,23 @@ $(document).ready(function () {
         }
     });
 
-// Botón Editar guía desde tabla
-    $('.btn-editarguia').on('click', function () {
-        const idguia = $(this).closest('tr').attr('wire:key').split('-')[1];
+    // Botón Editar guía desde tabla
+    $(document).on('click', '.btn-editarguia', function(e) {
+        e.preventDefault();
+
+        const idguia = $(this).data('id');
+        const codigo = $(this).data('codigo');
+
+        if (!idguia) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: 'No se pudo obtener el ID de la guía'
+            });
+            return;
+        }
+
+        // Redirigir a la página de edición con el ID de la guía
         window.location.href = `/crearguiaremision?idguia=${idguia}`;
     });
 });
@@ -251,7 +265,6 @@ function agregarProductoAlCarrito() {
 
     $('#idselectnombreproducto').val('');
     $('#idtxtcodigoproducto').val('').focus();
-    // $('#idtxtnombreproducto').val('');
     $('#idtxtcantidadproducto').val('');
     $('#idproductocarritogiaremision').val('');
     $('#idselectestadoproducto').val('Bueno');
@@ -318,7 +331,7 @@ function validarFormulario() {
         '#idtxtvolumenproducto',
         '#idselectnumerobultopallet',
         '#idselectidtipoempresa',
-        '#idselectidconductor'
+        '#idselectidconductor',
     ];
 
     // $(camposRequeridos.join(',')).removeClass('is-invalid');

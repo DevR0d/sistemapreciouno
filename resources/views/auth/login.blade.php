@@ -9,11 +9,12 @@
     <link rel="icon" type="image/png" href="{{ asset('storage/imgsistema/logo.png') }}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
-    @vite([
-        'resources/css/views/login/login.css',
-        'resources/js/applogin.js',
-    ])
+    @vite(['resources/css/views/login/login.css', 'resources/js/applogin.js'])
     <style>
+        #loadingProgress.loading {
+            width: 100%;
+        }
+
         :root {
             --primary-color: #c8102e;
             --primary-dark: #a10b25;
@@ -71,8 +72,15 @@
         }
 
         @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
+
+            0%,
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-20px) rotate(180deg);
+            }
         }
 
         .login-right {
@@ -166,16 +174,16 @@
                 flex-direction: column;
                 margin: 1rem;
             }
-            
+
             .login-left {
                 padding: 2rem;
                 min-height: 200px;
             }
-            
+
             .brand-logo {
                 font-size: 2rem;
             }
-            
+
             .login-right {
                 padding: 2rem;
             }
@@ -200,6 +208,10 @@
         }
     </style>
 </head>
+<div id="loadingBar" style="display:none; height:4px; width:100%; position:fixed; top:0; left:0; z-index:9999;">
+    <div style="height:100%; width:0; background:linear-gradient(90deg, #c8102e, #a10b25); transition: width 0.5s;"
+        id="loadingProgress"></div>
+</div>
 
 <body>
     <div class="login-container">
@@ -234,7 +246,7 @@
 
                 <form id="formulariologin" method="POST">
                     @csrf
-                    
+
                     <!-- Email -->
                     <div class="form-floating mb-3">
                         <input type="email" class="form-control" name="email" id="username"
@@ -272,7 +284,7 @@
                             <i class="fas fa-sign-in-alt me-2"></i>
                             Iniciar Sesión
                         </span>
-                        <span class="loading-spinner">
+                        <span class="loading-spinner d-none">
                             <i class="fas fa-spinner fa-spin me-2"></i>
                             Verificando...
                         </span>

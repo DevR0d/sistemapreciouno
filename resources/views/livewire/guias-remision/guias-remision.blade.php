@@ -18,7 +18,7 @@
             </thead>
             <tbody>
             @forelse($data as $guia)
-                <tr wire:key="guia-{{ $guia['idguia'] }}-{{ now()->timestamp }}">
+                <tr wire:key="guia-{{ $guia['idguia'] }}-{{ now()->timestamp }}" data-id="{{ $guia['idguia'] }}">
                     <td class="text-center fw-semibold">{{ $guia['codigoguia'] }}</td>
                     <td class="text-center">{{ $guia['fechaemision'] }}</td>
                     <td class="text-center">{{ $guia['horaemision'] }}</td>
@@ -42,6 +42,8 @@
                                 <i class="fa-solid fa-circle-info"></i>
                             </a>
                             <button type="button" class="btn btn-sm btn-outline-warning btn-editarguia"
+                                    data-id="{{ $guia['idguia'] }}"
+                                    data-codigo="{{ $guia['codigoguia'] }}"
                                     title="Editar Guía" data-bs-toggle="tooltip">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </button>

@@ -155,7 +155,6 @@
                                     </select>
                                     <div class="invalid-feedback">Seleccione una empresa receptora</div>
                                 </div>
-
                                 <div class="col-md-3">
                                     <label for="idtxtdireccionempresa" class="form-label small fw-bold">Dirección</label>
                                     <input type="text" class="form-control form-control-sm" id="idtxtdireccionempresa" name="direccionempresa" readonly>
@@ -223,7 +222,7 @@
                         <!-- Código del Producto (autocompletado) -->
                         <div class="col-md-3">
                             <label for="idtxtcodigoproducto" class="form-label small fw-bold">Código</label>
-                            <input type="text" class="form-control form-control-sm" id="idtxtcodigoproducto" readonly>
+                            <input type="text" class="form-control form-control-sm" id="idtxtcodigoproducto" placeholder=" Seleccione un producto y vera el codigo aqui " readonly>
                             <input type="hidden" id="idproductocarritogiaremision">
                         </div>
 
