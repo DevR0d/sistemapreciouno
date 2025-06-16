@@ -1,6 +1,14 @@
 @extends('intranet/layout')
 @section('title', 'Validacion Guia Conteo')
 
+@section('hideSearchBar', true)
+@section('header-actions')
+    <button type="button"
+            class="btn btn-primary rounded-pill px-4 shadow-sm"
+            onclick="window.location.href='/guiasremision'">
+        <i class="fas fa-chevron-left me-2"></i> Volver al listado
+    </button>
+@endsection
 @section('content')
     @vite('resources/css/views/prevencionistas/revisionguias.css')
     @if ($guia->estado == 'Confirmado')
@@ -71,8 +79,7 @@
                         <div class="card-body tab-content p-0" style="overflow-y: auto; max-height: 500px;">
                             <!-- Pestaña de opciones -->
                             <div class="tab-pane fade show active p-3" id="options">
-
-                                <ul class="class="list-group list-group-flush">
+                                <ul class="list-group list-group-flush">
                                     <li class="list-group-item d-flex justify-content-between align-items-center">
                                         <p>idguia</p>
                                         <span>{{ $guia->idguia ?? 'N/A' }}</span>
@@ -90,7 +97,6 @@
                                         <span>{{ $guia->numerotrasladotim ?? 'N/A' }}</span>
                                     </li>
                                 </ul>
-
                             </div>
 
                             <!-- Pestaña de productos -->

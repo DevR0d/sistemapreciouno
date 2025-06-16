@@ -1,27 +1,18 @@
 @extends('intranet/layout')
-@section('title', 'Productos de Guía')
+@section('title', 'Guía de remision #' . ($guia->codigoguia ?? 'N/A'))
+@section('subtitle', '')
 
+@section('hideSearchBar', true)
+@section('header-actions')
+    <button type="button"
+            class="btn btn-primary rounded-pill px-4 shadow-sm"
+            onclick="window.location.href='/guiasremision'">
+        <i class="fas fa-chevron-left me-2"></i> Volver al listado
+    </button>
+@endsection
 @section('content')
     @vite('resources/css/views/prevencionistas/detalleguia.css')
-    <div class="container-fluid px-3">
-        <!-- Header con botones mejorado -->
-        <div class="d-flex justify-content-between align-items-center mb-4 py-3 px-4 bg-white rounded-3 shadow-sm" style="border-left: 5px solid #2575fc;">
-            <div class="d-flex align-items-center">
-                <div>
-                    <h2 class="mb-0 text-dark fw-bold">
-                        Guía de Remisión Electrónica <span class="text-primary">#{{ $guia->codigoguia ?? 'N/A' }}</span>
-                    </h2>
-                </div>
-            </div>
-
-            <button onclick="window.location.href='/guiasremision'"
-                    class="btn btn-return px-4 py-2 rounded-pill shadow-hover">
-                <div class="d-flex align-items-center justify-content-center">
-                    <i class="fas fa-chevron-left me-2 transition-transform"></i>
-                    <span>Regresar al Listado</span>
-                </div>
-            </button>
-        </div>
+    <div class="container-fluid py-2" style="overflow-y: auto; max-height: 90vh;">
         <!-- Tarjeta principal -->
         <div class="card border-0 shadow">
             <!-- Encabezado con pestañas -->

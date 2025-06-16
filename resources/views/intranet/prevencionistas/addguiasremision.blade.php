@@ -1,15 +1,20 @@
 @extends('intranet/layout')
 @section('title', 'Agregar Guía de Remisión')
 
+@section('hidePageHeader', true)
 @section('content')
     <div class="container-fluid py-2" style="overflow-y: auto; max-height: 90vh;">
-        <h5 class="modal-title mb-2 fw-bold text-primary" id="idmodalguiasremision">
-            <i class="fas fa-file-import me-1"></i>Agregar Guía de Remisión
-        </h5>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="modal-title fw-bold text-primary m-0" id="idmodalguiasremision">
+                <i class="fas fa-file-import me-2"></i>Agregar Guía de Remisión
+            </h5>
+            <a href="/guiasremision" class="btn btn-outline-primary rounded-pill px-4 shadow-sm">
+                <i class="fas fa-chevron-left me-2"></i> Volver al listado
+            </a>
+        </div>
         <form id="idformaddguiasremision" class="needs-validation" novalidate>
             @csrf
             <input type="hidden" id="idguia" name="idguia" value="">
-
             <div class="row g-3">
                 <!-- Columna 1: Datos Principales -->
                 <div class="col-md-4">
@@ -132,7 +137,6 @@
                         </div>
                     </div>
                 </div>
-
                     <!-- Segunda fila: Empresa receptora (ahora ocupa toda la fila) -->
                     <div class="row mb-4">
                         <div class="col-12">
@@ -195,8 +199,6 @@
                             </div>
                         </div>
                     </div>
-
-
             </div>
 
             <!-- Sección de Productos -->

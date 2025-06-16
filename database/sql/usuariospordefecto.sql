@@ -17,13 +17,21 @@ INSERT INTO users(name, email, password, idrol) VALUES
                                                                                                                    'prevencionista',
                                                                                                                    'prevencionista@preciouno.com',
                                                                                                                    '$2y$12$ULuC2R9E0Ot7E/uLw3VguuTXepVpWC176Ovb/43V8SnSltA6Q.wJO',
-                                                                                                                   2
+                                                                                                                   2,
+                                                                                                                   NOW(),
+                                                                                                                   NULL,
+                                                                                                                   NOW(),
+                                                                                                                   NOW()
                                                                                                                ),
                                                                                                                (
                                                                                                                    'superadmin',
                                                                                                                    'superadmin@preciouno.com',
                                                                                                                    '$2y$12$ULuC2R9E0Ot7E/uLw3VguuTXepVpWC176Ovb/43V8SnSltA6Q.wJO',
-                                                                                                                   3
+                                                                                                                   3,
+                                                                                                                   NOW(),
+                                                                                                                   NULL,
+                                                                                                                   NOW(),
+                                                                                                                   NOW()
                                                                                                                );
 
 -- vehiculos

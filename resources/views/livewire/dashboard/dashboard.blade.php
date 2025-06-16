@@ -225,13 +225,13 @@
         data: {
             labels: @json($fechas),
             datasets: [{
-                    label: 'Guías Sin Discrepancias',
-                    data: @json($datosSinDiscrepancias),
-                    borderColor: 'orange',
-                    backgroundColor: 'rgba(255,165,0,0.2)',
-                    tension: 0.4,
-                    pointRadius: 5
-                },
+                label: 'Guías Sin Discrepancias',
+                data: @json($datosSinDiscrepancias),
+                borderColor: 'orange',
+                backgroundColor: 'rgba(255,165,0,0.2)',
+                tension: 0.4,
+                pointRadius: 5
+            },
                 {
                     label: 'Guías Con Discrepancias',
                     data: @json($datosConDiscrepancias),

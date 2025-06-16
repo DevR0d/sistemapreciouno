@@ -10,147 +10,7 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid" data-filter-container id="filter-container">
-        <!-- Filtros y búsqueda -->
-        <div class="card mb-4">
-            <div class="card-body">
-                <div class="row g-3 align-items-end">
-                    <!-- Campo de búsqueda -->
-                    <div class="col-md-5">
-                        <label class="form-label fw-semibold">Buscar Productos</label>
-                        <div class="input-group">
-                            <span class="input-group-text">
-                                <i class="fas fa-search"></i>
-                            </span>
-                            <input type="text" class="form-control" placeholder="Buscar por nombre o código..."
-                                data-filter="search" aria-label="Buscar productos">
-                        </div>
-                    </div>
-                    
-                    <!-- Selector de items por página -->
-                    <div class="col-md-3">
-                        <label class="form-label fw-semibold">Mostrar</label>
-                        <div class="input-group">
-                            <select class="form-select" wire:model.live="perPage" aria-label="Items por página">
-                                <option value="10">10 por página</option>
-                                <option value="25">25 por página</option>
-                                <option value="50">50 por página</option>
-                                <option value="100">100 por página</option>
-                            </select>
-                            <span class="input-group-text">
-                                <i class="fas fa-list-ol"></i>
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Filtro por tipo -->
-                    <div class="col-md-3">
-                        <label class="form-label fw-semibold">Tipo de Inventario</label>
-                        <select class="form-select" data-filter="tipo">
-                            <option value="">Todos los tipos</option>
-                            <option value="Tottus">Tottus</option>
-                            <option value="Tottus Oriente">Tottus Oriente</option>
-                        </select>
-                    </div>
-
-                    <!-- Botón de filtros avanzados -->
-                    <div class="col-md-1">
-                        <button class="btn btn-outline-secondary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#filtrosAvanzados">
-                            <i class="fas fa-filter"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Filtros avanzados (colapsable) -->
-                <div class="collapse mt-3" id="filtrosAvanzados">
-                    <div class="row g-3">
-                        <div class="col-md-3">
-                            <label class="form-label fw-semibold">Estado</label>
-                            <select class="form-select" data-filter="estado">
-                                <option value="">Todos los estados</option>
-                                <option value="Activo">Activo</option>
-                                <option value="Inactivo">Inactivo</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label fw-semibold">Fecha desde</label>
-                            <input type="date" class="form-control" data-filter="fechaDesde">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label fw-semibold">Fecha hasta</label>
-                            <input type="date" class="form-control" data-filter="fechaHasta">
-                        </div>
-                        <div class="col-md-3 d-flex align-items-end">
-                            <button class="btn btn-outline-primary me-2" data-action="apply-filters">
-                                <i class="fas fa-search me-1"></i>Aplicar
-                            </button>
-                            <button class="btn btn-outline-secondary" data-action="clear-filters">
-                                <i class="fas fa-times me-1"></i>Limpiar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Estadísticas rápidas -->
-        <div class="row g-3 mb-4">
-            <div class="col-md-3">
-                <div class="card border-primary">
-                    <div class="card-body text-center">
-                        <i class="fas fa-boxes text-primary fa-2x mb-2"></i>
-                        <h4 class="text-primary mb-1" data-counter="150">150</h4>
-                        <small class="text-muted">Total Productos</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card border-success">
-                    <div class="card-body text-center">
-                        <i class="fas fa-check-circle text-success fa-2x mb-2"></i>
-                        <h4 class="text-success mb-1" data-counter="142">142</h4>
-                        <small class="text-muted">Productos Activos</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card border-warning">
-                    <div class="card-body text-center">
-                        <i class="fas fa-exclamation-triangle text-warning fa-2x mb-2"></i>
-                        <h4 class="text-warning mb-1" data-counter="8">8</h4>
-                        <small class="text-muted">Stock Bajo</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card border-info">
-                    <div class="card-body text-center">
-                        <i class="fas fa-plus-circle text-info fa-2x mb-2"></i>
-                        <h4 class="text-info mb-1" data-counter="12">12</h4>
-                        <small class="text-muted">Nuevos Este Mes</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Acciones masivas (oculto por defecto) -->
-        <div data-bulk-actions style="display: none;" class="alert alert-info mb-3">
-            <div class="d-flex justify-content-between align-items-center">
-                <span>
-                    <i class="fas fa-check-square me-2"></i>
-                    <span data-selected-count>0</span> productos seleccionados
-                </span>
-                <div>
-                    <button class="btn btn-sm btn-outline-danger me-2" data-bulk-action="delete" data-confirm="¿Eliminar los productos seleccionados?">
-                        <i class="fas fa-trash me-1"></i>Eliminar
-                    </button>
-                    <button class="btn btn-sm btn-outline-primary" data-bulk-action="export">
-                        <i class="fas fa-download me-1"></i>Exportar
-                    </button>
-                </div>
-            </div>
-        </div>
-
+    <div class="container-fluid">
         <!-- Tabla de productos -->
         <div class="card">
             <div class="card-header bg-white">
@@ -160,81 +20,6 @@
                         Lista de Productos
                         <span class="badge bg-secondary ms-2" data-results-count>Cargando...</span>
                     </h5>
-                    <div class="d-flex gap-2">
-                        <!-- Exportación -->
-                        <div data-export-actions class="btn-group" role="group">
-                            <button class="btn btn-outline-success btn-sm" data-export="excel">
-                                <i class="fas fa-file-excel me-1"></i>Excel
-                            </button>
-                            <button class="btn btn-outline-danger btn-sm" data-export="pdf">
-                                <i class="fas fa-file-pdf me-1"></i>PDF
-                            </button>
-                            <button class="btn btn-outline-info btn-sm" data-export="csv">
-                                <i class="fas fa-file-csv me-1"></i>CSV
-                            </button>
-                        </div>
-                        
-                        <!-- Toggle de columnas -->
-                        <div class="dropdown">
-                            <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                                <i class="fas fa-columns me-1"></i>Columnas
-                            </button>
-                            <ul class="dropdown-menu" data-column-toggle>
-                                <li>
-                                    <label class="dropdown-item">
-                                        <input type="checkbox" class="form-check-input me-2" checked data-column="0">
-                                        Selección
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="dropdown-item">
-                                        <input type="checkbox" class="form-check-input me-2" checked data-column="1">
-                                        Código
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="dropdown-item">
-                                        <input type="checkbox" class="form-check-input me-2" checked data-column="2">
-                                        Nombre
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="dropdown-item">
-                                        <input type="checkbox" class="form-check-input me-2" checked data-column="3">
-                                        Tipo
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="dropdown-item">
-                                        <input type="checkbox" class="form-check-input me-2" checked data-column="4">
-                                        Inventario
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="dropdown-item">
-                                        <input type="checkbox" class="form-check-input me-2" checked data-column="5">
-                                        Estado
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="dropdown-item">
-                                        <input type="checkbox" class="form-check-input me-2" checked data-column="6">
-                                        Fecha
-                                    </label>
-                                </li>
-                                <li>
-                                    <label class="dropdown-item">
-                                        <input type="checkbox" class="form-check-input me-2" checked data-column="7">
-                                        Acciones
-                                    </label>
-                                </li>
-                            </ul>
-                        </div>
-                        
-                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#idmodalProductos">
-                            <i class="fas fa-upload me-1"></i>Importar
-                        </button>
-                    </div>
                 </div>
             </div>
             <div class="card-body p-0">
@@ -260,7 +45,7 @@
                     <form id="idformproducto" class="needs-validation" data-validate novalidate>
                         @csrf
                         <input type="hidden" id="idproducto" name="idproducto" value="">
-                        
+
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="codigoproducto" class="form-label fw-semibold">
@@ -322,7 +107,6 @@
         </div>
     </div>
 @endsection
-
 @section('scripts')
 <script>
     document.addEventListener('DOMContentLoaded', function() {
