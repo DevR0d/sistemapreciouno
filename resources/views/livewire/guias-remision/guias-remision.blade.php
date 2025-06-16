@@ -22,7 +22,7 @@
                     <td class="text-center fw-semibold">{{ $guia['codigoguia'] }}</td>
                     <td class="text-center">{{ $guia['fechaemision'] }}</td>
                     <td class="text-center">{{ $guia['horaemision'] }}</td>
-                    <td class="text-start text-capitalize">{{ $guia['razonsocialguia'] }}</td>
+                    <td class="text-center">{{ $guia['razonsocialguia'] }}</td>
                     <td class="text-center">{{ $guia['numerotrasladotim'] }}</td>
                     <td class="text-center">
                             <span class="badge bg-{{ $guia['motivotraslado'] === 'Venta' ? 'success' : 'info' }}">
@@ -36,22 +36,22 @@
                         {{ $guia['observaciones'] ?? '-' }}
                     </td>
                     <td>
-                        <div class="d-flex justify-content-center gap-2 flex-wrap">
+                        <div class="action-buttons d-flex justify-content-center gap-1">
                             <a href="{{ route('vistadetalleguia', ["idguia" => $guia['idguia']]) }}"
-                               class="btn btn-sm btn-outline-info" title="Ver Detalle" data-bs-toggle="tooltip">
+                               class="btn btn-sm btn-outline-info" title="Ver Detalle De La Guía" data-bs-toggle="tooltip">
                                 <i class="fa-solid fa-circle-info"></i>
                             </a>
                             <button type="button" class="btn btn-sm btn-outline-warning btn-editarguia"
-                                    title="Editar" data-bs-toggle="tooltip">
+                                    title="Editar Guía" data-bs-toggle="tooltip">
                                 <i class="fa-regular fa-pen-to-square"></i>
                             </button>
                             <button type="button" class="btn btn-sm btn-outline-danger btn-eliminarguia"
-                                    data-id="{{ $guia['idguia'] }}" title="Eliminar" data-bs-toggle="tooltip">
+                                    data-id="{{ $guia['idguia'] }}" title="Eliminar Guía" data-bs-toggle="tooltip">
                                 <i class="fa-solid fa-trash"></i>
                             </button>
                             @if($guia['estado'] !== 'Confirmado')
                                 <a href="{{ route('vistarevisionguias', ["idguia" => $guia['idguia']]) }}"
-                                   class="btn btn-sm btn-outline-secondary" title="Conteo" data-bs-toggle="tooltip">
+                                   class="btn btn-sm btn-outline-secondary" title="Conteo De Productos" data-bs-toggle="tooltip">
                                     <i class="fa-solid fa-eye"></i>
                                 </a>
                             @endif
