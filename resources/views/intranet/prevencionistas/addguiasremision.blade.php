@@ -156,21 +156,25 @@
                                         <div class="col-md-3">
                                             <label for="idtxtdireccionempresa" class="form-label small fw-bold">Dirección</label>
                                             <input type="text" class="form-control form-control-sm" id="idtxtdireccionempresa" name="direccionempresa" readonly>
+                                            <div class="invalid-feedback">Seleccione la empresa y se autocompletara este campo</div>
                                         </div>
                                         
                                         <div class="col-md-2">
                                             <label for="idtxtprovinciaempresa" class="form-label small fw-bold">Provincia</label>
                                             <input type="text" class="form-control form-control-sm" id="idtxtprovinciaempresa" readonly>
+                                            <div class="invalid-feedback">Seleccione la empresa y se autocompletara este campo</div>
                                         </div>
                                         
                                         <div class="col-md-2">
                                             <label for="idtxtdepartamentoempresa" class="form-label small fw-bold">Departamento</label>
                                             <input type="text" class="form-control form-control-sm" id="idtxtdepartamentoempresa" readonly>
+                                            <div class="invalid-feedback">Seleccione la empresa y se autocompletara este campo</div>
                                         </div>
                                         
                                         <div class="col-md-2">
                                             <label for="idtxtrucempresa" class="form-label small fw-bold">RUC</label>
                                             <input type="text" class="form-control form-control-sm" id="idtxtrucempresa" readonly>
+                                            <div class="invalid-feedback">Seleccione la empresa y se autocompletara este campo</div>
                                         </div>
                                     </div>
                                     
@@ -178,11 +182,13 @@
                                         <div class="col-md-3">
                                             <label for="idtxtubigeoempresa" class="form-label small fw-bold">Ubigeo</label>
                                             <input type="text" class="form-control form-control-sm" id="idtxtubigeoempresa" readonly>
+                                            <div class="invalid-feedback">Seleccione la empresa y se autocompletara este campo</div>
                                         </div>
                                         
                                         <div class="col-md-3">
                                             <label for="idtxtcodigoestablecimiento" class="form-label small fw-bold">Código Establecimiento</label>
                                             <input type="text" class="form-control form-control-sm" id="idtxtcodigoestablecimiento" readonly>
+                                            <div class="invalid-feedback">Seleccione la empresa y se autocompletara este campo</div>
                                         </div>
                                     </div>
                                 </div>
@@ -223,7 +229,7 @@
                         <!-- Código del Producto (autocompletado) -->
                         <div class="col-md-3">
                             <label for="idtxtcodigoproducto" class="form-label small fw-bold">Código</label>
-                            <input type="text" class="form-control form-control-sm" id="idtxtcodigoproducto" readonly>
+                            <input type="text" class="form-control form-control-sm" id="idtxtcodigoproducto" placeholder=" Seleccione un producto y vera el codigo aqui " readonly>
                             <input type="hidden" id="idproductocarritogiaremision">
                         </div>
 
