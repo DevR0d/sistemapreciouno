@@ -139,7 +139,7 @@
             <div class="d-flex justify-content-between align-items-center px-4 py-3">
                 <div class="text-muted">
                     <i class="fas fa-info-circle me-1"></i>
-                    Mostrando <strong>{{ $data->firstItem() }}</strong> a <strong>{{ $data->lastItem() }}</strong> 
+                    Mostrando <strong>{{ $data->firstItem() }}</strong> a <strong>{{ $data->lastItem() }}</strong>
                     de <strong>{{ $data->total() }}</strong> usuarios
                 </div>
                 <div>
@@ -166,7 +166,7 @@
                 this.style.transform = 'translateX(5px)';
                 this.style.transition = 'transform 0.2s ease';
             });
-            
+
             row.addEventListener('mouseleave', function() {
                 this.style.transform = 'translateX(0)';
             });
@@ -179,17 +179,17 @@
         width: 40px;
         height: 40px;
     }
-    
+
     .table tbody tr:hover {
         background-color: rgba(var(--bs-primary-rgb), 0.05);
         box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
-    
+
     .action-buttons .btn {
         margin: 0 2px;
         transition: all 0.2s ease;
     }
-    
+
     .action-buttons .btn:hover {
         transform: translateY(-1px);
     }

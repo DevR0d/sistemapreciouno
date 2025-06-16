@@ -11,51 +11,6 @@
 
 @section('content')
     <div class="container-fluid">
-        <!-- Filtros y búsqueda -->
-        <div class="card mb-4">
-            <div class="card-body">
-                <div class="row g-3 align-items-end">
-                    <!-- Campo de búsqueda -->
-                    <div class="col-md-5">
-                        <label class="form-label fw-semibold">Buscar Usuarios</label>
-                        <div class="input-group">
-                            <span class="input-group-text">
-                                <i class="fas fa-search"></i>
-                            </span>
-                            <input type="text" id="filtroTabla" class="form-control" placeholder="Buscar usuario por nombre o email">
-                        </div>
-                    </div>
-                    
-                    <!-- Selector de items por página -->
-                    <div class="col-md-3">
-                        <label class="form-label fw-semibold">Mostrar</label>
-                        <div class="input-group">
-                            <select class="form-select" wire:model.live="perPage" aria-label="Items por página">
-                                <option value="10">10 por página</option>
-                                <option value="25">25 por página</option>
-                                <option value="50">50 por página</option>
-                                <option value="100">100 por página</option>
-                            </select>
-                            <span class="input-group-text">
-                                <i class="fas fa-list-ol"></i>
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Filtro por rol -->
-                    <div class="col-md-4">
-                        <label class="form-label fw-semibold">Filtrar por Rol</label>
-                        <select class="form-select">
-                            <option value="">Todos los roles</option>
-                            <option value="1">Administrador</option>
-                            <option value="2">Prevencionista</option>
-                            <option value="3">Super Admin</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Estadísticas rápidas -->
         <div class="row g-3 mb-4">
             <div class="col-md-4">
@@ -95,14 +50,6 @@
                         <i class="fas fa-users me-2 text-primary"></i>
                         Lista de Usuarios
                     </h5>
-                    <div class="d-flex gap-2">
-                        <button class="btn btn-outline-success btn-sm">
-                            <i class="fas fa-file-excel me-1"></i>Exportar
-                        </button>
-                        <button class="btn btn-outline-info btn-sm">
-                            <i class="fas fa-user-cog me-1"></i>Permisos
-                        </button>
-                    </div>
                 </div>
             </div>
             <div class="card-body p-0">
@@ -216,7 +163,7 @@
     document.addEventListener("DOMContentLoaded", function () {
         const input = document.getElementById("filtroTabla");
         const tabla = document.querySelector("table");
-        
+
         if (tabla) {
             const filas = tabla.querySelectorAll("tbody tr");
 
@@ -235,7 +182,7 @@
     document.getElementById('togglePassword').addEventListener('click', function() {
         const passwordField = document.getElementById('idtxtpassword');
         const icon = this.querySelector('i');
-        
+
         if (passwordField.type === 'password') {
             passwordField.type = 'text';
             icon.classList.remove('fa-eye');

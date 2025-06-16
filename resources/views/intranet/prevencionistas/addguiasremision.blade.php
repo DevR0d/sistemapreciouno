@@ -1,18 +1,23 @@
 @extends('intranet/layout')
 @section('title', 'Agregar Guía de Remisión')
 
+@section('hidePageHeader', true)
 @section('content')
     <div class="container-fluid py-2" style="overflow-y: auto; max-height: 90vh;">
-        <h5 class="modal-title mb-3 fw-bold text-primary" id="idmodalguiasremision">
-            <i class="fas fa-file-import me-2"></i>Agregar Guía de Remisión
-        </h5>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h5 class="modal-title fw-bold text-primary m-0" id="idmodalguiasremision">
+                <i class="fas fa-file-import me-2"></i>Agregar Guía de Remisión
+            </h5>
+            <a href="/guiasremision" class="btn btn-outline-primary rounded-pill px-4 shadow-sm">
+                <i class="fas fa-chevron-left me-2"></i> Volver al listado
+            </a>
+        </div>
         <form id="idformaddguiasremision" class="needs-validation" novalidate>
             @csrf
             <input type="hidden" id="idguia" name="idguia" value="">
-
             <div class="row g-3">
                 <!-- Columna 1: Datos Principales -->
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="card shadow-sm h-100 border-primary">
                         <div class="card-header bg-primary text-white py-2">
                             <h6 class="mb-0 fw-semibold"><i class="fas fa-file-alt me-2"></i>Datos Principales</h6>
@@ -40,7 +45,7 @@
                     </div>
                 </div>
                 <!-- Columna 2: Detalles del Traslado -->
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="card shadow-sm h-100 border-success">
                         <div class="card-header bg-success text-white py-2">
                             <h6 class="mb-0 fw-semibold"><i class="fas fa-truck me-2"></i>Detalles del Traslado</h6>
@@ -84,7 +89,7 @@
                 </div>
 
                 <!-- Columna 3: Personal -->
-                <div class="col-md-3">
+                <div class="col-md-4">
                     <div class="card shadow-sm h-100 border-info">
                         <div class="card-header bg-info text-white py-2">
                             <h6 class="mb-0 fw-semibold"><i class="fas fa-users me-2"></i>Datos del conductor</h6>
@@ -134,33 +139,91 @@
                 </div>
 
                 <!-- Columna 4: Empresa receptora -->
-                <div class="col-md-3">
-                    <div class="card shadow-sm h-100 border-warning">
-                        <div class="card-header bg-warning text-dark py-2">
-                            <h6 class="mb-0 fw-semibold"><i class="fas fa-building me-2"></i>Empresa Receptora</h6>
-                        </div>
-                        <div class="card-body p-3">
-                            <label for="idselectidtipoempresa" class="form-label small fw-bold">Empresa que
-                                recibirá</label>
-                            <select class="form-select form-select-sm" id="idselectidtipoempresa" name="idtipoempresa"
-                                required>
-                                <option value="">Seleccionar...</option>
-                                @forelse($tipoempresa as $empresa)
-                                    <option value="{{ $empresa->idtipoempresa }}">{{ $empresa->razonsocial }}</option>
-                                @empty
-                                    <option value="" disabled>No hay empresas</option>
-                                @endforelse
-                            </select>
-                            <div class="invalid-feedback">Seleccione una empresa receptora</div>
-                            <div class="mt-2">
-                                <label for="idtxtdireccionempresa" class="form-label small fw-bold">Dirección</label>
-                                <input type="text" class="form-control form-control-sm" id="idtxtdireccionempresa"
-                                    name="direccionempresa" required>
-                                <div class="invalid-feedback">Ingrese la dirección de la empresa receptora</div>
+{{--                <div class="col-md-3">--}}
+{{--                    <div class="card shadow-sm h-100 border-warning">--}}
+{{--                        <div class="card-header bg-warning text-dark py-2">--}}
+{{--                            <h6 class="mb-0 fw-semibold"><i class="fas fa-building me-2"></i>Empresa Receptora</h6>--}}
+{{--                        </div>--}}
+{{--                        <div class="card-body p-3">--}}
+{{--                            <label for="idselectidtipoempresa" class="form-label small fw-bold">Empresa que--}}
+{{--                                recibirá</label>--}}
+{{--                            <select class="form-select form-select-sm" id="idselectidtipoempresa" name="idtipoempresa"--}}
+{{--                                required>--}}
+{{--                                <option value="">Seleccionar...</option>--}}
+{{--                                @forelse($tipoempresa as $empresa)--}}
+{{--                                    <option value="{{ $empresa->idtipoempresa }}">{{ $empresa->razonsocial }}</option>--}}
+{{--                                @empty--}}
+{{--                                    <option value="" disabled>No hay empresas</option>--}}
+{{--                                @endforelse--}}
+{{--                            </select>--}}
+{{--                            <div class="invalid-feedback">Seleccione una empresa receptora</div>--}}
+{{--                            <div class="mt-2">--}}
+{{--                                <label for="idtxtdireccionempresa" class="form-label small fw-bold">Dirección</label>--}}
+{{--                                <input type="text" class="form-control form-control-sm" id="idtxtdireccionempresa"--}}
+{{--                                    name="direccionempresa" required>--}}
+{{--                                <div class="invalid-feedback">Ingrese la dirección de la empresa receptora</div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+
+                <!-- Segunda fila: Empresa receptora (ahora ocupa toda la fila) -->
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <div class="card shadow-sm border-warning">
+                            <div class="card-header bg-warning text-dark py-2">
+                                <h6 class="mb-0 fw-semibold"><i class="fas fa-building me-2"></i>Empresa Receptora</h6>
+                            </div>
+                            <div class="card-body p-3">
+                                <div class="row g-3">
+                                    <div class="col-md-3">
+                                        <label for="idselectidtipoempresa" class="form-label small fw-bold">Empresa que recibirá</label>
+                                        <select class="form-select form-select-sm" id="idselectidtipoempresa" name="idtipoempresa" required>
+                                            <option value="">Seleccionar...</option>
+                                            @foreach($tipoempresa as $empresa)
+                                                <option value="{{ $empresa->idtipoempresa }}">{{ $empresa->razonsocial }}</option>
+                                            @endforeach
+                                        </select>
+                                        <div class="invalid-feedback">Seleccione una empresa receptora</div>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label for="idtxtdireccionempresa" class="form-label small fw-bold">Dirección</label>
+                                        <input type="text" class="form-control form-control-sm" id="idtxtdireccionempresa" name="direccionempresa" readonly>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label for="idtxtprovinciaempresa" class="form-label small fw-bold">Provincia</label>
+                                        <input type="text" class="form-control form-control-sm" id="idtxtprovinciaempresa" readonly>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label for="idtxtdepartamentoempresa" class="form-label small fw-bold">Departamento</label>
+                                        <input type="text" class="form-control form-control-sm" id="idtxtdepartamentoempresa" readonly>
+                                    </div>
+
+                                    <div class="col-md-2">
+                                        <label for="idtxtrucempresa" class="form-label small fw-bold">RUC</label>
+                                        <input type="text" class="form-control form-control-sm" id="idtxtrucempresa" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mt-3">
+                                    <div class="col-md-3">
+                                        <label for="idtxtubigeoempresa" class="form-label small fw-bold">Ubigeo</label>
+                                        <input type="text" class="form-control form-control-sm" id="idtxtubigeoempresa" readonly>
+                                    </div>
+
+                                    <div class="col-md-3">
+                                        <label for="idtxtcodigoestablecimiento" class="form-label small fw-bold">Código Establecimiento</label>
+                                        <input type="text" class="form-control form-control-sm" id="idtxtcodigoestablecimiento" readonly>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
 
             </div>
 

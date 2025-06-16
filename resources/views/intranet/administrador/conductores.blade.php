@@ -11,96 +11,6 @@
 
 @section('content')
     <div class="container-fluid">
-        <!-- Filtros y búsqueda -->
-        <div class="card mb-4">
-            <div class="card-body">
-                <div class="row g-3 align-items-end">
-                    <!-- Campo de búsqueda -->
-                    <div class="col-md-5">
-                        <label class="form-label fw-semibold">Buscar Conductores</label>
-                        <div class="input-group">
-                            <span class="input-group-text">
-                                <i class="fas fa-search"></i>
-                            </span>
-                            <input type="text" class="form-control" placeholder="Buscar por nombre o DNI..."
-                                wire:model.live.debounce.500ms="search" aria-label="Buscar conductores">
-                        </div>
-                    </div>
-                    
-                    <!-- Selector de items por página -->
-                    <div class="col-md-3">
-                        <label class="form-label fw-semibold">Mostrar</label>
-                        <div class="input-group">
-                            <select class="form-select" wire:model.live="perPage" aria-label="Items por página">
-                                <option value="10">10 por página</option>
-                                <option value="25">25 por página</option>
-                                <option value="50">50 por página</option>
-                                <option value="100">100 por página</option>
-                            </select>
-                            <span class="input-group-text">
-                                <i class="fas fa-list-ol"></i>
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Filtro por empresa -->
-                    <div class="col-md-4">
-                        <label class="form-label fw-semibold">Empresa Transportista</label>
-                        <select class="form-select">
-                            <option value="">Todas las empresas</option>
-                            @forelse($transportes as $transporte)
-                                <option value="{{ $transporte['idtransportista'] }}">
-                                    {{ $transporte['nombre_razonsocial'] }}
-                                </option>
-                            @empty
-                                <option value="" disabled>No hay empresas disponibles</option>
-                            @endforelse
-                        </select>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Estadísticas rápidas -->
-        <div class="row g-3 mb-4">
-            <div class="col-md-3">
-                <div class="card border-success">
-                    <div class="card-body text-center">
-                        <i class="fas fa-user-check text-success fa-2x mb-2"></i>
-                        <h4 class="text-success mb-1">45</h4>
-                        <small class="text-muted">Conductores Activos</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card border-info">
-                    <div class="card-body text-center">
-                        <i class="fas fa-route text-info fa-2x mb-2"></i>
-                        <h4 class="text-info mb-1">28</h4>
-                        <small class="text-muted">En Ruta</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card border-warning">
-                    <div class="card-body text-center">
-                        <i class="fas fa-clock text-warning fa-2x mb-2"></i>
-                        <h4 class="text-warning mb-1">12</h4>
-                        <small class="text-muted">Disponibles</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card border-secondary">
-                    <div class="card-body text-center">
-                        <i class="fas fa-user-times text-secondary fa-2x mb-2"></i>
-                        <h4 class="text-secondary mb-1">5</h4>
-                        <small class="text-muted">Descanso</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Tabla de conductores -->
         <div class="card">
             <div class="card-header bg-white">
@@ -109,14 +19,6 @@
                         <i class="fas fa-users me-2 text-primary"></i>
                         Lista de Conductores
                     </h5>
-                    <div class="d-flex gap-2">
-                        <button class="btn btn-outline-success btn-sm">
-                            <i class="fas fa-file-excel me-1"></i>Exportar
-                        </button>
-                        <button class="btn btn-outline-info btn-sm">
-                            <i class="fas fa-id-card me-1"></i>Licencias
-                        </button>
-                    </div>
                 </div>
             </div>
             <div class="card-body p-0">
@@ -140,7 +42,7 @@
                     <form id="idformConductores" class="needs-validation" novalidate>
                         @csrf
                         <input type="hidden" id="idconductor" name="idconductor" value="">
-                        
+
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="nombre" class="form-label fw-semibold">
@@ -158,7 +60,7 @@
                                     <i class="fas fa-id-card me-1"></i>
                                     DNI
                                 </label>
-                                <input type="text" class="form-control" id="idtxtdni" name="dni" 
+                                <input type="text" class="form-control" id="idtxtdni" name="dni"
                                        pattern="[0-9]{8}" maxlength="8" required>
                                 <div class="invalid-feedback">
                                     Por favor, ingrese un DNI válido (8 dígitos).

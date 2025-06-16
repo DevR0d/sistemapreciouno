@@ -11,88 +11,6 @@
 
 @section('content')
     <div class="container-fluid">
-        <!-- Filtros y búsqueda -->
-        <div class="card mb-4">
-            <div class="card-body">
-                <div class="row g-3 align-items-end">
-                    <!-- Campo de búsqueda -->
-                    <div class="col-md-5">
-                        <label class="form-label fw-semibold">Buscar Productos</label>
-                        <div class="input-group">
-                            <span class="input-group-text">
-                                <i class="fas fa-search"></i>
-                            </span>
-                            <input type="text" class="form-control" placeholder="Buscar por nombre o código..."
-                                wire:model.live.debounce.500ms="search" aria-label="Buscar productos">
-                        </div>
-                    </div>
-                    
-                    <!-- Selector de items por página -->
-                    <div class="col-md-3">
-                        <label class="form-label fw-semibold">Mostrar</label>
-                        <div class="input-group">
-                            <select class="form-select" wire:model.live="perPage" aria-label="Items por página">
-                                <option value="10">10 por página</option>
-                                <option value="25">25 por página</option>
-                                <option value="50">50 por página</option>
-                                <option value="100">100 por página</option>
-                            </select>
-                            <span class="input-group-text">
-                                <i class="fas fa-list-ol"></i>
-                            </span>
-                        </div>
-                    </div>
-
-                    <!-- Filtro por tipo -->
-                    <div class="col-md-3">
-                        <label class="form-label fw-semibold">Tipo de Inventario</label>
-                        <select class="form-select">
-                            <option value="">Todos los tipos</option>
-                            <option value="Tottus">Tottus</option>
-                            <option value="Tottus Oriente">Tottus Oriente</option>
-                        </select>
-                    </div>
-
-                    <!-- Botón de filtros avanzados -->
-                    <div class="col-md-1">
-                        <button class="btn btn-outline-secondary w-100" type="button" data-bs-toggle="collapse" data-bs-target="#filtrosAvanzados">
-                            <i class="fas fa-filter"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Filtros avanzados (colapsable) -->
-                <div class="collapse mt-3" id="filtrosAvanzados">
-                    <div class="row g-3">
-                        <div class="col-md-3">
-                            <label class="form-label fw-semibold">Estado</label>
-                            <select class="form-select">
-                                <option value="">Todos los estados</option>
-                                <option value="Activo">Activo</option>
-                                <option value="Inactivo">Inactivo</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label fw-semibold">Fecha desde</label>
-                            <input type="date" class="form-control">
-                        </div>
-                        <div class="col-md-3">
-                            <label class="form-label fw-semibold">Fecha hasta</label>
-                            <input type="date" class="form-control">
-                        </div>
-                        <div class="col-md-3 d-flex align-items-end">
-                            <button class="btn btn-outline-primary me-2">
-                                <i class="fas fa-search me-1"></i>Aplicar
-                            </button>
-                            <button class="btn btn-outline-secondary">
-                                <i class="fas fa-times me-1"></i>Limpiar
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
         <!-- Tabla de productos -->
         <div class="card">
             <div class="card-header bg-white">
@@ -101,14 +19,6 @@
                         <i class="fas fa-boxes me-2 text-primary"></i>
                         Lista de Productos
                     </h5>
-                    <div class="d-flex gap-2">
-                        <button class="btn btn-outline-success btn-sm">
-                            <i class="fas fa-file-excel me-1"></i>Exportar
-                        </button>
-                        <button class="btn btn-outline-primary btn-sm">
-                            <i class="fas fa-upload me-1"></i>Importar
-                        </button>
-                    </div>
                 </div>
             </div>
             <div class="card-body p-0">
@@ -134,7 +44,7 @@
                     <form id="idformproducto" class="needs-validation" novalidate>
                         @csrf
                         <input type="hidden" id="idproducto" name="idproducto" value="">
-                        
+
                         <div class="row g-3">
                             <div class="col-md-6">
                                 <label for="codigoproducto" class="form-label fw-semibold">
@@ -194,7 +104,6 @@
         </div>
     </div>
 @endsection
-
 @section('scripts')
 <script>
     // Validación del formulario

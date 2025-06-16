@@ -1,17 +1,19 @@
 @extends('intranet/layout')
 @section('title', 'Productos de Guía')
-
+@section('hidePageHeader', true)
 @section('content')
     @vite('resources/css/views/prevencionistas/detalleguia.css')
     <div class="container-fluid py-2" style="overflow-y: auto; max-height: 90vh;">
-        <div class="d-flex justify-content-between align-items-center mb-4 py-3 px-4 bg-white rounded-3 shadow-sm border-start border-5 border-primary">
+        <div class="d-flex justify-content-between align-items-center mb-3">
             <h2 class="mb-0 text-dark fw-bold">
                 <i class="fas fa-truck me-2 text-primary"></i>
                 Guía de Remisión <span class="text-primary">#{{ $guia->codigoguia ?? 'N/A' }}</span>
             </h2>
-            <a href="/guiasremision" class="btn btn-outline-primary rounded-pill px-4 shadow-sm">
+            <button type="button"
+                    class="btn btn-outline-primary rounded-pill px-4 shadow-sm"
+                    onclick="window.location.href='/guiasremision'">
                 <i class="fas fa-chevron-left me-2"></i> Volver al listado
-            </a>
+            </button>
         </div>
 
         <div class="card border-0 shadow-sm">
