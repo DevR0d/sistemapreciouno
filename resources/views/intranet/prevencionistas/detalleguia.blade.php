@@ -5,14 +5,14 @@
 @section('hideSearchBar', true)
 @section('header-actions')
     <button type="button"
-            class="btn btn-primary rounded-pill px-4 shadow-sm"
+            class="btn btn-danger rounded-pill px-4 shadow-sm"
             onclick="window.location.href='/guiasremision'">
         <i class="fas fa-chevron-left me-2"></i> Volver al listado
     </button>
 @endsection
 @section('content')
     @vite('resources/css/views/prevencionistas/detalleguia.css')
-    <div class="container-fluid py-2" style="overflow-y: auto; max-height: 90vh;">
+    <div class="container-fluid py-2">
         <!-- Tarjeta principal -->
         <div class="card border-0 shadow">
             <!-- Encabezado con pestañas -->
@@ -31,7 +31,7 @@
                 </ul>
             </div>
             <!-- Contenido de pestañas -->
-            <div class="card-body p-4">
+            <div class="enable-scroll card-body p-4">
                 <div class="tab-content" id="myTabContent">
                     <div class="tab-pane fade show active" id="detalles" role="tabpanel">
                         <!-- Botón de impresión -->
@@ -41,7 +41,6 @@
                                 <i class="fas fa-file-pdf me-1"></i> EXPORTAR PDF
                             </button>
                         </div>
-
                         <div class="row">
                             <!-- Columna Datos Generales -->
                             <div class="col-12">
@@ -73,8 +72,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
                             <!-- Columna Datos de Empresa -->
                             <div class="col-12">
                                 <div class="info-card bg-light p-3 mb-3 rounded">

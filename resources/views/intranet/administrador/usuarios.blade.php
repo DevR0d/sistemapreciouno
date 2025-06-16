@@ -3,7 +3,7 @@
 @section('subtitle', 'Gestión de usuarios del sistema')
 
 @section('header-actions')
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#idmodalUsuarios">
+    <button type="button" class="btn btn-danger rounded-pill px-4 shadow-sm" data-bs-toggle="modal" data-bs-target="#idmodalUsuarios">
         <i class="fa-solid fa-plus me-2"></i>
         Nuevo Usuario
     </button>
@@ -218,6 +218,21 @@
         document.getElementById('idtxtpassword').type = 'password';
         document.querySelector('#togglePassword i').classList.remove('fa-eye-slash');
         document.querySelector('#togglePassword i').classList.add('fa-eye');
+    });
+    //buscador
+    document.addEventListener("DOMContentLoaded", function () {
+        const input = document.getElementById("filtroTabla");
+        const tabla = document.querySelector("table");
+        const filas = tabla.querySelectorAll("tbody tr");
+
+        input.addEventListener("keyup", function () {
+            const valor = this.value.trim().toLowerCase();
+
+            filas.forEach(fila => {
+                const textoCompleto = fila.textContent.toLowerCase();
+                fila.style.display = textoCompleto.includes(valor) ? "" : "none";
+            });
+        });
     });
 </script>
 @endsection

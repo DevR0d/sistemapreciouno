@@ -3,7 +3,7 @@
 
 @section('header-actions')
     <a href="{{ route('vistaaddguiaremision') }}"
-       class="btn btn-primary"
+       class="btn btn-danger rounded-pill px-4 shadow-sm"
        id="btnnuevaguia">
         <i class="fa-solid fa-plus-minus me-2"></i>
         Nueva Guía
@@ -23,11 +23,11 @@
         const filas = tabla.querySelectorAll("tbody tr");
 
         input.addEventListener("keyup", function () {
-            const valor = this.value.toLowerCase();
+            const valor = this.value.trim().toLowerCase();
 
             filas.forEach(fila => {
-                const textoFila = fila.textContent.toLowerCase();
-                fila.style.display = textoFila.includes(valor) ? "" : "none";
+                const textoCompleto = fila.textContent.toLowerCase();
+                fila.style.display = textoCompleto.includes(valor) ? "" : "none";
             });
         });
     });

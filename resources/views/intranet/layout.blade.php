@@ -144,7 +144,7 @@
                                         <input type="text"
                                                id="filtroTabla"
                                                class="form-control border-start-0"
-                                               placeholder="Filtrar por código, razón social o N° de pedido">
+                                               placeholder="Buscar...">
                                     </div>
                                 </div>
                             @endif
