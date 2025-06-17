@@ -10,6 +10,8 @@ use App\Models\TipoEmpresa;
 use App\Models\ValidacionGuia;
 use App\Models\Vehiculo;
 use App\Models\Transporte;
+use App\Models\User;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -56,8 +58,18 @@ class VistasIntranetController extends Controller
         if (!Auth::check()) {
             return redirect()->route('vistalogin');
         }
-        return view('intranet.administrador.usuarios');
+
+        $totalUsuarios = User::count();
+        $totalAdmins = User::where('idrol', 1)->count();
+        $totalPrevencionistas = User::where('idrol', 2)->count();
+
+        return view('intranet.administrador.usuarios', compact(
+            'totalUsuarios',
+            'totalAdmins',
+            'totalPrevencionistas'
+        ));
     }
+
 
     public function vistaproducto()
     {

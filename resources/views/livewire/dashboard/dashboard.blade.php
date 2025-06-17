@@ -88,30 +88,32 @@
         <div class="card-body p-3">
             <table id="datatablesSimple" class="table table-striped table-hover align-middle">
                 <thead class="table-primary">
-                <tr>
-                    <th>EAN/SKU</th>
-                    <th>Descripción</th>
-                    <th>Estado</th>
-                    <th>Total enviado</th>
-                    <th>Total recibido con discrepancia</th>
-                    <th>Fecha de entrega</th>
-                </tr>
+                    <tr>
+                        <th>EAN/SKU</th>
+                        <th>Descripción</th>
+                        <th>Estado</th>
+                        <th>Total enviado</th>
+                        <th>Total recibido con discrepancia</th>
+                        <th>Fecha de entrega</th>
+                    </tr>
                 </thead>
                 <tbody>
-                @forelse($productosConDiscrepancias as $item)
-                    <tr>
-                        <td>{{ $item->codproducto }}</td>
-                        <td>{{ $item->nombre }}</td>
-                        <td>{{ $item->estado }}</td>
-                        <td>{{ $item->cantrecibida }}</td>
-                        <td>{{ $item->cantrecibidarevision }}</td>
-                        <td>{{ \Carbon\Carbon::parse($item->fecha)->format('d/m/Y') }}</td>
-                    </tr>
-                @empty
-                    <tr>
-                        No se encontraron productos con discrepancias
-                    </tr>
-                @endforelse
+                    @forelse($productosConDiscrepancias as $item)
+                        <tr>
+                            <td>{{ $item->codproducto }}</td>
+                            <td>{{ $item->nombre }}</td>
+                            <td>{{ $item->estado }}</td>
+                            <td>{{ $item->cantrecibida }}</td>
+                            <td>{{ $item->cantrecibidarevision }}</td>
+                            <td>{{ \Carbon\Carbon::parse($item->fecha)->format('d/m/Y') }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="8" class="text-center text-muted py-4">
+                                <i class="fas fa-box-open me-5"></i> No se encontraron productos con discrepancias.
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

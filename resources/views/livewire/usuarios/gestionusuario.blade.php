@@ -105,14 +105,14 @@
                                 data-id="{{ $usuario->id }}" title="Eliminar usuario" data-bs-toggle="tooltip">
                             <i class="fas fa-trash"></i>
                         </button>
-                        <button type="button" class="btn btn-outline-info btn-sm"
+                        {{--  <button type="button" class="btn btn-outline-info btn-sm"
                                 title="Ver perfil" data-bs-toggle="tooltip">
                             <i class="fas fa-eye"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-secondary btn-sm"
+                        </button>  --}}
+                        {{--  <button type="button" class="btn btn-outline-secondary btn-sm"
                                 title="Resetear contraseña" data-bs-toggle="tooltip">
                             <i class="fas fa-key"></i>
-                        </button>
+                        </button>  --}}
                     </div>
                 </td>
             </tr>

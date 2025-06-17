@@ -76,12 +76,12 @@
                 </td>
                 <td class="text-center">
                     <div class="action-buttons">
-                        <button type="button" class="btn btn-outline-info btn-sm" title="Ver detalles" onclick="showProductDetails({{ $producto->idproducto }})">
+                        {{--  <button type="button" class="btn btn-outline-info btn-sm" title="Ver detalles" onclick="showProductDetails({{ $producto->idproducto }})">
                             <i class="fas fa-eye"></i>
-                        </button>
-                        <button type="button" class="btn btn-outline-warning btn-sm btn-editarproducto" data-id="{{ $producto->idproducto }}" title="Editar">
+                        </button>  --}}
+                        {{--  <button type="button" class="btn btn-outline-warning btn-sm btn-editarproducto" data-id="{{ $producto->idproducto }}" title="Editar">
                             <i class="fas fa-edit"></i>
-                        </button>
+                        </button>  --}}
                         <button type="button" class="btn btn-outline-danger btn-sm btn-eliminarproducto" data-id="{{ $producto->idproducto }}" title="Eliminar">
                             <i class="fas fa-trash"></i>
                         </button>

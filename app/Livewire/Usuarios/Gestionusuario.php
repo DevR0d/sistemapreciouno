@@ -68,8 +68,16 @@ class Gestionusuario extends Component
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
 
+        // Contadores
+        $totalUsuarios = User::count();
+        $totalAdmins = User::where('idrol', 1)->count();
+        $totalPrevencionistas = User::where('idrol', 2)->count();
+
         return view('livewire.usuarios.gestionusuario', [
             'data' => $usuarios,   // Paginación de usuarios
+            'totalUsuarios' => $totalUsuarios,
+            'totalAdmins' => $totalAdmins,
+            'totalPrevencionistas' => $totalPrevencionistas,
         ]);
     }
 }
