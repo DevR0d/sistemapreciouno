@@ -4,6 +4,7 @@ import './demo/scripts.js'
 import './intranet/appproducto.js';
 import './intranet/appvehiculo.js';
 import './intranet/appconductores.js';
+import './intranet/appusuarios.js';
 import './intranet/appguiasremision.js';
 import './demo/datatables-simple-demo.js';
 import './demo/chart-area-demo.js';
@@ -38,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const target = parseInt(counter.dataset.counter) || parseInt(counter.textContent);
         let current = 0;
         const increment = target / 50;
-        
+
         const timer = setInterval(() => {
             current += increment;
             if (current >= target) {
@@ -78,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
         if (e.target.matches('[data-confirm]')) {
             e.preventDefault();
             const message = e.target.dataset.confirm || '¿Estás seguro de realizar esta acción?';
-            
+
             if (window.Swal) {
                 Swal.fire({
                     title: '¿Estás seguro?',
@@ -115,10 +116,10 @@ document.addEventListener('DOMContentLoaded', function() {
             const button = e.target;
             const originalText = button.innerHTML;
             const loadingText = button.dataset.loading || 'Cargando...';
-            
+
             button.innerHTML = `<i class="fas fa-spinner fa-spin me-2"></i>${loadingText}`;
             button.disabled = true;
-            
+
             // Restaurar después de 3 segundos (o cuando se complete la acción)
             setTimeout(() => {
                 button.innerHTML = originalText;
@@ -133,7 +134,7 @@ document.addEventListener('DOMContentLoaded', function() {
         globalSearch.addEventListener('input', function(e) {
             const searchTerm = e.target.value.toLowerCase();
             const searchableElements = document.querySelectorAll('[data-searchable]');
-            
+
             searchableElements.forEach(element => {
                 const text = element.textContent.toLowerCase();
                 const shouldShow = text.includes(searchTerm);
@@ -149,14 +150,14 @@ document.addEventListener('DOMContentLoaded', function() {
             document.body.classList.toggle('dark-theme');
             const isDark = document.body.classList.contains('dark-theme');
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
-            
+
             // Actualizar icono
             const icon = themeToggle.querySelector('i');
             if (icon) {
                 icon.className = isDark ? 'fas fa-sun' : 'fas fa-moon';
             }
         });
-        
+
         // Cargar tema guardado
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark') {

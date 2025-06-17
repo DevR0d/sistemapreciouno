@@ -15,7 +15,6 @@
     @vite([
         'resources/css/demo/styles.css',
         'resources/css/views/layout.css',
-        'resources/js/intranet/usuarios.js',
         'resources/js/intranet/appproducto.js',
         'resources/js/intranet/appvehiculo.js',
         'resources/js/intranet/appconductores.js',
