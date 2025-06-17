@@ -11,9 +11,9 @@ use App\Models\ValidacionGuia;
 use App\Models\Vehiculo;
 use App\Models\Transporte;
 use App\Models\User;
-
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class VistasIntranetController extends Controller
 {
@@ -163,7 +163,6 @@ class VistasIntranetController extends Controller
         $productosSinCondicion = $productosPorCondicion['success'] && isset($productosPorCondicion['data']['productosSinCondicion'])
             ? $productosPorCondicion['data']['productosSinCondicion']
             : [];
-
 
         // Pasar todos los datos a la vista
         return view('intranet.prevencionistas.detalleguia', [
