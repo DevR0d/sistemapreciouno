@@ -50,25 +50,36 @@
             </div>
         </div>
     </div>
-    <!-- Gráfico ancho -->
-    {{--    <div class="card mb-4 shadow-sm rounded-3"> --}}
-    {{--        <div class="card-header bg-light fw-semibold d-flex align-items-center"> --}}
-    {{--            <i class="fas fa-chart-area me-2"></i> Últimas Guías Emitidas --}}
-    {{--        </div> --}}
-    {{--        <div class="card-body p-3"> --}}
-    {{--            <canvas id="myAreaChart" style="width: 100%; height: 350px;"></canvas> --}}
-    {{--            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> --}}
-    {{--        </div> --}}
-    {{--    </div> --}}
-    <!-- Gráfico de líneas: Guías sin y con discrepancias -->
-    <div class="card mb-4 shadow-sm rounded-3">
+    {{-- GRÁFICO RESUMEN DE DISCREPANCIAS / SIN / FALTANTES --}}
+    <div class="card shadow-sm rounded-3 mb-4">
         <div class="card-header bg-light fw-semibold d-flex align-items-center">
-            <i class="fas fa-chart-line me-2"></i> Guías Emitidas (Sin vs Con Discrepancias)
+            <i class="fas fa-layer-group me-2"></i> Resumen General de Guías
         </div>
         <div class="card-body p-3">
-            <canvas id="chartGuiasDiscrepancias" style="width: 100%; height: 350px;"></canvas>
+            <canvas id="chartResumenDiscrepancias" style="width: 100%; height: 350px;"></canvas>
         </div>
     </div>
+
+    {{-- Gráficos: Pie y Línea en la misma fila --}}
+    <div class="card shadow-sm rounded-3 mb-4">
+        <div class="card-header bg-light fw-semibold d-flex align-items-center">
+            <i class="fas fa-chart-bar me-2"></i> Análisis Visual de Estado y Discrepancias
+        </div>
+        <div class="card-body p-0">
+            <div class="row g-0">
+                <!-- Gráfico Pie -->
+                <div class="col-md-6 border-end p-3 d-flex align-items-center justify-content-center" style="min-height: 360px;">
+                    <canvas id="pieChart" style="max-height: 300px; max-width: 100%;"></canvas>
+                </div>
+
+                <!-- Gráfico Línea -->
+                <div class="col-md-6 p-3">
+                    <canvas id="chartGuiasDiscrepancias" style="max-height: 300px; width: 100%;"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Tabla principal -->
     <div class="card mb-5 shadow-sm rounded-3">
         <div class="card-header bg-light fw-semibold d-flex align-items-center">
@@ -106,135 +117,140 @@
         </div>
     </div>
 
-    <!-- Nuevo apartado final: Dashboard adicional -->
-    <div class="row g-4">
-        <!-- Top 5 servicios más vendidos -->
-        <div class="col-lg-4">
-            <div class="card shadow-sm rounded-3 p-3">
-                <div class="text-center mb-3">
-                </div>
-                {{--                Canvas para grafico pastel--}}
-                <div class="card mb-4 shadow-sm rounded-3">
-                    <div class="card-header bg-light fw-semibold d-flex align-items-center">
-                        <i class="fas fa-chart-pie me-2"></i> Estado de Guías (Sin Daño vs Con Daño)
-                    </div>
-                    <div class="card-body p-3">
-                        <canvas id="pieChart" style="width: 100%; height: 350px;"></canvas>
-                    </div>
-                </div>
-            </div>
+    {{-- Tabla: Top guías con discrepancias + gráfico barras --}}
+    <div class="card shadow-sm rounded-3 p-3 mb-4">
+        <div class="card-header bg-light fw-semibold d-flex align-items-center mb-3">
+            <i class="fas fa-exclamation-circle me-2"></i> Top 10 Guías con Más Discrepancias
         </div>
-        {{-- NUEVO CARD UNIFICADO: Guías con discrepancias + gráfico --}}
-        <div class="card shadow-sm rounded-3 p-3 mb-4">
-            <div class="card-header bg-light fw-semibold d-flex align-items-center mb-3">
-                <i class="fas fa-exclamation-circle me-2"></i> Top 10 Guías con Más Discrepancias
-            </div>
-            <div class="row g-3 align-items-stretch">
-                <div class="col-md-6">
-                    <div class="table-responsive" style="max-height: 320px; overflow-y: auto;">
-                        <table class="table table-sm table-striped align-middle mb-0">
-                            <thead class="table-success sticky-top">
-                            <tr>
-                                <th>N° Guía</th>
-                                <th>Cantidad de productos</th>
-                                <th>Cantidad de discrepancias</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            @foreach($guiascondiscrepancias as $guia)
-                                <tr>
-                                    <td>{{ $guia->codigoguia }}</td>
-                                    <td>{{ $guia->cantidad_productos }}</td>
-                                    <td>{{ $guia->cantidad_discrepancias }}</td>
-                                </tr>
-                            @endforeach
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="col-md-6 d-flex">
-                    <div class="card flex-fill shadow-sm rounded-3 w-100">
-                        <div class="card-body p-3">
-                            <canvas id="chartTopDiscrepancias" style="width: 100%; height: 300px;"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        {{-- NUEVO CARD: Productos con más discrepancias --}}
-        <div class="card shadow-sm rounded-3 p-3">
-            <div class="card-header bg-light fw-semibold d-flex align-items-center mb-3">
-                <i class="fas fa-box-open me-2"></i> Top 10 Productos con Más Discrepancias
-            </div>
-            <div class="table-responsive" style="max-height: 320px; overflow-y: auto;">
-                <table class="table table-sm table-striped align-middle mb-0">
-                    <thead class="table-success sticky-top">
-                    <tr>
-                        <th>SKU</th>
-                        <th>Nombre</th>
-                        <th>Estado</th>
-                        <th>Total entregado / Revisado</th>
-                        <th>Fecha</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    @foreach($productosConDiscrepancias as $item)
+        <div class="row g-3 align-items-stretch">
+            <div class="col-md-6">
+                <div class="table-responsive" style="max-height: 320px; overflow-y: auto;">
+                    <table class="table table-sm table-striped align-middle mb-0">
+                        <thead class="table-success sticky-top">
                         <tr>
-                            <td>{{ $item->codproducto }}</td>
-                            <td>{{ $item->nombre }}</td>
-                            <td>{{ $item->estado }}</td>
-                            <td>{{ $item->cantrecibida }} / {{ $item->cantrecibidarevision }}</td>
-                            <td>{{ \Carbon\Carbon::parse($item->fecha)->format('d/m/Y') }}</td>
+                            <th>N° Guía</th>
+                            <th>Cantidad de productos</th>
+                            <th>Cantidad de discrepancias</th>
                         </tr>
-                    @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                        @foreach($guiascondiscrepancias as $guia)
+                            <tr>
+                                <td>{{ $guia->codigoguia }}</td>
+                                <td>{{ $guia->cantidad_productos }}</td>
+                                <td>{{ $guia->cantidad_discrepancias }}</td>
+                            </tr>
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-md-6 d-flex">
+                <div class="card flex-fill shadow-sm rounded-3 w-100">
+                    <div class="card-body p-3">
+                        <canvas id="chartTopDiscrepancias" style="width: 100%; height: 320px;"></canvas>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
-
 {{-- Scripts para gráficos --}}
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-    // Gráfico Últimas Guías Emitidas
-    {{-- const ctxArea = document.getElementById('myAreaChart').getContext('2d'); --}}
-    {{-- new Chart(ctxArea, { --}}
-    {{--    type: 'line', --}}
-    {{--    data: { --}}
-    {{--        labels: {!! json_encode($ultimasGuias->pluck('fecha')) !!}, --}}
-    {{--        datasets: [{ --}}
-    {{--            label: 'Guías Emitidas', --}}
-    {{--            data: {!! json_encode($ultimasGuias->pluck('total')) !!}, --}}
-    {{--            fill: true, --}}
-    {{--            borderColor: 'rgba(54, 162, 235, 1)', --}}
-    {{--            backgroundColor: 'rgba(54, 162, 235, 0.2)', --}}
-    {{--            tension: 0.3 --}}
-    {{--        }] --}}
-    {{--    }, --}}
-    {{--    options: { --}}
-    {{--        responsive: true, --}}
-    {{--        scales: { --}}
-    {{--            y: { beginAtZero: true } --}}
-    {{--        } --}}
-    {{--    } --}}
-    {{-- }); --}}
+    // Gráfico RESUMEN GENERAL
+    const ctxResumen = document.getElementById('chartResumenDiscrepancias').getContext('2d');
+    new Chart(ctxResumen, {
+        type: 'bar',
+        data: {
+            labels: @json($this->labelsResumen),
+            datasets: [
+                {
+                    label: 'Discrepancias',
+                    data: @json($this->datosDiscrepancias),
+                    backgroundColor: 'rgba(255, 99, 132, 0.7)'
+                },
+                {
+                    label: 'Sin Discrepancias',
+                    data: @json($this->datosSinDiscrepancias),
+                    backgroundColor: 'rgba(75, 192, 192, 0.7)'
+                },
+                {
+                    label: 'Faltantes',
+                    data: @json($this->datosFaltantes),
+                    backgroundColor: 'rgba(102, 0, 255, 0.7)',
+                    borderColor: 'rgba(102, 0, 255, 1)',
+                    borderWidth: 1
+                }
+            ]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'top' }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    stacked: false,
+                    title: {
+                        display: true,
+                        text: 'Cantidad de Guías'
+                    }
+                },
+                x: {
+                    title: {
+                        display: true,
+                        text: 'Fecha'
+                    }
+                }
+            }
+        }
+    });
+
+    // Gráfico Pie: Daño
+    const ctxPie = document.getElementById('pieChart').getContext('2d');
+    new Chart(ctxPie, {
+        type: 'pie',
+        data: {
+            labels: ['Guías Sin Daño', 'Guías Con Daño'],
+            datasets: [{
+                label: 'Cantidad de Guías',
+                data: [{{ $guiasSinDanio }}, {{ $guiasConDanio }}],
+                backgroundColor: ['rgba(40, 167, 69, 0.7)', 'rgba(220, 53, 69, 0.7)'],
+                borderColor: ['rgba(40, 167, 69, 1)', 'rgba(220, 53, 69, 1)'],
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { font: { size: 14 } }
+                }
+            }
+        }
+    });
+
+    // Gráfico Línea: Discrepancias vs Sin Discrepancias
     const ctxGuias = document.getElementById('chartGuiasDiscrepancias').getContext('2d');
     new Chart(ctxGuias, {
         type: 'line',
         data: {
-            labels: @json($fechas),
-            datasets: [{
-                label: 'Guías Sin Discrepancias',
-                data: @json($datosSinDiscrepancias),
-                borderColor: 'orange',
-                backgroundColor: 'rgba(255,165,0,0.2)',
-                tension: 0.4,
-                pointRadius: 5
-            },
+            labels: @json($this->fechas),
+            datasets: [
+                {
+                    label: 'Guías Sin Discrepancias',
+                    data: @json($this->datosSinDiscrepancias),
+                    borderColor: 'orange',
+                    backgroundColor: 'rgba(255,165,0,0.2)',
+                    tension: 0.4,
+                    pointRadius: 5
+                },
                 {
                     label: 'Guías Con Discrepancias',
-                    data: @json($datosConDiscrepancias),
+                    data: @json($this->datosConDiscrepancias),
                     borderColor: 'red',
                     backgroundColor: 'rgba(255,0,0,0.2)',
                     tension: 0.4,
@@ -245,60 +261,16 @@
         options: {
             responsive: true,
             plugins: {
-                legend: {
-                    position: 'top'
-                }
+                legend: { position: 'top' }
             },
             scales: {
-                y: {
-                    beginAtZero: true
-                },
-                x: {
-                    title: {
-                        display: true,
-                        text: 'Fecha de emisión'
-                    }
-                }
+                y: { beginAtZero: true },
+                x: { title: { display: true, text: 'Fecha de emisión' } }
             }
         }
     });
 
-    // Gráfico Pie: Estado de Guías
-    const ctxPie = document.getElementById('pieChart').getContext('2d');
-    new Chart(ctxPie, {
-        type: 'pie',
-        data: {
-            labels: ['Guías Sin Daño', 'Guías Con Daño'],
-            datasets: [{
-                label: 'Cantidad de Guías',
-                data: [{{ $guiasSinDanio }}, {{ $guiasConDanio }}],
-                backgroundColor: [
-                    'rgba(40, 167, 69, 0.7)', // verde
-                    'rgba(220, 53, 69, 0.7)' // rojo
-                ],
-                borderColor: [
-                    'rgba(40, 167, 69, 1)',
-                    'rgba(220, 53, 69, 1)'
-                ],
-                borderWidth: 1
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                    labels: {
-                        font: {
-                            size: 14
-                        }
-                    }
-                }
-            }
-        }
-    });
-
-    // Gráfico barras: Top 10 guías con más discrepancias
+    // Gráfico Barras: Top 10 guías con más discrepancias
     const ctxBar = document.getElementById('chartTopDiscrepancias').getContext('2d');
     new Chart(ctxBar, {
         type: 'bar',
@@ -315,22 +287,14 @@
             scales: {
                 y: {
                     beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: 'Cantidad de Discrepancias'
-                    }
+                    title: { display: true, text: 'Cantidad de Discrepancias' }
                 },
                 x: {
-                    title: {
-                        display: true,
-                        text: 'N° Guía'
-                    }
+                    title: { display: true, text: 'N° Guía' }
                 }
             },
             plugins: {
-                legend: {
-                    display: false
-                }
+                legend: { display: false }
             }
         }
     });
