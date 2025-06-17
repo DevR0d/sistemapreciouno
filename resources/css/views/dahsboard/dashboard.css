@@ -19,3 +19,8 @@
 h1, h3, h6 {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+canvas {
+    display: block;
+    margin: auto;
+}

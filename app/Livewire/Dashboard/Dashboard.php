@@ -55,13 +55,42 @@ class Dashboard extends Component
             ->select(
                 'g.codigoguia',
                 DB::raw('COUNT(DISTINCT d.idproducto) as cantidad_productos'),
-                DB::raw('COUNT(v.idvalidacion) as cantidad_discrepancias')
+                DB::raw('SUM(CASE WHEN v.idtipocondicion = 2 THEN 1 ELSE 0 END) as cantidad_discrepancias')
             )
             ->leftJoin('detalleguia as d', 'd.idguia', '=', 'g.idguia')
             ->leftJoin('validacion as v', 'v.idguia', '=', 'g.idguia')
+            ->where('g.estado', '!=', 'Eliminado') // excluye guías eliminadas
             ->groupBy('g.codigoguia')
+            ->having('cantidad_discrepancias', '>', 0) // solo guías con discrepancias
             ->limit(10)
             ->get();
+
+        $datosPorFecha = DB::table('guiaremision as g')
+            ->selectRaw('DATE(g.fechaemision) as fecha')
+            ->selectRaw('
+        SUM(CASE WHEN v.idtipocondicion = 1 THEN 1 ELSE 0 END) as sin_discrepancia,
+        SUM(CASE WHEN v.idtipocondicion = 2 THEN 1 ELSE 0 END) as con_discrepancia,
+        COUNT(DISTINCT CASE WHEN v.idvalidacion IS NULL THEN g.idguia END) as faltantes
+    ')
+            ->leftJoin('validacion as v', 'g.idguia', '=', 'v.idguia')
+            ->where('g.estado', '!=', 'Eliminado')
+            ->groupByRaw('DATE(g.fechaemision)')
+            ->orderByRaw('DATE(g.fechaemision) asc')
+            ->limit(7)
+            ->get();
+
+        $this->labelsResumen = [];
+        $this->datosDiscrepancias = [];
+        $this->datosSinDiscrepancias = [];
+        $this->datosFaltantes = [];
+
+        foreach ($datosPorFecha as $row) {
+            $this->labelsResumen[] = \Carbon\Carbon::parse($row->fecha)->format('d-M');
+            $this->datosDiscrepancias[] = (int)$row->con_discrepancia;
+            $this->datosSinDiscrepancias[] = (int)$row->sin_discrepancia;
+            $this->datosFaltantes[] = (int)$row->faltantes;
+        }
+
 
         //pruebita
         // Fechas base (últimos 7 días con guías emitidas)
