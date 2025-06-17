@@ -17,7 +17,7 @@
                 <div class="card border-primary">
                     <div class="card-body text-center">
                         <i class="fas fa-user-shield text-primary fa-2x mb-2"></i>
-                        <h4 class="text-primary mb-1">3</h4>
+                        <h4 class="text-primary mb-1">{{ $totalAdmins }}</h4>
                         <small class="text-muted">Administradores</small>
                     </div>
                 </div>
@@ -26,7 +26,7 @@
                 <div class="card border-success">
                     <div class="card-body text-center">
                         <i class="fas fa-user-check text-success fa-2x mb-2"></i>
-                        <h4 class="text-success mb-1">12</h4>
+                        <h4 class="text-success mb-1">{{ $totalPrevencionistas }}</h4>
                         <small class="text-muted">Prevencionistas</small>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                 <div class="card border-info">
                     <div class="card-body text-center">
                         <i class="fas fa-users text-info fa-2x mb-2"></i>
-                        <h4 class="text-info mb-1">15</h4>
+                        <h4 class="text-info mb-1">{{ $totalUsuarios }}</h4>
                         <small class="text-muted">Total Usuarios</small>
                     </div>
                 </div>
