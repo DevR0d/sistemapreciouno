@@ -23,7 +23,8 @@ Route::middleware(['auth', 'role:administrador,superadmin'])->group(function () 
 
     //usuarios
     Route::get('/usuarios', [VistasIntranetController::class, 'vistausuarios'])->name('vistausuarios');
-    Route::post('/registrarusuario', [ProductoController::class, 'registrarusuario'])->name('api.registrarusuario');
+    Route::post('/verificarusuario', [UsuariosController::class, 'verificarusuario'])->name('api.verificarusuario');
+    Route::post('/estadousuario', [UsuariosController::class, 'eliminarusuario'])->name('api.eliminarusuario');
 
     //conductores
     Route::get('/conductor', [VistasIntranetController::class, 'vistaconductor'])->name('vistaconductor');

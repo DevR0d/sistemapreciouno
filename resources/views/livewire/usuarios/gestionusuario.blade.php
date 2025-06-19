@@ -92,7 +92,7 @@
                 <td class="text-center">
                     <small class="text-muted">
                         <i class="fas fa-clock me-1"></i>
-                        {{ $usuario->updated_at ? $usuario->updated_at->diffForHumans() : 'Nunca' }}
+                        {{ $usuario->updated_at ? \Carbon\Carbon::parse($usuario->updated_at)->diffForHumans() : 'Nunca' }}
                     </small>
                 </td>
                 <td>

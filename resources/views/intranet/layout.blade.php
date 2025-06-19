@@ -15,7 +15,6 @@
     @vite([
         'resources/css/demo/styles.css',
         'resources/css/views/layout.css',
-        'resources/js/intranet/usuarios.js',
         'resources/js/intranet/appproducto.js',
         'resources/js/intranet/appvehiculo.js',
         'resources/js/intranet/appconductores.js',
@@ -27,6 +26,7 @@
         'resources/js/demo/chart-bar-demo.js',
         'resources/js/demo/datatables-simple-demo.js',
         'resources/js/demo/scripts.js',
+        'resources/js/app.js'
     ])
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
 </head>

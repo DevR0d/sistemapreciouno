@@ -3,6 +3,7 @@ import './appglobal.js';
 import './demo/scripts.js'
 import './intranet/appproducto.js';
 import './intranet/appvehiculo.js';
+import './intranet/appusuarios.js';
 import './intranet/appconductores.js';
 import './intranet/appguiasremision.js';
 import './demo/datatables-simple-demo.js';

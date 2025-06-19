@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Livewire\Usuarios\Gestionusuario;
 use App\Models\User;
 use App\Models\Gestionusuarios;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -57,22 +58,25 @@ class UsuariosController extends Controller
                 "id" => "nullable",
                 'name' => 'required',
                 'email' => 'required',
-                'password' => 'required'
+                'password' => 'required',
+                'idrol' => 'required'
             ]);
 
-            $gestionusuario = new gestionusuario();
+            $gestionusuario = new User ();
             if ($validated['id'] === null) {
-                $usuario = $gestionusuario->insertarvehiculos([
+                $usuario = $gestionusuario->insertarusuarios([
                     "name" => $validated['name'],
                     "email" => $validated['email'],
-                    "password" => $validated['password']
+                    "password" => $validated['password'],
+                    "idrol" => $validated['idrol']
                 ]);
             } else {
-                $usuario = $gestionusuario->editarvehiculo([
+                $usuario = $gestionusuario->editarusuario([
                     "id" => $validated['id'],
                     "name" => $validated['name'],
                     "email" => $validated['email'],
-                    "password" => $validated['password']
+                    "password" => $validated['password'],
+                    "idrol" => $validated['idrol']
                 ]);
             }
 
@@ -94,39 +98,54 @@ class UsuariosController extends Controller
     }
 
     // Para registrar el usuario
-    public function registrarusuario(Request $request)
-    {
-        try {
-            $validated = $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|email|unique:usuarios,email',
-                'password' => 'required|min:6',
-                'idrol' => 'required|integer'
-            ]);
+    // public function registrarusuario(Request $request)
+    // {
+    //     try {
+    //         $validated = $request->validate([
+    //             'name' => 'required|string|max:255',
+    //             'email' => 'required|email|unique:users,email',
+    //             'password' => 'required|min:6',
+    //             'idrol' => 'required|integer'
+    //         ]);
 
-            // Encriptar la contraseña antes de guardar
-            $validated['password'] = bcrypt($validated['password']);
+    //         // Encriptar la contraseña antes de guardar
+    //         $validated['password'] = bcrypt($validated['password']);
 
-            $modelousuario = new Usuarios();
-            $usuario = $modelousuario->insertarusuarios($validated);
+    //         $modelousuario = new Gestionusuarios();
+    //         if ($validated['id'] === null) {
+    //             $usuario = $modelousuario->insertarusuarios([
+    //                 "name" => $validated['name'],
+    //                 "email" => $validated['email'],
+    //                 "password" => $validated['password'],
+    //                 "idrol" => $validated['idrol']
+    //             ]);
+    //         } else {
+    //             $usuario = $modelousuario->editarusuarios([
+    //                 "id" => $validated['id'],
+    //                 "name" => $validated['name'],
+    //                 "email" => $validated['email'],
+    //                 "password" => $validated['password'],
+    //                 "idrol" => $validated['idrol']
+    //             ]);
+    //         }
 
-            if (!$usuario["success"]) {
-                throw new Exception($usuario["message"]);
-            }
+    //         if (!$usuario["success"]) {
+    //             throw new Exception($usuario["message"]);
+    //         }
 
-            return response()->json([
-                'success' => true,
-                'message' => $usuario["message"],
-                'data' => $usuario["data"]
-            ]);
-        } catch (\Exception $ex) {
-            return response()->json([
-                'success' => false,
-                'message' => 'Error al registrar el usuario: ' . $ex->getMessage(),
-                'error_details' => env('APP_DEBUG') ? $ex->getTrace() : null
-            ], 500);
-        }
-    }
+    //         return response()->json([
+    //             'success' => true,
+    //             'message' => $usuario["message"],
+    //             'data' => $usuario["data"]
+    //         ]);
+    //     } catch (\Exception $ex) {
+    //         return response()->json([
+    //             'success' => false,
+    //             'message' => 'Error al registrar el usuario: ' . $ex->getMessage(),
+    //             'error_details' => env('APP_DEBUG') ? $ex->getTrace() : null
+    //         ], 500);
+    //     }
+    // }
 
 
     public function eliminarusuario(Request $request)
@@ -136,8 +155,8 @@ class UsuariosController extends Controller
                 "id" => "nullable",
             ]);
 
-            $gestionusuario = new Vehiculo();
-            $usuario = $gestionusuario->editarvehiculo([
+            $gestionusuario = new User();
+            $usuario = $gestionusuario->editarusuarios([
                 "id" => $validated['id'],
                 "estado" => "Eliminado"
             ]);

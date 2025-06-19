@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Usuarios;
 
+
 use App\Models\User;  // Usaremos el modelo de usuarios de Laravel
 use Livewire\Attributes\On;
 use Livewire\Component;
@@ -24,9 +25,25 @@ class Gestionusuario extends Component
         'sortField' => ['except' => 'id'],
         'sortDirection' => ['except' => 'asc'],
     ];
+    public array $usuarios = []; // Array para almacenar los usuarios
 
     // Método para actualizar la lista cuando se cambia el filtro
     #[On('listarusuariosDesdeJS')]
+    public function listar(): void
+    {
+        $modelovecino = new User();
+        $resultado = (new User())->mostrarusuarios(['paginado' => false]);
+        $this->usuarios = $resultado['data'] ?? [];
+
+
+        $this->render();
+    }
+
+    public function mount(): void
+    {
+        $this->listar();
+    }
+
     public function refreshList()
     {
         $this->resetPage(); // Resetear la paginación

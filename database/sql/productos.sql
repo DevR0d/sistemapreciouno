@@ -84,3 +84,17 @@ INSERT INTO productos (codigoproducto, nombre, tipocodproducto, tipoinventario, 
                                                                                                            ('43418811', 'AZUCAR RUBIA X 2 KG MANUELITA', 'Fijo', 'Oriente', NOW(), 'Activo'),
                                                                                                            ('43220571', 'AZUCAR BLANCA EXTRA 2 KG MANUELITA', 'Fijo', 'Tottus', NOW(), 'Activo'),
                                                                                                            ('43392906', 'LECHE LLAVE BOLSITARRO BOLSA 390G', 'Fijo', 'Oriente', NOW(), 'Activo');
+
+-- detalleguia 1
+INSERT INTO detalleguia(idguia, idproducto, condicion, cantrecibida) VALUES
+                                                                         (1, (SELECT idproducto FROM productos WHERE codigoproducto = '40375529'), 'Bueno', 12),
+                                                                         (1, (SELECT idproducto FROM productos WHERE codigoproducto = '41051655'), 'Bueno', 6),
+                                                                         (1, (SELECT idproducto FROM productos WHERE codigoproducto = '41421747'), 'Bueno', 3),
+                                                                         (1, (SELECT idproducto FROM productos WHERE codigoproducto = '41421753'), 'Bueno', 3),
+                                                                         (1, (SELECT idproducto FROM productos WHERE codigoproducto = '42945566'), 'Bueno', 4),
+                                                                         (1, (SELECT idproducto FROM productos WHERE codigoproducto = '42231468'), 'Bueno', 3),
+                                                                         (1, (SELECT idproducto FROM productos WHERE codigoproducto = '43086808'), 'Bueno', 4),
+                                                                         (1, (SELECT idproducto FROM productos WHERE codigoproducto = '41674294'), 'Bueno', 4),
+                                                                         (1, (SELECT idproducto FROM productos WHERE codigoproducto = '42238594'), 'Bueno', 2),
+                                                                         (1, (SELECT idproducto FROM productos WHERE codigoproducto = '42238595'), 'Bueno', 2),
+                                                                         (1, (SELECT idproducto FROM productos WHERE codigoproducto = '42911078'), 'Bueno', 1);
