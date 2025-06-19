@@ -55,4 +55,3 @@ INSERT INTO tipoempresa (direccion, provincia, departamento, ubigeo, razonsocial
 -- guiaremision
 INSERT INTO guiaremision (codigoguia, fechaemision, horaemision, razonsocialguia, numerotrasladotim, motivotraslado, pesobrutototal, volumenproducto, numerobultopallet, observaciones, idconductor, idtipoempresa, estado) VALUES
     ('T003-00472255', '2025-03-18', '14:35:36', 'HIPERMERCADOS TOTTUS S.A.C', '-M655265598', 'Venta', '18665', '0.00', '0', '', 1, 1,'Activo');
-

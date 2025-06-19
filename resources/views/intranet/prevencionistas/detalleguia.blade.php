@@ -45,7 +45,7 @@
                             <!-- Columna Datos Generales -->
                             <div class="col-12">
                                 <div class="info-card bg-light p-3 mb-3 rounded">
-                                    <h6 class="fw-bold text-primary mb-3 border-bottom pb-2">
+                                    <h6 class="fw-bold text-primary mb-3 border-bottom pb-2 text-center">
                                         <i class="fas fa-file-signature me-2"></i>DATOS GENERALES
                                     </h6>
                                     <div class="row">
@@ -61,6 +61,13 @@
                                               ['label' => 'Volumen (m³)', 'id' => 'detalle-volumen', 'value' => $guia->volumenproducto],
                                               ['label' => 'N° Bultos', 'id' => 'detalle-bultos', 'value' => $guia->numerobultopallet],
                                               ['label' => 'Observaciones', 'id' => 'detalle-observaciones', 'value' => $guia->observaciones, 'fullWidth' => true],
+                                              ['label' => 'Razón Social', 'id' => 'detalle-empresa-razonsocial', 'value' => $tipoempresa->razonsocial ?? 'N/A', 'fullWidth' => true],
+                                              ['label' => 'RUC', 'id' => 'detalle-empresa-ruc', 'value' => $tipoempresa->ruc ?? 'N/A'],
+                                              ['label' => 'Cód. Establecimiento', 'id' => 'detalle-empresa-codigo', 'value' => $tipoempresa->codigoestablecimiento ?? 'N/A'],
+                                              ['label' => 'Dirección', 'id' => 'detalle-empresa-direccion', 'value' => $tipoempresa->direccion ?? 'N/A', 'fullWidth' => true],
+                                              ['label' => 'Departamento', 'id' => 'detalle-empresa-departamento', 'value' => $tipoempresa->departamento ?? 'N/A'],
+                                              ['label' => 'Provincia', 'id' => 'detalle-empresa-provincia', 'value' => $tipoempresa->provincia ?? 'N/A'],
+                                              ['label' => 'Ubigeo', 'id' => 'detalle-empresa-ubigeo', 'value' => $tipoempresa->ubigeo ?? 'N/A'],
                                             ];
                                         @endphp
                                         @foreach ($infoFields as $field)
@@ -72,25 +79,26 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- Columna Datos de Empresa -->
+                            <!-- Columna Unidad de Transporte del Conductor -->
                             <div class="col-12">
                                 <div class="info-card bg-light p-3 mb-3 rounded">
-                                    <h6 class="fw-bold text-primary mb-3 border-bottom pb-2">
-                                        <i class="fas fa-building me-2"></i>DATOS DE LA EMPRESA
+                                    <h6 class="fw-bold text-primary mb-3 border-bottom pb-2 text-center">
+                                        <i class="fas fa-user-tie me-2"></i> UNIDAD DE TRANSPORTE DEL CONDUCTOR
                                     </h6>
                                     <div class="row">
                                         @php
-                                            $empresaFields = [
-                                                ['label' => 'Razón Social', 'id' => 'detalle-empresa-razonsocial', 'value' => $tipoempresa->razonsocial ?? 'N/A', 'fullWidth' => true],
-                                                ['label' => 'RUC', 'id' => 'detalle-empresa-ruc', 'value' => $tipoempresa->ruc ?? 'N/A'],
-                                                ['label' => 'Cód. Establecimiento', 'id' => 'detalle-empresa-codigo', 'value' => $tipoempresa->codigoestablecimiento ?? 'N/A'],
-                                                ['label' => 'Dirección', 'id' => 'detalle-empresa-direccion', 'value' => $tipoempresa->direccion ?? 'N/A', 'fullWidth' => true],
-                                                ['label' => 'Departamento', 'id' => 'detalle-empresa-departamento', 'value' => $tipoempresa->departamento ?? 'N/A'],
-                                                ['label' => 'Provincia', 'id' => 'detalle-empresa-provincia', 'value' => $tipoempresa->provincia ?? 'N/A'],
-                                                ['label' => 'Ubigeo', 'id' => 'detalle-empresa-ubigeo', 'value' => $tipoempresa->ubigeo ?? 'N/A'],
+                                            $infoFields = [
+                                                ['label' => 'Razon Social Transportista', 'id' => 'detalle-conductor', 'value' => $conductor->nombre],
+                                                ['label' => 'N° RUC Transportista', 'id' => 'detalle-conductor', 'value' => $conductor->nombre],
+                                                ['label' => 'Modalidad de traslado', 'id' => 'detalle-conductor', 'value' => $conductor->nombre],
+                                                ['label' => 'DNI del conductor', 'id' => 'detalle-dni-conductor', 'value' => $conductor->dni],
+                                                ['label' => 'N° Placa Vehiculo Transportista', 'id' => 'detalle-conductor', 'value' => $conductor->nombre],
+                                                ['label' => 'N° Placa Vehiculo Secundario', 'id' => 'detalle-conductor', 'value' => $conductor->nombre],
+                                                ['label' => 'Nombre del conductor', 'id' => 'detalle-conductor', 'value' => $conductor->nombre],
+                                                ['label' => 'Estado del conductor', 'id' => 'detalle-estado-conductor', 'value' => $conductor->estado],
                                             ];
                                         @endphp
-                                        @foreach ($empresaFields as $field)
+                                        @foreach ($infoFields as $field)
                                             <div class="{{ !empty($field['fullWidth']) ? 'col-12' : 'col-6' }} mb-2">
                                                 <span class="d-block text-muted small">{{ $field['label'] }}:</span>
                                                 <strong id="{{ $field['id'] }}">{{ $field['value'] ?? 'N/A' }}</strong>
@@ -99,27 +107,7 @@
                                     </div>
                                 </div>
                             </div>
-
-                            <!-- Columna Transporte -->
-                            <div class="col-12">
-                                <div class="info-card bg-light p-3 mb-3 rounded">
-                                    <h6 class="fw-bold text-primary mb-3 border-bottom pb-2">
-                                        <i class="fas fa-user-tie me-2"></i>UNIDAD DE TRANSPORTE DEL CONDUCTOR
-                                    </h6>
-                                    <div class="d-flex align-items-center">
-                                        <div class="avatar bg-primary text-white rounded-circle me-3 d-flex align-items-center justify-content-center">
-                                            <i class="fas fa-user fs-5"></i>
-                                        </div>
-                                        <div>
-                                            <h6 class="mb-0 fw-bold" id="detalle-conductor">{{ $conductor->nombre ?? 'N/A' }}</h6>
-                                            <span class="text-muted small" id="detalle-dni-conductor">DNI: {{ $conductor->dni ?? 'N/A' }}</span><br>
-                                            <span class="badge bg-success">{{ $conductor->estado ?? 'N/A' }}</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
-
                         <!-- Tabla de Productos -->
                         <div class="mt-2 mb-0">
                             <h5 class="fw-bold text-primary mb-2">
@@ -129,7 +117,7 @@
                                 <table class="table table-hover table-sm">
                                     <thead class="table-primary">
                                     <tr>
-                                        <th width="5%" class="text-center">#</th>
+                                        {{--                                        <th width="5%" class="text-center">#</th>--}}
                                         <th width="15%" class="text-center">Código del producto</th>
                                         <th width="35%" class="text-center">Descripción</th>
                                         <th width="20%" class="text-center">Condicion</th>
@@ -140,15 +128,15 @@
                                     <tbody>
                                     @forelse($detalleguia as $item)
                                         <tr>
-                                            <td class="text-center">{{ $item->idproducto ?? 'N/A' }}</td>
+                                            {{--                                            <td class="text-center">{{ $item->idproducto ?? 'N/A' }}</td>--}}
                                             <td class="text-center">{{ $item->codproducto ?? 'Sin descripción' }}</td>
                                             <td class="text-center">{{ $item->producto ?? 'Sin descripción' }}</td>
                                             <td class="text-center">{{ $item->condicion ?? 'Sin descripción' }}</td>
                                             <td class="text-center">{{ number_format($item->cantrecibidarevision  ?? 0, 2) }}</td>
                                             <td class="text-center">
-                  <span class="badge bg-{{ $item->estado === 'VALIDADO' ? 'success' : 'warning' }}">
-                    {{ $item->estado ?? 'PENDIENTE' }}
-                  </span>
+                                                <span class="badge bg-{{ $item->estado === 'VALIDADO' ? 'success' : 'warning' }}">
+                                                    {{ $item->estado ?? 'PENDIENTE' }}
+                                                </span>
                                             </td>
                                         </tr>
                                     @empty

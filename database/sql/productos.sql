@@ -85,7 +85,6 @@ INSERT INTO productos (codigoproducto, nombre, tipocodproducto, tipoinventario, 
                                                                                                            ('43220571', 'AZUCAR BLANCA EXTRA 2 KG MANUELITA', 'Fijo', 'Tottus', NOW(), 'Activo'),
                                                                                                            ('43392906', 'LECHE LLAVE BOLSITARRO BOLSA 390G', 'Fijo', 'Oriente', NOW(), 'Activo');
 
--- detalleguia 1
 INSERT INTO detalleguia(idguia, idproducto, condicion, cantrecibida) VALUES
                                                                          (1, (SELECT idproducto FROM productos WHERE codigoproducto = '40375529'), 'Bueno', 12),
                                                                          (1, (SELECT idproducto FROM productos WHERE codigoproducto = '41051655'), 'Bueno', 6),
