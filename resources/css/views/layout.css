@@ -27,7 +27,8 @@ html, body {
 
 .enable-scroll {
     overflow-y: auto;
-    max-height: calc(100vh - 220px); /* o el valor que necesites */
+    max-height: calc(100vh - 450px); /* Ajusta según el espacio disponible real */
+    /*padding-right: 8px; !* opcional para margen visual *!*/
 }
 
 /* Para pantallas medianas (tablets) */

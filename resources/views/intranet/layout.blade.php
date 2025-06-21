@@ -9,7 +9,7 @@
     <meta name="author" content="" />
     <title>@yield('title') - Sistema Logístico Precio Uno</title>
     <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-    <link rel="icon" type="image/png" href="{{ asset('storage/imgsistema/logo.png') }}">
+{{--    <link rel="icon" type="image/png" href="{{ asset('storage/imgsistema/logo.png') }}">--}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
     @livewireStyles
     @vite([

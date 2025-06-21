@@ -87,7 +87,7 @@ $(document).ready(function () {
 
         // Cambiar el título del modal
         $('#idlabeltitlemodalUsuarios').text('Nuevo Usuario');
-        $('#idformusuario : input').prop('disabled', false);
+        $('#idformusuario :input').prop('disabled', false);
 
         // Mostrar el modal
         const modalElement = document.getElementById('idmodalUsuarios'); // Asegúrate de que tu modal tenga este ID
@@ -120,7 +120,7 @@ $(document).ready(function () {
         modal.show();
     });
 
-    $(document).on('click', '.btneliminarusuario', async function (e) {
+    $(document).on('click', '.btn-eliminarusuario', async function (e) {
         e.preventDefault();
 
         const $tr = $(this).closest('tr');
@@ -141,7 +141,7 @@ $(document).ready(function () {
                 url: `/estadousuario`, // Asegúrate de que esta ruta esté correctamente definida en Laravel
                 type: "POST",
                 data: {
-                    idusuario: id,
+                    id: id,
                     _token: csrfToken
                 },
                 headers: {
@@ -151,7 +151,7 @@ $(document).ready(function () {
                 dataType: 'json'
             });
 
-            if (!response.success) {
+            if (response.success) {
                 Livewire.dispatch("listarusuariosDesdeJS");
                 Swal.fire({
                     icon: 'success',
@@ -164,6 +164,7 @@ $(document).ready(function () {
                 throw new Error(response.message || 'Error en la operación');
             }
         } catch (error) {
+            console.error("Error completo:", error);
             Swal.fire({
                 icon: 'error',
                 title: 'Error',

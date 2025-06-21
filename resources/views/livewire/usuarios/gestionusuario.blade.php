@@ -102,17 +102,9 @@
                             <i class="fas fa-edit"></i>
                         </button>
                         <button type="button" class="btn btn-outline-danger btn-sm btn-eliminarusuario"
-                                data-id="{{ $usuario->id }}" title="Eliminar usuario" data-bs-toggle="tooltip">
+                                data-id="{{ $usuario['id'] }}" title="Eliminar usuario" data-bs-toggle="tooltip">
                             <i class="fas fa-trash"></i>
                         </button>
-                        {{--  <button type="button" class="btn btn-outline-info btn-sm"
-                                title="Ver perfil" data-bs-toggle="tooltip">
-                            <i class="fas fa-eye"></i>
-                        </button>  --}}
-                        {{--  <button type="button" class="btn btn-outline-secondary btn-sm"
-                                title="Resetear contraseña" data-bs-toggle="tooltip">
-                            <i class="fas fa-key"></i>
-                        </button>  --}}
                     </div>
                 </td>
             </tr>

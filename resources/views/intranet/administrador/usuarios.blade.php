@@ -52,10 +52,8 @@
                     </h5>
                 </div>
             </div>
-            <div class="card-body p-0">
-                <div class="enable-scroll">
-                    @livewire('usuarios.gestionusuario')
-                </div>
+            <div class="enable-scroll">
+                @livewire('usuarios.gestionusuario')
             </div>
         </div>
     </div>

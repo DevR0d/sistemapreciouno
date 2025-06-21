@@ -77,7 +77,7 @@ class Gestionusuario extends Component
     // Metodo para obtener usuarios con filtrado y paginación
     public function render()
     {
-        $usuarios = User::query()
+        $usuarios = User::where('estado', '!=', 'Eliminado')
             ->when($this->search, function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%')
                     ->orWhere('email', 'like', '%' . $this->search . '%');

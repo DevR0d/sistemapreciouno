@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Schema;
 
 class User extends Authenticatable
 {
@@ -70,7 +71,7 @@ class User extends Authenticatable
 
     public function mostrarusuarios(array $parametros = []): array
     {
-        $query = DB::table('users');
+        $query = DB::table('users')->where('estado', '!=', 'Eliminado');
 
         if (isset($parametros['id'])) {
             $query->where('id', $parametros['id']);
@@ -110,10 +111,13 @@ class User extends Authenticatable
         DB::statement("SET @success = 0;");
         DB::statement("SET @message = '';");
 
+        //para hashear las contraseñas
+        $password = isset($data['password']) ? Hash::make($data['password']) : null;
+
         DB::statement("CALL sp_usuarioinsertar(?, ?, ?, ?, @id, @success, @message)", [
             $data['name'] ?? null,
             $data['email'] ?? null,
-            $data['password'] ?? null,
+            $password,
             $data['idrol'] ?? null,
         ]);
 
@@ -132,19 +136,29 @@ class User extends Authenticatable
         }
 
         $id = $datos['id'];
-        unset($datos['id']);
+        unset($datos['id']); // No queremos actualizar la PK
 
-        DB::statement("SET @success = 0;");
-        DB::statement("SET @message = '';");
+        if (empty($datos)) {
+            return GlobalModel::returnArray(false, 'No hay datos para actualizar');
+        }
 
-        DB::statement("CALL sp_usuarioeditar(?, ?, ?, ?, @success, @message)", [
-            $id,
-            $datos['name'] ?? null,
-            $datos['email'] ?? null,
-            $datos['password'] ?? null,
-        ]);
+        $usuario = self::find($id);
+        if (!$usuario) {
+            return GlobalModel::returnArray(false, 'Usuario no encontrado');
+        }
 
-        $result = DB::select("SELECT @success as success, @message as message");
-        return GlobalModel::returnArray($result[0]->success == 1, $result[0]->message);
+        foreach ($datos as $key => $value) {
+            if (Schema::hasColumn('users', $key) && !is_null($value)) {
+                $usuario->$key = $key === 'password' ? Hash::make($value) : $value;
+            }
+        }
+
+        $usuario->save();
+
+        return GlobalModel::returnArray(
+            true,
+            'Usuario editado correctamente',
+            $usuario
+        );
     }
 }
