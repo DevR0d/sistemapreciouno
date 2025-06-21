@@ -172,7 +172,7 @@ class UsuariosController extends Controller
         } catch (\Exception $ex) {
             return response()->json([
                 'success' => false,
-                'message' => 'Error al Eliminar los usuarios: ' . $ex->getMessage(),
+                'message' => 'Error al eliminar el usuario: ' . $ex->getMessage(),
                 'error_details' => env('APP_DEBUG') ? $ex->getTrace() : null
             ], 500);
         }

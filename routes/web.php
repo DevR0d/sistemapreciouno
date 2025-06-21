@@ -39,9 +39,6 @@ Route::middleware(['auth', 'role:administrador,superadmin'])->group(function () 
     Route::get('/producto', [VistasIntranetController::class, 'vistaproducto'])->name('vistaproducto');
     Route::post('/registrarproducto', [ProductoController::class, 'registrarproducto'])->name('api.registrarproducto');
     Route::post('/eliminarproducto', [ProductoController::class, 'eliminarproducto'])->name('api.eliminarproducto');
-
-    //guiasderemisionvistas por el administrador
-    Route::get('/guiasremisionadministrador', [VistasIntranetController::class, 'vistaguiasderemisionadministrador'])->name('vistaguiasderemisionadministrador');
 });
 
 
