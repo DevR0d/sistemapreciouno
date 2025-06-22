@@ -41,15 +41,15 @@
         <table class="table table-hover align-middle">
             <thead class="table-dark">
             <tr>
-                <th wire:click="sortBy('id')" style="cursor: pointer;" class="text-center">
-                    <div class="d-flex align-items-center justify-content-center">
-                        <i class="fas fa-hashtag me-2"></i>
-                        ID
-                        @if ($sortField === 'id')
-                            <i class="bi bi-arrow-{{ $sortDirection === 'asc' ? 'up' : 'down' }} ms-1"></i>
-                        @endif
-                    </div>
-                </th>
+{{--                <th wire:click="sortBy('id')" style="cursor: pointer;" class="text-center">--}}
+{{--                    <div class="d-flex align-items-center justify-content-center">--}}
+{{--                        <i class="fas fa-hashtag me-2"></i>--}}
+{{--                        ID--}}
+{{--                        @if ($sortField === 'id')--}}
+{{--                            <i class="bi bi-arrow-{{ $sortDirection === 'asc' ? 'up' : 'down' }} ms-1"></i>--}}
+{{--                        @endif--}}
+{{--                    </div>--}}
+{{--                </th>--}}
                 <th wire:click="sortBy('name')" style="cursor: pointer;">
                     <div class="d-flex align-items-center">
                         <i class="fas fa-user me-2"></i>
@@ -94,9 +94,9 @@
             <tbody>
             @forelse($data as $usuario)
                 <tr class="border-bottom">
-                    <td class="text-center">
-                        <span class="badge bg-primary fs-6">{{ $usuario->id }}</span>
-                    </td>
+{{--                    <td class="text-center">--}}
+{{--                        <span class="badge bg-primary fs-6">{{ $usuario->id }}</span>--}}
+{{--                    </td>--}}
                     <td>
                         <div class="d-flex align-items-center">
                             <div class="avatar-sm bg-primary bg-opacity-10 rounded-circle d-flex align-items-center justify-content-center me-3">
