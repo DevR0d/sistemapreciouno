@@ -1,10 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Livewire\Usuarios\Gestionusuario;
 use App\Models\User;
-use App\Models\Gestionusuarios;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
