@@ -10,54 +10,10 @@
 @endsection
 
 @section('content')
-    <div class="container-fluid">
-        <!-- Estadísticas rápidas -->
-        <div class="row g-3 mb-4">
-            <div class="col-md-4">
-                <div class="card border-primary">
-                    <div class="card-body text-center">
-                        <i class="fas fa-user-shield text-primary fa-2x mb-2"></i>
-                        <h4 class="text-primary mb-1">{{ $totalAdmins }}</h4>
-                        <small class="text-muted">Administradores</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card border-success">
-                    <div class="card-body text-center">
-                        <i class="fas fa-user-check text-success fa-2x mb-2"></i>
-                        <h4 class="text-success mb-1">{{ $totalPrevencionistas }}</h4>
-                        <small class="text-muted">Prevencionistas</small>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card border-info">
-                    <div class="card-body text-center">
-                        <i class="fas fa-users text-info fa-2x mb-2"></i>
-                        <h4 class="text-info mb-1">{{ $totalUsuarios }}</h4>
-                        <small class="text-muted">Total Usuarios</small>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Tabla de usuarios -->
-        <div class="card">
-            <div class="card-header bg-white">
-                <div class="d-flex justify-content-between align-items-center">
-                    <h5 class="mb-0 fw-semibold">
-                        <i class="fas fa-users me-2 text-primary"></i>
-                        Lista de Usuarios
-                    </h5>
-                </div>
-            </div>
-            <div class="enable-scroll">
-                @livewire('usuarios.gestionusuario')
-            </div>
-        </div>
+    <!-- Tabla de usuarios -->
+    <div class="card">
+        @livewire('usuarios.gestionusuario')
     </div>
-
     <!-- Modal para agregar/editar usuario -->
     <div class="modal fade" id="idmodalUsuarios" tabindex="-1" aria-labelledby="idlabeltitleidmodalUsuarios" aria-hidden="true">
         <div class="modal-dialog modal-lg">
@@ -173,22 +129,6 @@
                     fila.style.display = textoFila.includes(valor) ? "" : "none";
                 });
             });
-        }
-    });
-
-    // Toggle para mostrar/ocultar contraseña
-    document.getElementById('togglePassword').addEventListener('click', function() {
-        const passwordField = document.getElementById('idtxtpassword');
-        const icon = this.querySelector('i');
-
-        if (passwordField.type === 'password') {
-            passwordField.type = 'text';
-            icon.classList.remove('fa-eye');
-            icon.classList.add('fa-eye-slash');
-        } else {
-            passwordField.type = 'password';
-            icon.classList.remove('fa-eye-slash');
-            icon.classList.add('fa-eye');
         }
     });
 
