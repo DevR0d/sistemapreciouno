@@ -2,8 +2,8 @@
 
 namespace App\Livewire\Usuarios;
 
-
-use App\Models\User;  // Usaremos el modelo de usuarios de Laravel
+use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -12,12 +12,16 @@ class Gestionusuario extends Component
 {
     use WithPagination;
 
-    public $search = '';        // Filtro de búsqueda
-    public $perPage = 10;       // Número de registros por página
-    public $sortField = 'id';   // Campo por el cual se ordena
-    public $sortDirection = 'asc'; // Dirección del orden (asc/desc)
+    public $search = '';
+    public $perPage = 10;
+    public $sortField = 'id';
+    public $sortDirection = 'asc';
 
-    protected $paginationTheme = 'bootstrap'; // Usar el tema de Bootstrap para la paginación
+    public $totalusuarios;
+    public $totaladmins;
+    public $totalprevencionistas;
+
+    protected $paginationTheme = 'bootstrap';
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -25,43 +29,51 @@ class Gestionusuario extends Component
         'sortField' => ['except' => 'id'],
         'sortDirection' => ['except' => 'asc'],
     ];
-    public array $usuarios = []; // Array para almacenar los usuarios
 
-    // Método para actualizar la lista cuando se cambia el filtro
+    public array $usuarios = [];
+
     #[On('listarusuariosDesdeJS')]
     public function listar(): void
     {
-        $modelovecino = new User();
         $resultado = (new User())->mostrarusuarios(['paginado' => false]);
         $this->usuarios = $resultado['data'] ?? [];
-
-
-        $this->render();
+        $this->resetPage();
     }
 
     public function mount(): void
     {
+        $this->totalusuarios = DB::table('users')
+            ->whereRaw("LOWER(estado) != 'eliminado'")
+            ->count();
+
+        $this->totaladmins = DB::table('users')
+            ->whereRaw("LOWER(estado) != 'eliminado'")
+            ->where('idrol', 1)
+            ->count();
+
+        $this->totalprevencionistas = DB::table('users')
+            ->whereRaw("LOWER(estado) != 'eliminado'")
+            ->where('idrol', 2)
+            ->count();
+
         $this->listar();
     }
 
     public function refreshList()
     {
-        $this->resetPage(); // Resetear la paginación
+        $this->resetPage();
     }
 
-    // Método para limpiar el filtro de búsqueda
     public function updatingSearch()
     {
-        $this->resetPage(); // Resetear la paginación cuando cambia la búsqueda
+        $this->resetPage();
     }
 
-    // Método para actualizar la cantidad de elementos por página
     public function updatingPerPage()
     {
-        $this->resetPage(); // Resetear la paginación cuando cambia la cantidad de registros por página
+        $this->resetPage();
     }
 
-    // Método para ordenar por una columna
     public function sortBy($field)
     {
         if ($this->sortField === $field) {
@@ -74,10 +86,9 @@ class Gestionusuario extends Component
         $this->resetPage();
     }
 
-    // Metodo para obtener usuarios con filtrado y paginación
     public function render()
     {
-        $usuarios = User::where('estado', '!=', 'Eliminado')
+        $usuarios = User::whereRaw("LOWER(estado) != 'eliminado'")
             ->when($this->search, function ($query) {
                 $query->where('name', 'like', '%' . $this->search . '%')
                     ->orWhere('email', 'like', '%' . $this->search . '%');
@@ -85,16 +96,11 @@ class Gestionusuario extends Component
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
 
-        // Contadores
-        $totalUsuarios = User::count();
-        $totalAdmins = User::where('idrol', 1)->count();
-        $totalPrevencionistas = User::where('idrol', 2)->count();
-
         return view('livewire.usuarios.gestionusuario', [
-            'data' => $usuarios,   // Paginación de usuarios
-            'totalUsuarios' => $totalUsuarios,
-            'totalAdmins' => $totalAdmins,
-            'totalPrevencionistas' => $totalPrevencionistas,
+            'data' => $usuarios,
+            'totalUsuarios' => $this->totalusuarios,
+            'totalAdmins' => $this->totaladmins,
+            'totalPrevencionistas' => $this->totalprevencionistas,
         ]);
     }
 }

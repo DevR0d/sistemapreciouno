@@ -27,6 +27,12 @@ html, body {
 
 .enable-scroll {
     overflow-y: auto;
+    max-height: calc(100vh - 200px); /* Ajusta según el espacio disponible real */
+    /*padding-right: 8px; !* opcional para margen visual *!*/
+}
+
+.enable-scroll-users {
+    overflow-y: auto;
     max-height: calc(100vh - 450px); /* Ajusta según el espacio disponible real */
     /*padding-right: 8px; !* opcional para margen visual *!*/
 }

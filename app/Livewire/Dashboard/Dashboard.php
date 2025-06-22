@@ -91,7 +91,6 @@ class Dashboard extends Component
             $this->datosFaltantes[] = (int)$row->faltantes;
         }
 
-
         //pruebita
         // Fechas base (últimos 7 días con guías emitidas)
         $fechasBase = DB::table('guiaremision')
