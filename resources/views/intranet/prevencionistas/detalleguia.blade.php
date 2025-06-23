@@ -88,27 +88,26 @@
                                     <div class="row">
                                         @php
                                             $infoFields = [
-                                                ['label' => 'Razon Social Transportista', 'id' => 'detalle-conductor', 'value' => $conductor->nombre],
-                                                ['label' => 'N° RUC Transportista', 'id' => 'detalle-conductor', 'value' => $conductor->nombre],
-                                                ['label' => 'Modalidad de traslado', 'id' => 'detalle-conductor', 'value' => $conductor->nombre],
-                                                ['label' => 'DNI del conductor', 'id' => 'detalle-dni-conductor', 'value' => $conductor->dni],
-                                                ['label' => 'N° Placa Vehiculo Transportista', 'id' => 'detalle-conductor', 'value' => $conductor->nombre],
-                                                ['label' => 'N° Placa Vehiculo Secundario', 'id' => 'detalle-conductor', 'value' => $conductor->nombre],
-                                                ['label' => 'Nombre del conductor', 'id' => 'detalle-conductor', 'value' => $conductor->nombre],
-                                                ['label' => 'Estado del conductor', 'id' => 'detalle-estado-conductor', 'value' => $conductor->estado],
+                                                ['label' => 'Razón Social Transportista', 'value' => $transporte->nombre_razonsocial ?? 'N/A'],
+                                                ['label' => 'N° RUC Transportista', 'value' => $transporte->ruc_transportista ?? 'N/A'],
+                                                ['label' => 'Modalidad de traslado', 'value' => $transporte->modalidadtraslado ?? 'N/A'],
+                                                ['label' => 'DNI del conductor', 'value' => $conductor->dni ?? 'N/A'],
+                                                ['label' => 'Nombre del conductor', 'value' => $conductor->nombre ?? 'N/A'],
+                                                ['label' => 'Estado del conductor', 'value' => $conductor->estado ?? 'N/A'],
+                                                ['label' => 'N° Placa Vehículo Transportista', 'value' => $vehiculo->placa ?? 'N/A'],
+                                                ['label' => 'N° Placa Vehículo Secundario', 'value' => $vehiculo->placasecundaria ?? 'N/A'],
                                             ];
                                         @endphp
                                         @foreach ($infoFields as $field)
-                                            <div class="{{ !empty($field['fullWidth']) ? 'col-12' : 'col-6' }} mb-2">
+                                            <div class="col-6 mb-2">
                                                 <span class="d-block text-muted small">{{ $field['label'] }}:</span>
-                                                <strong id="{{ $field['id'] }}">{{ $field['value'] ?? 'N/A' }}</strong>
+                                                <strong>{{ $field['value'] }}</strong>
                                             </div>
                                         @endforeach
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- Tabla de Productos -->
+                            <!-- Tabla de Productos -->
                         <div class="mt-2 mb-0">
                             <h5 class="fw-bold text-primary mb-2">
                                 <i class="fas fa-boxes me-2"></i> Productos de la Guía
@@ -117,10 +116,9 @@
                                 <table class="table table-hover table-sm">
                                     <thead class="table-primary">
                                     <tr>
-                                        {{--                                        <th width="5%" class="text-center">#</th>--}}
                                         <th width="15%" class="text-center">Código del producto</th>
                                         <th width="35%" class="text-center">Descripción</th>
-                                        <th width="20%" class="text-center">Condicion</th>
+                                        <th width="20%" class="text-center">Condición</th>
                                         <th width="10%" class="text-center">Cantidad recibida</th>
                                         <th width="10%" class="text-center">Estado</th>
                                     </tr>
@@ -128,20 +126,19 @@
                                     <tbody>
                                     @forelse($detalleguia as $item)
                                         <tr>
-                                            {{--                                            <td class="text-center">{{ $item->idproducto ?? 'N/A' }}</td>--}}
                                             <td class="text-center">{{ $item->codproducto ?? 'Sin descripción' }}</td>
                                             <td class="text-center">{{ $item->producto ?? 'Sin descripción' }}</td>
                                             <td class="text-center">{{ $item->condicion ?? 'Sin descripción' }}</td>
-                                            <td class="text-center">{{ number_format($item->cantrecibidarevision  ?? 0, 2) }}</td>
+                                            <td class="text-center">{{ number_format($item->cantidad ?? 0, 2) }}</td>
                                             <td class="text-center">
-                                                <span class="badge bg-{{ $item->estado === 'VALIDADO' ? 'success' : 'warning' }}">
-                                                    {{ $item->estado ?? 'PENDIENTE' }}
-                                                </span>
+                        <span class="badge bg-{{ $item->estado === 'VALIDADO' ? 'success' : 'secondary' }}">
+                            {{ $item->estado }}
+                        </span>
                                             </td>
                                         </tr>
                                     @empty
                                         <tr>
-                                            <td colspan="4" class="text-center text-muted py-3">
+                                            <td colspan="5" class="text-center text-muted py-3">
                                                 <i class="fas fa-box-open me-2"></i> No se encontraron productos en esta guía
                                             </td>
                                         </tr>
@@ -337,7 +334,7 @@
                                                             <small class="text-muted d-block">{{ $item->observaciones }}</small>
                                                         @endif
                                                     </td>
-                                                    <td class="text-center">{{ number_format($item->cant ?? 0, 2) }}</td>
+                                                    <td class="text-center">{{ number_format($item->cantidad ?? 0, 2) }}</td>
                                                     <td><span class="badge bg-secondary">PENDIENTE</span></td>
                                                 </tr>
                                             @empty
@@ -353,7 +350,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
                     <!-- Resumen de Validación -->
@@ -370,7 +366,7 @@
                                     </p>
                                 </div>
                                 <div class="col-md-6">
-                                    <p><strong>Total Productos Validados:</strong> {{ $validacion->cantrecibidarevision ?? 0 }}</p>
+                                    <p><strong>Total Productos Validados:</strong> {{ number_format($totalValidados, 2) }}</p>
                                 </div>
                             </div>
                             @if(!empty($validacion->observaciones))
