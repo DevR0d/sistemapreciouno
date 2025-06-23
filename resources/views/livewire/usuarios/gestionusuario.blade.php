@@ -119,7 +119,7 @@
                             $rolConfig = [
                                 1 => ['name' => 'Administrador', 'color' => 'danger', 'icon' => 'user-shield'],
                                 2 => ['name' => 'Prevencionista', 'color' => 'success', 'icon' => 'user-check'],
-                                3 => ['name' => 'Super Admin', 'color' => 'warning', 'icon' => 'user-crown']
+                                3 => ['name' => 'Super Admin', 'color' => 'warning', 'icon' => 'crown']
                             ];
                             $config = $rolConfig[$usuario->idrol] ?? ['name' => 'Desconocido', 'color' => 'secondary', 'icon' => 'user'];
                         @endphp
