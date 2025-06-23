@@ -1,3 +1,8 @@
+import * as XLSX from "xlsx";
+
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
+
 // Mejoras para tablas
 export class TableEnhancements {
     constructor(tableSelector) {
@@ -7,7 +12,7 @@ export class TableEnhancements {
 
     init() {
         if (!this.table) return;
-        
+
         this.setupSorting();
         this.setupRowSelection();
         this.setupBulkActions();
@@ -17,7 +22,7 @@ export class TableEnhancements {
 
     setupSorting() {
         const headers = this.table.querySelectorAll('th[data-sortable]');
-        
+
         headers.forEach(header => {
             header.style.cursor = 'pointer';
             header.addEventListener('click', () => {
@@ -30,32 +35,32 @@ export class TableEnhancements {
         const column = header.dataset.sortable;
         const currentDirection = header.dataset.sortDirection || 'asc';
         const newDirection = currentDirection === 'asc' ? 'desc' : 'asc';
-        
+
         // Limpiar iconos de ordenamiento previos
         this.table.querySelectorAll('th .sort-icon').forEach(icon => icon.remove());
-        
+
         // Agregar icono de ordenamiento
         const icon = document.createElement('i');
         icon.className = `fas fa-sort-${newDirection === 'asc' ? 'up' : 'down'} ms-1 sort-icon`;
         header.appendChild(icon);
-        
+
         header.dataset.sortDirection = newDirection;
-        
+
         // Ordenar filas
         const tbody = this.table.querySelector('tbody');
         const rows = Array.from(tbody.querySelectorAll('tr'));
-        
+
         rows.sort((a, b) => {
             const aValue = this.getCellValue(a, column);
             const bValue = this.getCellValue(b, column);
-            
+
             if (newDirection === 'asc') {
                 return aValue.localeCompare(bValue, undefined, { numeric: true });
             } else {
                 return bValue.localeCompare(aValue, undefined, { numeric: true });
             }
         });
-        
+
         // Reordenar en el DOM
         rows.forEach(row => tbody.appendChild(row));
     }
@@ -113,7 +118,7 @@ export class TableEnhancements {
     updateBulkActions() {
         const selectedRows = this.table.querySelectorAll('.row-checkbox:checked').length;
         const bulkActionsContainer = document.querySelector('[data-bulk-actions]');
-        
+
         if (bulkActionsContainer) {
             if (selectedRows > 0) {
                 bulkActionsContainer.style.display = 'block';
@@ -146,7 +151,7 @@ export class TableEnhancements {
                     </div>
                 </div>
             `;
-            
+
             this.table.parentNode.insertBefore(bulkContainer, this.table);
         }
 
@@ -180,7 +185,7 @@ export class TableEnhancements {
         if (result.isConfirmed) {
             // Aquí implementarías la lógica de eliminación masiva
             console.log('Eliminando IDs:', selectedIds);
-            
+
             Swal.fire({
                 title: 'Eliminados',
                 text: `${selectedIds.length} elementos eliminados correctamente`,
@@ -238,7 +243,7 @@ export class TableEnhancements {
                     </button>
                 </div>
             `;
-            
+
             this.table.parentNode.insertBefore(container, this.table);
         }
 
@@ -276,16 +281,41 @@ export class TableEnhancements {
         this.downloadFile(blob, 'export.csv');
     }
 
+    // exportExcel(data) {
+    //     // Implementación básica para Excel (requeriría una librería como SheetJS)
+    //     console.log('Exportar a Excel:', data);
+    //     alert('Funcionalidad de Excel en desarrollo');
+    // }
+
     exportExcel(data) {
-        // Implementación básica para Excel (requeriría una librería como SheetJS)
-        console.log('Exportar a Excel:', data);
-        alert('Funcionalidad de Excel en desarrollo');
+        const worksheet = XLSX.utils.aoa_to_sheet(data);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Datos");
+
+        const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
+        const blob = new Blob([excelBuffer], { type: "application/octet-stream" });
+        this.downloadFile(blob, `export_${new Date().toISOString().slice(0, 10)}.xlsx`);
     }
 
+    // exportPDF(data) {
+    //     // Implementación básica para PDF (requeriría una librería como jsPDF)
+    //     console.log('Exportar a PDF:', data);
+    //     alert('Funcionalidad de PDF en desarrollo');
+    // }
+
     exportPDF(data) {
-        // Implementación básica para PDF (requeriría una librería como jsPDF)
-        console.log('Exportar a PDF:', data);
-        alert('Funcionalidad de PDF en desarrollo');
+        const doc = new jsPDF();
+        const colHeaders = data[0];
+        const rows = data.slice(1);
+
+        autoTable(doc, {
+            head: [colHeaders],
+            body: rows,
+            startY: 20,
+            styles: { fontSize: 8 },
+        });
+
+        doc.save(`export_${new Date().toISOString().slice(0, 10)}.pdf`);
     }
 
     downloadFile(blob, filename) {
@@ -349,7 +379,7 @@ export class TableEnhancements {
 }
 
 // Inicializar mejoras de tabla
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     if (document.querySelector('table')) {
         new TableEnhancements('table');
     }
