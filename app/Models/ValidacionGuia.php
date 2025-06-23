@@ -78,36 +78,80 @@ class ValidacionGuia extends Model
     }
 
     // Metodo para obtener productos por condicion
+//    public function obtenerProductosPorCondicion($idguia)
+//    {
+//        $productosBuenos = DB::table('v_detalleguia')
+//            ->where('idguia', $idguia)
+//            ->where('nombretipocondicion', 'BUENO')
+//            ->get();
+//
+//        $productosRegulares = DB::table('v_detalleguia')
+//            ->where('idguia', $idguia)
+//            ->where('nombretipocondicion', 'REGULAR')
+//            ->get();
+//
+//        $productosDanados = DB::table('v_detalleguia')
+//            ->where('idguia', $idguia)
+//            ->where('nombretipocondicion', 'DAÑADO')
+//            ->get();
+//
+//        $productosSinCondicion = DB::table('v_detalleguia')
+//            ->where('idguia', $idguia)
+//            ->whereNull('nombretipocondicion')
+//            ->get();
+//
+//        return [
+//            'success' => true,
+//            'data' => [
+//                'productosBuenos' => $productosBuenos,
+//                'productosRegulares' => $productosRegulares,
+//                'productosDañados' => $productosDanados,
+//                'productosSinCondicion' => $productosSinCondicion,
+//            ]
+//        ];
+//    }
+
     public function obtenerProductosPorCondicion($idguia)
     {
-        $productosBuenos = DB::table('v_detalleguia')
+        $productos = DB::table('v_detalleguia')
             ->where('idguia', $idguia)
-            ->where('nombretipocondicion', 'BUENO')
             ->get();
 
-        $productosRegulares = DB::table('v_detalleguia')
-            ->where('idguia', $idguia)
-            ->where('nombretipocondicion', 'REGULAR')
-            ->get();
+        $agrupados = [
+            'productosBuenos' => [],
+            'productosDañados' => [],
+            'productosRegulares' => [],
+            'productosSinCondicion' => [],
+        ];
 
-        $productosDanados = DB::table('v_detalleguia')
-            ->where('idguia', $idguia)
-            ->where('nombretipocondicion', 'DAÑADO')
-            ->get();
+        foreach ($productos as $prod) {
+            $item = (object)[
+                'idproducto' => $prod->idproducto,
+                'codproducto' => $prod->codproducto,
+                'producto' => $prod->producto,
+                'cantidad' => $prod->cantrecibidarevision ?? $prod->cant ?? 0, // <-- fix aquí
+                'nombretipocondicion' => $prod->nombretipocondicion,
+                'observaciones' => $prod->observaciones ?? null,
+            ];
 
-        $productosSinCondicion = DB::table('v_detalleguia')
-            ->where('idguia', $idguia)
-            ->whereNull('nombretipocondicion')
-            ->get();
+            switch (strtolower($prod->nombretipocondicion ?? '')) {
+                case 'bueno':
+                    $agrupados['productosBuenos'][] = $item;
+                    break;
+                case 'dañado':
+                    $agrupados['productosDañados'][] = $item;
+                    break;
+                case 'regular':
+                    $agrupados['productosRegulares'][] = $item;
+                    break;
+                default:
+                    $agrupados['productosSinCondicion'][] = $item;
+            }
+        }
 
         return [
             'success' => true,
-            'data' => [
-                'productosBuenos' => $productosBuenos,
-                'productosRegulares' => $productosRegulares,
-                'productosDañados' => $productosDanados,
-                'productosSinCondicion' => $productosSinCondicion,
-            ]
+            'data' => $agrupados,
         ];
     }
 }

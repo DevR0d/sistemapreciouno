@@ -124,6 +124,7 @@ class VistasIntranetController extends Controller
         $modelConductores = new Conductores();
         $modelTipoEmpresa = new TipoEmpresa();
         $modelTransporte = new Transporte();
+        $modelVehiculo = new Vehiculo();
         $modelValidacion = new ValidacionGuia();
 
         // Obtener datos principales de la guía
@@ -131,14 +132,19 @@ class VistasIntranetController extends Controller
         $guia = !empty($guiaData["data"]) ? (object)$guiaData["data"][0] : (object)[];
 
         // Obtener detalles de productos asociados
-        $detalleguiaData = $modeloguiaremision->mostrardetalleguia(["idguia" => $idguia]);
-        $detalleguia = array_map(function ($item) {
-            return (object)$item;
-        }, $detalleguiaData["data"] ?? []);
-
-        //solucion para evitar duplicidad visual
-        $detalleguia = array_map('unserialize', array_unique(array_map('serialize', $detalleguia)));
-
+        $detalleguia = DB::table('v_detalleguia')
+            ->where('idguia', $idguia)
+            ->get()
+            ->map(function ($item) {
+                return (object)[
+                    'idproducto' => $item->idproducto,
+                    'codproducto' => $item->codproducto,
+                    'producto' => $item->producto,
+                    'cantidad' => $item->cantrecibidarevision ?? $item->cant ?? 0,
+                    'estado' => $item->nombretipocondicion ? 'VALIDADO' : 'PENDIENTE',
+                    'condicion' => $item->nombretipocondicion ?? 'SIN VALIDAR'
+                ];
+            });
         // Obtener datos del conductor
         $conductorData = $modelConductores->mostrarconductores(["idguia" => $idguia]);
         $conductor = !empty($conductorData["data"]) ? (object)$conductorData["data"][0] : (object)[];
@@ -150,6 +156,10 @@ class VistasIntranetController extends Controller
         // Obtener datos del transporte
         $transporteData = $modelTransporte->mostrartransporte(["idguia" => $idguia]);
         $transporte = !empty($transporteData["data"]) ? (object)$transporteData["data"][0] : (object)[];
+
+        //
+        $vehiculoData = $modelVehiculo->mostravehiculo(["idguia" => $idguia]);
+        $vehiculo = !empty($vehiculoData["data"]) ? (object)$vehiculoData["data"][0] : (object)[];
 
         // Obtener datos de validación con productos por condición
         $validacionData = $modelValidacion->mostrarvalidacionguia(["idguia" => $idguia]);
@@ -164,6 +174,10 @@ class VistasIntranetController extends Controller
             ? $productosPorCondicion['data']['productosSinCondicion']
             : [];
 
+        $totalValidados = collect($productosBuenos)->sum('cantidad') +
+            collect($productosRegulares)->sum('cantidad') +
+            collect($productosDanados)->sum('cantidad');
+
         // Pasar todos los datos a la vista
         return view('intranet.prevencionistas.detalleguia', [
             'guia' => $guia,
@@ -171,11 +185,13 @@ class VistasIntranetController extends Controller
             'conductor' => $conductor,
             'tipoempresa' => $tipoempresa,
             'transporte' => $transporte,
+            'vehiculo' => $vehiculo,
             'validacion' => $validacion,
             'productosBuenos' => $productosBuenos,
             'productosRegulares' => $productosRegulares,
             'productosDanados' => $productosDanados,
             'productosSinCondicion' => $productosSinCondicion,
+            'totalValidados' => $totalValidados,
         ]);
     }
 
