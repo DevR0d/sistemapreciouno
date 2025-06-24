@@ -155,6 +155,12 @@
 
                 <!-- Pestaña Validación y Documentos (combinación de Productos Validados y Documentos) -->
                 <div class="tab-pane fade" id="validacion" role="tabpanel">
+                    <div class="d-flex justify-content-end mb-3">
+                        <button type="button" class="btn btn-outline-primary btn-sm"
+                                onclick="window.open('{{ route('validacion.pdf', ['id' => $guia->idguia]) }}', '_blank')">
+                            <i class="fas fa-file-pdf me-1"></i> EXPORTAR PDF
+                        </button>
+                    </div>
                     <div class="alert alert-info mb-3">
                         <i class="fas fa-info-circle me-2"></i> Productos validados clasificados por condición
                     </div>

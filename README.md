@@ -18,10 +18,13 @@ por otro lado, es necesario tener instalado lo Siguiente.
 
 
 ### **Paso 1**:
-Clonar el repositorio remoto y cambiarlo el nombre del Proyecto a "sistemapreciouno" todo minuscula.
+Abrir Git Bash y clonar el repositorio remoto, para ello usa el comando: git clone https://github.com/DevR0d/sistemapreciouno.git 
+. Te saldra algo asi en la terminal:
+###
+![imgitbash.png](imgitbash.png)
 
 ### **Paso 2**:
-Abrir el Terminal del Editor o IDE y ejecutar "composer install" ó "composer update" dependiendo el caso, espera
+Abrir el Terminal del Editor o IDE (VSCode, PHPStorm, etc) y ejecutar "composer install" ó "composer update" dependiendo el caso, espera
 a que se complete, despues ejecutar "npm install". te saldra algo asi en la terminal:
 ####
 ![img.png](img.png)

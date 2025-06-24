@@ -24,8 +24,6 @@ class ValidacionGuia extends Model
 
     public function mostrarvalidacionguia(array $parametros = []): array
     {
-        //        $query = DB::table('v_transporte');
-        //        $query = DB::table('v_validacion')->where('estado', '!=', 'Eliminado');
         $query = DB::table('v_validacion')
             ->leftJoin('tipocondicion', 'v_validacion.idtipocondicion', '=', 'tipocondicion.idtipocondicion')
             ->select('v_validacion.*', 'tipocondicion.nombretipocondicion')

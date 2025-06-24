@@ -52,7 +52,7 @@ Route::middleware(['auth', 'role:prevencionista,superadmin'])->group(function ()
     Route::post('/registrarvalidacionguia', [RevisionDeGuiasController::class, 'registrarguiarevicion_validacion'])->name('registrarguiarevicion_validacion');
     Route::get('/conductores-por-empresa/{idtransportista}', [ConductoresController::class, 'getConductoresPorEmpresa']);
     Route::get('/revisionguias/{idguia?}', [VistasIntranetController::class, 'vistarevisionguias'])->name('vistarevisionguias');
-
+    Route::post("/buscarproductocodigo", [ProductoController::class, 'buscarproductocodigo'])->name('api.buscarproductocodigo');
     Route::get('/empresa/{id}', function($id) {
     $empresa = \App\Models\TipoEmpresa::find($id);
 
@@ -70,9 +70,9 @@ Route::middleware(['auth', 'role:prevencionista,superadmin'])->group(function ()
     ]);
     });
 
-    //generar el reporte
+    //generar el reporte de detalleguia
     Route::get('/guias/{id}/pdf', [ReporteController::class, 'generarPdfGuia'])->name('guias.pdf');
-    Route::post("/buscarproductocodigo", [ProductoController::class, 'buscarproductocodigo'])->name('api.buscarproductocodigo');
+    Route::get('/validacion/{id}/pdf', [ReporteController::class, 'generarPdfValidacion'])->name('validacion.pdf');
 });
 
 Route::post('/iniciarsesion', [UsuariosController::class, 'validarLogin'])->name('api.validarLogin');
