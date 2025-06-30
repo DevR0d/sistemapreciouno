@@ -152,6 +152,47 @@
                     </div>
                 </div>
             </div>
+{{--        @elseif(!View::hasSection('hidePageHeaders'))--}}
+{{--            <div class="page-header">--}}
+{{--                <div class="container-fluid">--}}
+{{--                    <div class="row align-items-center justify-content-between">--}}
+{{--                        <div class="col-md-3 text-center">--}}
+{{--                            <div class="mb-3">--}}
+{{--                                <i class="fas fa-truck fa-3x mb-2"></i>--}}
+{{--                                <h4 class="mb-0">PRECIO UNO</h4>--}}
+{{--                                <small>Sistema Logístico</small>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
+{{--                        <div class="col-md-5 text-center">--}}
+{{--                            <h2 class="mb-2">GUÍA DE REMISIÓN ELECTRÓNICA</h2>--}}
+{{--                            <p class="mb-0">Documento Tributario Electrónico</p>--}}
+{{--                        </div>--}}
+
+{{--                        <div class="col-md-2 text-center">--}}
+{{--                            <div class="border border-light rounded p-2">--}}
+{{--                                <h4 class="mb-1" style="font-size: 1.5rem;">{{ $guia->codigoguia ?? 'N/A' }}</h4>--}}
+{{--                                <small>N° de Guía</small>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
+{{--                        <div class="col-md-2 text-end mt-3 mt-md-0">--}}
+{{--                            <button type="button" class="btn btn-danger btn-sm rounded-pill px-3 mb-2 w-100"--}}
+{{--                                    onclick="window.location.href='/guiasremision'">--}}
+{{--                                <i class="fas fa-chevron-left me-1"></i> Volver al listado--}}
+{{--                            </button>--}}
+{{--                            <button type="button" class="btn btn-danger btn-sm rounded-pill px-3 mb-2 w-100"--}}
+{{--                                    onclick="window.open('{{ route('guias.pdf', ['id' => $guia->idguia]) }}', '_blank')">--}}
+{{--                                <i class="fas fa-file-pdf me-1"></i> Imprimir Guia en PDF--}}
+{{--                            </button>--}}
+{{--                            <button type="button" class="btn btn-outline-primary btn-sm"--}}
+{{--                                    onclick="window.open('{{ route('validacion.pdf', ['id' => $guia->idguia]) }}', '_blank')">--}}
+{{--                                <i class="fas fa-file-pdf me-1"></i> EXPORTAR PDF--}}
+{{--                            </button>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
+{{--                </div>--}}
+{{--            </div>--}}
         @endif
         <!-- Main Content -->
         <main>

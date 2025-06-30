@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Guiasderemision;
-use App\Models\Productos;
 use App\Models\TipoEmpresa;
 use App\Models\Transporte;
 use App\Models\ValidacionGuia;
@@ -93,28 +92,29 @@ class ReporteController extends Controller
         }
         $guia = (object)$guiaResult['data'][0];
 
-        // Obtener detalle de productos
-        $detalleResult = $modelo->mostrardetalleguia(['idguia' => $id]);
-        $detalleguia = $detalleResult['data'] ?? [];
+        // Obtener detalle de productos usando el metodo correcto
+        $detalleguia = $modelo->mostrardetalleguia(['idguia' => $id])['data'] ?? [];
 
         // Obtener datos del transporte usando el modelo Transporte
-        $transporte = (new Transporte())->mostrartransporte(['idguia' => $id]);
+        $transporteData = (new Transporte())->mostrartransporte(['idguia' => $id]);
+        $transporte = !empty($transporteData['data']) ? (object)$transporteData['data'][0] : (object)[];
 
         // Obtener datos del conductor usando el modelo Conductores
-        $conductor = (new Conductores())->mostrarconductores(['idguia' => $id]);
+        $conductorData = (new Conductores())->mostrarconductores(['idguia' => $id]);
+        $conductor = !empty($conductorData['data']) ? (object)$conductorData['data'][0] : (object)[];
 
         // Obtener datos del vehículo usando el modelo Vehiculo
-        $vehiculo = (new Vehiculo())->mostravehiculo(['idguia' => $id]);
+        $vehiculoData = (new Vehiculo())->mostravehiculo(['idguia' => $id]);
+        $vehiculo = !empty($vehiculoData['data']) ? (object)$vehiculoData['data'][0] : (object)[];
 
         // Obtener datos de la empresa usando el modelo TipoEmpresa
         $tipoempresa = (new TipoEmpresa())->mostrartipoempresa(['idguia' => $id]);
 
-        // Obtener validación de productos
+        // Obtener validación de productos usando el modelo ValidacionGuia
         $validacion = (new ValidacionGuia())->mostrarvalidacionguia(['idguia' => $id]);
 
-        // Obtener productos agrupados por condición
+        // Obtener productos agrupados por condición usando el método de ValidacionGuia
         $porCondicion = (new ValidacionGuia())->obtenerProductosPorCondicion($id);
-//        $porCondicion = $validacion->obtenerProductosPorCondicion($id);
         $productosBuenos = $porCondicion['success'] ? $porCondicion['data']['productosBuenos'] : [];
         $productosRegulares = $porCondicion['success'] ? $porCondicion['data']['productosRegulares'] : [];
         $productosDanados = $porCondicion['success'] ? $porCondicion['data']['productosDañados'] : [];
@@ -141,10 +141,10 @@ class ReporteController extends Controller
             'totalValidados' => $totalValidados,
         ];
 
-        // Generar el PDF
+        // Generar el PDF usando DomPDF
         $pdf = PDF::loadView('intranet.PDF.validacionguia', $datos)->setPaper('A4', 'portrait');
 
-        // Descargar el archivo PDF
+        // Descargar el archivo PDF con un nombre personalizado
         return $pdf->download('ValidacionGuia_' . $guia->idguia . '.pdf');
     }
 }

@@ -13,6 +13,9 @@ export class TableEnhancements {
     init() {
         if (!this.table) return;
 
+        // ❌ Evita afectar tablas de ficha con esta clase
+        if (this.table.classList.contains('guia-detalle')) return;
+
         this.setupSorting();
         this.setupRowSelection();
         this.setupBulkActions();

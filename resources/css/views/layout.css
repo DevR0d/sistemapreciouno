@@ -27,13 +27,13 @@ html, body {
 
 .enable-scroll {
     overflow-y: auto;
-    max-height: calc(100vh - 200px); /* Ajusta según el espacio disponible real */
+    max-height: calc(97vh - 190px); /* Ajusta según el espacio disponible real */
     /*padding-right: 8px; !* opcional para margen visual *!*/
 }
 
 .enable-scroll-users {
     overflow-y: auto;
-    max-height: calc(100vh - 450px); /* Ajusta según el espacio disponible real */
+    max-height: calc(100vh - 420px); /* Ajusta según el espacio disponible real */
     /*padding-right: 8px; !* opcional para margen visual *!*/
 }
 
@@ -100,14 +100,14 @@ html, body {
 
 .main-content {
     min-height: calc(100vh - 80px);
-    padding: 2rem 0;
+    padding: 1rem 0;
 }
 
 .page-header {
     background: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
     color: white;
-    padding: 1.25rem 0;
-    margin-bottom: 1.25rem;
+    padding: 1rem 0;
+    margin-bottom: 0.75rem;
     border-radius: var(--border-radius);
     box-shadow: var(--box-shadow);
 }

@@ -221,4 +221,16 @@ class VistasIntranetController extends Controller
         $guia = !empty($guia["data"]) ? (object)$guia["data"][0] : (object)[];
         return view('intranet.prevencionistas.revisionguias', compact('detalleguia', 'guia'));
     }
+
+//    public function vistapdfguia($idguia = null)
+//    {
+//        if (!is_numeric($idguia)) {
+//            abort(400, 'ID de guía inválido');
+//        }
+//
+//        if (!Auth::check()) {
+//            return redirect()->route('vistalogin');
+//        }
+//        return view('intranet.PDF.detalleguia');
+//    }
 }

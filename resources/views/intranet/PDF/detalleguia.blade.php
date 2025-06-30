@@ -69,7 +69,7 @@
         </td>
         <td class="title" colspan="2">GUÍA DE REMISIÓN ELECTRÓNICA</td>
         <td style="width: 25%; text-align: center;">
-            <strong>N° {{ $guia->codigoguia ?? 'T003-0000000' }}</strong>
+            <strong>N° {{ $guia->codigoguia ?? 'N/A' }}</strong>
         </td>
     </tr>
     <tr>
