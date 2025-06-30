@@ -1,3 +1,8 @@
+import * as XLSX from "xlsx";
+
+import { jsPDF } from "jspdf";
+import autoTable from "jspdf-autotable";
+
 // Mejoras para tablas
 export class TableEnhancements {
     constructor(tableSelector) {
@@ -15,7 +20,7 @@ export class TableEnhancements {
         // this.setupRowSelection();
         // this.setupBulkActions();
         this.setupExportFunctionality();
-        this.setupColumnToggle();
+        // this.setupColumnToggle();
     }
 
     setupSorting() {
@@ -279,16 +284,41 @@ export class TableEnhancements {
         this.downloadFile(blob, 'export.csv');
     }
 
+    // exportExcel(data) {
+    //     // Implementación básica para Excel (requeriría una librería como SheetJS)
+    //     console.log('Exportar a Excel:', data);
+    //     alert('Funcionalidad de Excel en desarrollo');
+    // }
+
     exportExcel(data) {
-        // Implementación básica para Excel (requeriría una librería como SheetJS)
-        console.log('Exportar a Excel:', data);
-        alert('Funcionalidad de Excel en desarrollo');
+        const worksheet = XLSX.utils.aoa_to_sheet(data);
+        const workbook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Datos");
+
+        const excelBuffer = XLSX.write(workbook, { bookType: "xlsx", type: "array" });
+        const blob = new Blob([excelBuffer], { type: "application/octet-stream" });
+        this.downloadFile(blob, `export_${new Date().toISOString().slice(0, 10)}.xlsx`);
     }
 
+    // exportPDF(data) {
+    //     // Implementación básica para PDF (requeriría una librería como jsPDF)
+    //     console.log('Exportar a PDF:', data);
+    //     alert('Funcionalidad de PDF en desarrollo');
+    // }
+
     exportPDF(data) {
-        // Implementación básica para PDF (requeriría una librería como jsPDF)
-        console.log('Exportar a PDF:', data);
-        alert('Funcionalidad de PDF en desarrollo');
+        const doc = new jsPDF();
+        const colHeaders = data[0];
+        const rows = data.slice(1);
+
+        autoTable(doc, {
+            head: [colHeaders],
+            body: rows,
+            startY: 20,
+            styles: { fontSize: 8 },
+        });
+
+        doc.save(`export_${new Date().toISOString().slice(0, 10)}.pdf`);
     }
 
     downloadFile(blob, filename) {
@@ -357,7 +387,7 @@ export class TableEnhancements {
 }
 
 // Inicializar mejoras de tabla
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     if (document.querySelector('table')) {
         new TableEnhancements('table');
     }

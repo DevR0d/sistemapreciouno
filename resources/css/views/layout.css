@@ -27,28 +27,13 @@ html, body {
 
 .enable-scroll {
     overflow-y: auto;
-    max-height: calc(97vh - 190px); /* Ajusta según el espacio disponible real */
-    /*padding-right: 8px; !* opcional para margen visual *!*/
+    max-height: calc(100vh - 170px); /* Ajusta según el espacio disponible real */
 }
 
 .enable-scroll-users {
+    max-height: calc(100vh - 365px);
     overflow-y: auto;
-    max-height: calc(100vh - 420px); /* Ajusta según el espacio disponible real */
-    /*padding-right: 8px; !* opcional para margen visual *!*/
-}
-
-/* Para pantallas medianas (tablets) */
-@media (max-width: 992px) {
-    .enable-scroll {
-        height: calc(120vh - 200px);
-    }
-}
-
-/* Para pantallas pequeñas (celulares) */
-@media (max-width: 576px) {
-    .enable-scroll {
-        height: calc(150vh - 180px);
-    }
+    overflow-x: hidden;
 }
 
 .navbar-brand {
@@ -288,7 +273,7 @@ html, body {
 .table-container-sticky {
     max-height: calc(90vh - 220px); /* Ajusta según tu layout */
     overflow-y: auto;
-    position: relative;
+    /*position: relative;*/
 }
 
 /* Cabecera fija */
@@ -316,21 +301,75 @@ html, body {
 .scrollable-tbody {
     max-height: calc(125vh - 300px); /* o el valor que necesites */
 }
-
-@media (max-width: 768px) {
-    .navbar-nav {
-        padding: 1rem 0;
+/* Para pantallas medianas (tablets) */
+@media (max-width: 992px) {
+    .enable-scroll {
+        height: calc(120vh - 200px);
     }
 
-    .navbar-nav .nav-link {
-        margin: 0.25rem 0;
+    .enable-scroll-users {
+        max-height: calc(100vh - 420px);
+        overflow-y: auto;
+        overflow-x: hidden;
     }
 
-    .page-title {
-        font-size: 1.5rem;
+    .navbar-nav-scroll {
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+        /*gap: rem;*/
     }
 
-    .action-buttons {
-        flex-direction: column;
+    .page-header .input-group {
+        width: 100% !important;
+    }
+
+    .page-header .input-group input {
+        font-size: 0.9rem;
+    }
+
+    .page-header .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .page-header .d-flex.flex-sm-row {
+        flex-direction: column !important;
+        align-items: stretch !important;
+    }
+}
+
+@media (max-width: 576px) {
+    .enable-scroll {
+        height: calc(150vh - 180px);
+    }
+
+    .enable-scroll-users {
+        max-height: calc(100vh - 420px);
+        overflow-y: auto;
+        overflow-x: hidden;
+    }
+
+    .navbar-nav-scroll {
+        padding-bottom: 1rem;
+        margin-bottom: 1rem;
+        /*gap: 0.5rem;*/
+    }
+
+    .page-header .input-group {
+        width: 100% !important;
+    }
+
+    .page-header .input-group input {
+        font-size: 0.9rem;
+    }
+
+    .page-header .btn {
+        width: 100%;
+        text-align: center;
+    }
+
+    .page-header .d-flex.flex-sm-row {
+        flex-direction: column !important;
+        align-items: stretch !important;
     }
 }

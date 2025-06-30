@@ -36,7 +36,7 @@
     <div class="loading-overlay" id="loadingOverlay">
         <div class="spinner"></div>
     </div>
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark shadow-sm">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark shadow-sm navbar-nav-scroll">
         <!-- Brand -->
         <a class="navbar-brand ps-3" href="{{ route('vistadashboard') }}">
             <i class="fas fa-truck me-2"></i>
@@ -130,24 +130,25 @@
                                     <h1 class="page-title">@yield('title')</h1>
                                     <p class="page-subtitle">@yield('subtitle', 'Gestión del sistema logístico')</p>
                                 </div>
-                                <div class="mt-3 mt-md-0">
-                                    @yield('header-actions') <!-- Esto se irá a la derecha -->
-                                </div>
-                            </div>
-                            <!-- Barra de búsqueda -->
-                            @if(!View::hasSection('hideSearchBar'))
-                                <div class="mt-3">
-                                    <div class="input-group search-bar w-100 shadow-sm">
-                                    <span class="input-group-text bg-white border-end-0">
-                                        <i class="fas fa-search text-muted"></i>
-                                    </span>
-                                        <input type="text"
-                                               id="filtroTabla"
-                                               class="form-control border-start-0"
-                                               placeholder="Buscar...">
+                                <!-- Barra de búsqueda -->
+                                <div class="col-md-6 d-flex justify-content-end align-items-center gap-3 mt-3 mt-md-0">
+                                    @if(!View::hasSection('hideSearchBar'))
+                                        <div class="input-group shadow-sm" style="max-width: 300px;">
+                                            <span class="input-group-text bg-white border-end-0">
+                                                <i class="fas fa-search text-muted"></i>
+                                            </span>
+                                            <input type="text"
+                                                   id="filtroTabla"
+                                                   class="form-control border-start-0"
+                                                   placeholder="Buscar...">
+                                        </div>
+                                    @endif
+
+                                    <div>
+                                        @yield('header-actions') {{-- Botón Nueva Guía --}}
                                     </div>
                                 </div>
-                            @endif
+                            </div>
                         </div>
                     </div>
                 </div>

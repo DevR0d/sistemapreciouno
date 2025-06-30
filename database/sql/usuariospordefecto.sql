@@ -51,7 +51,7 @@ INSERT INTO conductores (nombre, dni, estado, idtransportista, idvehiculo) VALUE
 
 -- tipoempresa
 INSERT INTO tipoempresa (direccion, provincia, departamento, ubigeo, razonsocial, ruc, codigoestablecimiento, estado) VALUES
-                                                                                                                          ('Av. Centenario No. 2086', 'CORONEL PORTILLO', 'UCAYALI', '150118', 'HIPERMERCADOS TOTTUS ORIENTE S.A.C', '20393864886', '', 'ACTIVO');
+                                                                                                                          ('Av. Centenario No. 2086', 'CORONEL PORTILLO', 'UCAYALI', '150118', 'HIPERMERCADOS TOTTUS ORIENTE S.A.C', '20393864886', '0005', 'ACTIVO');
 -- guiaremision
 INSERT INTO guiaremision (codigoguia, fechaemision, horaemision, razonsocialguia, numerotrasladotim, motivotraslado, pesobrutototal, volumenproducto, numerobultopallet, observaciones, idconductor, idtipoempresa, estado) VALUES
     ('T003-00472255', '2025-03-18', '14:35:36', 'HIPERMERCADOS TOTTUS S.A.C', '-M655265598', 'Venta', '18665', '0.00', '0', '', 1, 1,'Activo');
