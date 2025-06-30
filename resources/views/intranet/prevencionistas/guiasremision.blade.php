@@ -1,5 +1,5 @@
 @extends('intranet/layout')
-@section('title', 'Guiasderemision')
+@section('title', 'Guias de remision')
 
 @section('header-actions')
     <a href="{{ route('vistaaddguiaremision') }}"
