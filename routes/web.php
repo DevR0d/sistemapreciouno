@@ -73,6 +73,9 @@ Route::middleware(['auth', 'role:prevencionista,superadmin'])->group(function ()
     //generar el reporte de detalleguia
     Route::get('/guias/{id}/pdf', [ReporteController::class, 'generarPdfGuia'])->name('guias.pdf');
     Route::get('/validacion/{id}/pdf', [ReporteController::class, 'generarPdfValidacion'])->name('validacion.pdf');
+
+    //checar pdfs
+//    Route::get('/pdf', [VistasIntranetController::class, 'vistapdfguia'])->name('vistapdfguia');
 });
 
 Route::post('/iniciarsesion', [UsuariosController::class, 'validarLogin'])->name('api.validarLogin');
